@@ -13,6 +13,7 @@
 		537B03DB211F19C700953516 /* Jupiter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 537B03D9211F19C700953516 /* Jupiter.xcdatamodeld */; };
 		537B03DD211F19CA00953516 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 537B03DC211F19CA00953516 /* Assets.xcassets */; };
 		537B03E0211F19CA00953516 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537B03DE211F19CA00953516 /* LaunchScreen.storyboard */; };
+		537B03E9211F1BAB00953516 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03E8211F1BAB00953516 /* Account.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		537B03DC211F19CA00953516 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		537B03DF211F19CA00953516 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		537B03E1211F19CA00953516 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		537B03E8211F1BAB00953516 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 		537B03C6211F19C700953516 = {
 			isa = PBXGroup;
 			children = (
+				537B03E7211F1B5C00953516 /* ViewModel */,
 				537B03D1211F19C700953516 /* Jupiter */,
 				537B03D0211F19C700953516 /* Products */,
 			);
@@ -65,6 +68,14 @@
 				537B03D9211F19C700953516 /* Jupiter.xcdatamodeld */,
 			);
 			path = Jupiter;
+			sourceTree = "<group>";
+		};
+		537B03E7211F1B5C00953516 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				537B03E8211F1BAB00953516 /* Account.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				537B03DB211F19C700953516 /* Jupiter.xcdatamodeld in Sources */,
+				537B03E9211F1BAB00953516 /* Account.swift in Sources */,
 				537B03D5211F19C700953516 /* ViewController.swift in Sources */,
 				537B03D3211F19C700953516 /* AppDelegate.swift in Sources */,
 			);
