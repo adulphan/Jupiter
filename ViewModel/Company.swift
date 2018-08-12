@@ -9,23 +9,9 @@
 import Foundation
 import CloudKit
 
-class Company: BaseDataModel {
-
-    var name: String?
-    var imageFileName: String?
-    var modified: Date?
-    var reference: String?
-    var referenceRecord: CKRecord?
+class Company {
     
-//    required init?(record: CKRecord) {
-//        
-//        referenceRecord = record
-//        
-//        name = record.value(forKey: "name") as? String
-//        imageFileName = (record.value(forKey: "imageRecordID") as! CKReference).recordID.recordName
-//        modified = record.modificationDate
-//        reference = record.value(forKey: "reference") as? String
-//    }
+    
 
 }
 

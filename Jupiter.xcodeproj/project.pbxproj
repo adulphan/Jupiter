@@ -16,6 +16,7 @@
 		537B03E9211F1BAB00953516 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03E8211F1BAB00953516 /* Account.swift */; };
 		537B03EB211F209A00953516 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03EA211F209A00953516 /* Company.swift */; };
 		537B03ED211F268F00953516 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03EC211F268F00953516 /* ViewModelProtocol.swift */; };
+		537B03F0211FC1A200953516 /* AccountData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03EF211FC1A200953516 /* AccountData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		537B03E8211F1BAB00953516 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		537B03EA211F209A00953516 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		537B03EC211F268F00953516 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
+		537B03EF211FC1A200953516 /* AccountData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +48,7 @@
 		537B03C6211F19C700953516 = {
 			isa = PBXGroup;
 			children = (
+				537B03EE211FC18500953516 /* DataModel */,
 				537B03E7211F1B5C00953516 /* ViewModel */,
 				537B03D1211F19C700953516 /* Jupiter */,
 				537B03D0211F19C700953516 /* Products */,
@@ -82,6 +85,14 @@
 				537B03EC211F268F00953516 /* ViewModelProtocol.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		537B03EE211FC18500953516 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				537B03EF211FC1A200953516 /* AccountData.swift */,
+			);
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				537B03DB211F19C700953516 /* Jupiter.xcdatamodeld in Sources */,
+				537B03F0211FC1A200953516 /* AccountData.swift in Sources */,
 				537B03E9211F1BAB00953516 /* Account.swift in Sources */,
 				537B03ED211F268F00953516 /* ViewModelProtocol.swift in Sources */,
 				537B03D5211F19C700953516 /* ViewController.swift in Sources */,
