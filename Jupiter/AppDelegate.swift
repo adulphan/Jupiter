@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let controller = ViewController()
         window?.rootViewController = UINavigationController(rootViewController: controller)
         
+        simulateCoreData()
         
         return true
     }
