@@ -14,6 +14,8 @@
 		537B03DD211F19CA00953516 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 537B03DC211F19CA00953516 /* Assets.xcassets */; };
 		537B03E0211F19CA00953516 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537B03DE211F19CA00953516 /* LaunchScreen.storyboard */; };
 		537B03E9211F1BAB00953516 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03E8211F1BAB00953516 /* Account.swift */; };
+		537B03EB211F209A00953516 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03EA211F209A00953516 /* Company.swift */; };
+		537B03ED211F268F00953516 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03EC211F268F00953516 /* ViewModelProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		537B03DF211F19CA00953516 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		537B03E1211F19CA00953516 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		537B03E8211F1BAB00953516 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		537B03EA211F209A00953516 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		537B03EC211F268F00953516 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				537B03E8211F1BAB00953516 /* Account.swift */,
+				537B03EA211F209A00953516 /* Company.swift */,
+				537B03EC211F268F00953516 /* ViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -151,7 +157,9 @@
 			files = (
 				537B03DB211F19C700953516 /* Jupiter.xcdatamodeld in Sources */,
 				537B03E9211F1BAB00953516 /* Account.swift in Sources */,
+				537B03ED211F268F00953516 /* ViewModelProtocol.swift in Sources */,
 				537B03D5211F19C700953516 /* ViewController.swift in Sources */,
+				537B03EB211F209A00953516 /* Company.swift in Sources */,
 				537B03D3211F19C700953516 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
