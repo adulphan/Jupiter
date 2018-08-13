@@ -22,6 +22,18 @@ extension AccessCoreData {
             CoreData.allCompanyInCoreData = []
         }
     }
+    
+    func reloadAccountData() {
+        do {
+            let fetchRequest: NSFetchRequest<AccountData> = AccountData.fetchRequest()
+            let accounts = try CoreData.context.fetch(fetchRequest)
+            CoreData.allAccountsInCoreDate = accounts
+            print("Number of accounts: \(CoreData.allAccountsInCoreDate.count.description)")
+        } catch {
+            print("Loading account failed")
+            CoreData.allAccountsInCoreDate = []
+        }
+    }
 
 
 }

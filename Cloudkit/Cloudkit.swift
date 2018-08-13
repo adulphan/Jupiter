@@ -25,3 +25,18 @@ class CloudKit {
 protocol CloudkitConnect {
     
 }
+
+extension CloudkitConnect {
+    
+    var personalZoneID: CKRecordZoneID { get { return CloudKit.personalZoneID } }
+    var accountType: String { get { return CloudKit.recordType.account.rawValue } }
+    var companyType: String { get { return CloudKit.recordType.company.rawValue } }
+    var database: CKDatabase { get { return CloudKit.database } }
+    
+}
+
+
+
+
+
+

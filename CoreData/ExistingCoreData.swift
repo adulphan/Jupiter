@@ -14,13 +14,13 @@ extension AccessCoreData {
     var workingCompany: CompanyData? {
         get{
             guard let companyID = UserDefaults.standard.workingCompanyID else { return nil }
-            reloadCompanyData()
             guard let companyData = ExistingCompanyData(recordID: companyID) else { return nil }
             return companyData
         }
     }
     
     func ExistingCompanyData(name: String) -> CompanyData? {
+        reloadCompanyData()
         let filtered = CoreData.allCompanyInCoreData.filter { (data) -> Bool in
             data.name == name
         }
@@ -32,6 +32,7 @@ extension AccessCoreData {
     }
     
     func ExistingCompanyData(recordID: String) -> CompanyData? {
+        reloadCompanyData()
         let filtered = CoreData.allCompanyInCoreData.filter { (data) -> Bool in
             data.recordID == recordID
         }
@@ -39,6 +40,18 @@ extension AccessCoreData {
             return company
         }
         print("No company with recordID: \(recordID)")
+        return nil
+    }
+    
+    func ExistingAccountData(recordID: String) -> AccountData? {
+        reloadAccountData()
+        let filtered = CoreData.allAccountsInCoreDate.filter { (data) -> Bool in
+            data.recordID == recordID
+        }
+        if let account = filtered.first {
+            return account
+        }
+        print("No account with recordID: \(recordID)")
         return nil
     }
 

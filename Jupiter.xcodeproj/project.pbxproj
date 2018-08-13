@@ -30,13 +30,13 @@
 		539DFC6C21212ED400B5C740 /* CompanyData_Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6B21212ED400B5C740 /* CompanyData_Init.swift */; };
 		539DFC6E2121429200B5C740 /* ExistingCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6D2121429200B5C740 /* ExistingCoreData.swift */; };
 		539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */; };
-		539DFC722121558B00B5C740 /* CloudkitConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC712121558B00B5C740 /* CloudkitConnect.swift */; };
 		539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC73212158D900B5C740 /* PrintCoreData.swift */; };
 		539DFC7621215BAA00B5C740 /* LoadCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7521215BAA00B5C740 /* LoadCoreData.swift */; };
 		539DFC78212162B500B5C740 /* WorkingCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC77212162B500B5C740 /* WorkingCompany.swift */; };
 		539DFC7A21216A1100B5C740 /* AccountDataCloudkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7921216A1100B5C740 /* AccountDataCloudkit.swift */; };
 		539DFC7C21216A4C00B5C740 /* AccountData_Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7B21216A4C00B5C740 /* AccountData_Init.swift */; };
 		539DFC7E21216EC200B5C740 /* CompanyDataCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7D21216EC200B5C740 /* CompanyDataCloudKit.swift */; };
+		539DFC8021219F4900B5C740 /* FetchChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7F21219F4900B5C740 /* FetchChanges.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,13 +66,13 @@
 		539DFC6B21212ED400B5C740 /* CompanyData_Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyData_Init.swift; sourceTree = "<group>"; };
 		539DFC6D2121429200B5C740 /* ExistingCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingCoreData.swift; sourceTree = "<group>"; };
 		539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDeleteCoreData.swift; sourceTree = "<group>"; };
-		539DFC712121558B00B5C740 /* CloudkitConnect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudkitConnect.swift; sourceTree = "<group>"; };
 		539DFC73212158D900B5C740 /* PrintCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintCoreData.swift; sourceTree = "<group>"; };
 		539DFC7521215BAA00B5C740 /* LoadCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCoreData.swift; sourceTree = "<group>"; };
 		539DFC77212162B500B5C740 /* WorkingCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingCompany.swift; sourceTree = "<group>"; };
 		539DFC7921216A1100B5C740 /* AccountDataCloudkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataCloudkit.swift; sourceTree = "<group>"; };
 		539DFC7B21216A4C00B5C740 /* AccountData_Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountData_Init.swift; sourceTree = "<group>"; };
 		539DFC7D21216EC200B5C740 /* CompanyDataCloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDataCloudKit.swift; sourceTree = "<group>"; };
+		539DFC7F21219F4900B5C740 /* FetchChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchChanges.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				539DFC5B2120623A00B5C740 /* Cloudkit.swift */,
-				539DFC712121558B00B5C740 /* CloudkitConnect.swift */,
+				539DFC7F21219F4900B5C740 /* FetchChanges.swift */,
 			);
 			path = Cloudkit;
 			sourceTree = "<group>";
@@ -288,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				539DFC8021219F4900B5C740 /* FetchChanges.swift in Sources */,
 				539DFC7E21216EC200B5C740 /* CompanyDataCloudKit.swift in Sources */,
 				539DFC51211FFD1600B5C740 /* SimulateData.swift in Sources */,
 				537B03DB211F19C700953516 /* Jupiter.xcdatamodeld in Sources */,
@@ -311,7 +312,6 @@
 				539DFC7A21216A1100B5C740 /* AccountDataCloudkit.swift in Sources */,
 				539DFC552120188100B5C740 /* CompanyFunctions.swift in Sources */,
 				539DFC6A2121297C00B5C740 /* UserLocalCache.swift in Sources */,
-				539DFC722121558B00B5C740 /* CloudkitConnect.swift in Sources */,
 				537B03EB211F209A00953516 /* Company.swift in Sources */,
 				537B03D3211F19C700953516 /* AppDelegate.swift in Sources */,
 			);
