@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, SimulateData, FetchCloudKit {
+class ViewController: UIViewController, SimulateData  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,7 +16,7 @@ class ViewController: UIViewController, SimulateData, FetchCloudKit {
         
         clearCoreData()
 
-        fetchChanges {
+        CloudKit.shared.fetchChanges {
             print("fetch completed")
             DispatchQueue.main.sync {
                 self.saveCoreData()

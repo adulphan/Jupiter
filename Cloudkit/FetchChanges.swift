@@ -15,7 +15,7 @@ protocol FetchCloudKit: AccessCoreData {
     
 }
 
-extension FetchCloudKit {
+extension CloudKit: AccessCoreData {
     
     func fetchChanges(completion: @escaping () -> Void) {
         
@@ -50,16 +50,9 @@ extension FetchCloudKit {
             }
 
         }
-    
-//        operation.recordZoneChangeTokensUpdatedBlock = { (zoneId, token, data) in
-//
-//            UserDefaults.standard.zoneChangeToken = token
-//            print("From recordZoneChangeTokensUpdatedBlock : token updated")
-//        }
         
         operation.recordZoneFetchCompletionBlock = { (zoneId, changeToken, _, _, error) in
-            
-            
+
             if let error = error {
                 print("Error fetching zone changes : ", error)
                 return
@@ -68,16 +61,6 @@ extension FetchCloudKit {
             UserDefaults.standard.zoneChangeToken = changeToken
             print("From recordZoneFetchCompletionBlock : token updated")
         }
-        
-//        operation.fetchRecordZoneChangesCompletionBlock = { (error) in
-//            
-//            
-//            if let error = error {
-//                print("Error fetching zone changes : ", error)
-//            }
-//            CloudKit.isFetchingFromCloudKit = false
-//            completion()
-//        }
         
         CloudKit.database.add(operation)
     }
