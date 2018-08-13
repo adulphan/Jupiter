@@ -22,7 +22,7 @@ class Account: AccountViewModel {
     var image: UIImage { get { return getImage() } }
     
     var imageData: Data?
-    var modified: Date
+    var modifiedLocal: Date
     var note: String
 
     var beginBalance: Int64
@@ -40,10 +40,10 @@ class Account: AccountViewModel {
         self.name = coreData.name ?? "New Account"
         self.imageData = coreData.imageData
 
-        if let date = coreData.modified {
-            self.modified = date
+        if let date = coreData.modifiedLocal {
+            self.modifiedLocal = date
         } else {
-            self.modified = defaultModified
+            self.modifiedLocal = defaultModified
         }
         
         self.note = coreData.note ?? ""
@@ -64,7 +64,7 @@ class Account: AccountViewModel {
         
         coreData = nil
         name = "New Account"
-        modified = defaultModified
+        modifiedLocal = defaultModified
         note = ""
         beginBalance = 0
         endBalance = 0

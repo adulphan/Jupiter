@@ -15,7 +15,7 @@ protocol BaseViewModel {
     var name: String { get set }
     var image: UIImage { get }
     var imageData: Data? { get set }
-    var modified: Date { get set }
+    var modifiedLocal: Date { get set }
     var note: String { get set }
     init()
 }

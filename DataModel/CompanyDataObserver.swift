@@ -12,7 +12,7 @@ extension CompanyData {
     
     public override func didSave() {
         if isInserted {            
-            //CloudKit.shared.saveToCloudkit(company: self)
+            self.saveToCloudkit()
         }
     }
     

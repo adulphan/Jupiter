@@ -10,38 +10,35 @@ import Foundation
 import CoreData
 import UIKit
 
+protocol SimulateData: AccessCoreData {
 
-class SimulateData {
-    
-    static let shared = SimulateData()
-    
-    let context = CoreData.context
-    
+}
 
-    func simulateData() {
-
-        let company = CompanyData(context: context)
-        company.name = "FaceBook Inc."
-        company.note = "note note go go"
-        company.recordID = UUID().uuidString
+extension SimulateData {
+    
+    func SimulateData() {
         
-        CoreData.saveData(isFromCloudkit: false)
-        CoreData.reloadCompany()
-        
-        let get = CoreData.getCompanyWith(recordID: company.recordID!)
+        if workingCompany == nil {
+            let company = CompanyData(context: CoreData.context)
+            company.name = "FaceBook Inc."
+            company.note = "note note go go"
+            company.recordID = UUID().uuidString
+            company.modifiedLocal = Date()
+            setAsWorkingCompany(companyData: company)
+            saveCoreData()
+            reloadCompanyData()
+        }
 
-        let account = AccountData(inCompany: get!)
-        //account.companyData = company
-        account.name = "Bofa"
+        guard let account = newAccountInWorkingCompany() else { return }
+        account.name = "Wallet"
         account.favourite = false
         account.recordID = UUID().uuidString
         account.type = 2
-        
-        CoreData.saveData(isFromCloudkit: false)
+        account.modifiedLocal = Date()
+
+        saveCoreData()
     }
-
-
-
+    
 }
 
 

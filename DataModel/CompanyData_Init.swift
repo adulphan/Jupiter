@@ -13,7 +13,9 @@ extension CompanyData {
     
 //    convenience init(recordID: String) {
 //        let context = CoreData.context
-//
+//        self.init(context: context)
+//        
+//        self = CoreData.getCompanyWith(recordID: recordID)
 //        
 //    }
 

@@ -8,14 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SimulateData {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
+        
+        SimulateData()
+        printOutAllCoreData()
 
-        
-        
     }
 
     override func didReceiveMemoryWarning() {

@@ -12,10 +12,7 @@ import Foundation
 
 class Application {
     
-    
-    
-    
-    
-    
+
     
 }
+

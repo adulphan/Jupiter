@@ -22,12 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let controller = ViewController()
         window?.rootViewController = UINavigationController(rootViewController: controller)
-    
-        CoreData.clearData()
-
-        SimulateData.shared.simulateData()
-        
-        CoreData.printOutAllCoreData()
 
         return true
     }

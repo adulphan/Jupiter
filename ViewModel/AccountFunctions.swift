@@ -18,7 +18,7 @@ extension Account {
         account.companyData = self.company?.coreData
         account.beginBalance = self.beginBalance
         account.endBalance = self.endBalance
-        account.modified = self.modified
+        account.modifiedLocal = self.modifiedLocal
         account.name = self.name
         account.type = self.type
         //account.image = UIImagePNGRepresentation(self.image)
@@ -28,7 +28,7 @@ extension Account {
         
         print("name: \(self.name)")
         print("image: \(self.image)")
-        print("modified: \(self.modified)")
+        print("modifiedLocal: \(self.modifiedLocal)")
         print("note: \(self.note)")
         print("company: \(self.company?.name ?? "No company")")
         

@@ -20,7 +20,7 @@ class Company: CompanyViewModel {
     var name: String
     var image: UIImage
     var imageData: Data?
-    var modified: Date
+    var modifiedLocal: Date
     var note: String
     var accounts: [Account] {
         get { return getAllAccounts() }
@@ -37,10 +37,10 @@ class Company: CompanyViewModel {
         self.image = defaultImage
         self.imageData = coreData.imageData
         
-        if let date = coreData.modified {
-            self.modified = date
+        if let date = coreData.modifiedLocal {
+            self.modifiedLocal = date
         } else {
-            self.modified = defaultModified
+            self.modifiedLocal = defaultModified
         }
         
         self.note = coreData.note ?? ""
@@ -56,7 +56,7 @@ class Company: CompanyViewModel {
         coreData = nil
         name = "New Company"
         image = defaultImage
-        modified = defaultModified
+        modifiedLocal = defaultModified
         note = ""
     }
 
