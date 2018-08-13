@@ -13,10 +13,11 @@ import CoreData
 protocol BaseViewModel {
     
     var name: String { get set }
-    var image: UIImage { get set }
+    var image: UIImage { get }
+    var imageData: Data? { get set }
     var modified: Date { get set }
     var note: String { get set }
-
+    init()
 }
 
 protocol CompanyViewModel: BaseViewModel {
@@ -36,6 +37,7 @@ protocol AccountViewModel: BaseViewModel {
     var favourite: Bool { get set }    
     var company: Company? { get set }
     init(coreData: AccountData)
+
     
 }
 

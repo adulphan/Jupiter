@@ -2,24 +2,26 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AccountData" representedClassName=".AccountData" syncable="YES" codeGenerationType="class">
         <attribute name="beginBalance" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="endinBalance" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="endBalance" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="favourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="modified" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="companyData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyData" inverseName="accountData" inverseEntity="CompanyData" syncable="YES"/>
     </entity>
     <entity name="CompanyData" representedClassName=".CompanyData" syncable="YES" codeGenerationType="class">
-        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="modified" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="accountData" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AccountData" inverseName="companyData" inverseEntity="AccountData" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AccountData" positionX="-63" positionY="-18" width="128" height="180"/>
-        <element name="CompanyData" positionX="-54" positionY="54" width="128" height="120"/>
+        <element name="AccountData" positionX="-63" positionY="-18" width="128" height="195"/>
+        <element name="CompanyData" positionX="-54" positionY="54" width="128" height="135"/>
     </elements>
 </model>

@@ -11,10 +11,17 @@ import CloudKit
 import UIKit
 
 class Account: AccountViewModel {
-
-    var coreData: AccountData?
+    
+    private let defaultImage: UIImage
+    private let defaultModified: Date
+    
+    var coreData: AccountData? {
+        didSet{ self.company = self.coreData?.companyData != nil ? Company(coreData: (self.coreData?.companyData)!) : nil }
+    }
     var name: String
-    var image: UIImage
+    var image: UIImage { get { return getImage() } }
+    
+    var imageData: Data?
     var modified: Date
     var note: String
 
@@ -22,54 +29,56 @@ class Account: AccountViewModel {
     var endBalance: Int64
     var type: Int16
     var favourite: Bool
-    var company: Company? {
-        get { return getCompany() }
-        set {}
-    }
+    var company: Company?
     
     required init(coreData: AccountData) {
         
-        let defaultImage = UIImage()
-        let defaultModified = Date()
+        self.defaultImage = UIImage()
+        self.defaultModified = Date()
 
         self.coreData = coreData
         self.name = coreData.name ?? "New Account"
-        self.image = defaultImage
-        if let data = coreData.image, let image = UIImage(data: data) {
-            self.image = image
+        self.imageData = coreData.imageData
+
+        if let date = coreData.modified {
+            self.modified = date
+        } else {
+            self.modified = defaultModified
         }
-        self.modified = coreData.modified ?? defaultModified
-        self.note = coreData.note ?? "No note"
         
+        self.note = coreData.note ?? ""
         self.beginBalance = coreData.beginBalance
-        self.endBalance = coreData.endinBalance
+        self.endBalance = coreData.endBalance
         self.type = coreData.type
         self.favourite = coreData.favourite
         
-    }
-    
-    func getCompany() -> Company? {
-        if let data = self.coreData, let companyData = data.companyData {
-            let company = Company(coreData: companyData)
-            return company
-        } else {
-            return nil
+        if let data = coreData.companyData {
+            self.company = Company(coreData: data)
         }
     }
     
-    func printOut() {
+    required init() {
         
-        print("name: \(self.name)")
-        print("image: \(self.image)")
-        print("modified: \(self.modified)")
-        print("note: \(self.note)")
-        print("company: \(self.company?.name ?? "No company")")
+        defaultImage = UIImage()
+        defaultModified = Date()
         
-        print("beginBalane: \(self.beginBalance)")
-        print("endBalance: \(self.endBalance)")
-        print("type: \(self.type.description)")
-        print("favourite: \(self.favourite)")
-        
+        coreData = nil
+        name = "New Account"
+        modified = defaultModified
+        note = ""
+        beginBalance = 0
+        endBalance = 0
+        type = 0
+        favourite = false
+        company = nil
+    }
+    
+    private func getImage() -> UIImage {
+        if let data = self.imageData, let image = UIImage(data: data) {
+            return image
+        } else {
+            return defaultImage
+        }
     }
 
 }
