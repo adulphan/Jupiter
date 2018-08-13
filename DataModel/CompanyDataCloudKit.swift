@@ -9,20 +9,30 @@
 import Foundation
 import CloudKit
 
-extension CompanyData: CloudkitConnect {
+extension CompanyData {
         
     func createRecord() -> CKRecord {
         let recordName = self.recordID!
-        let recordID = CKRecordID(recordName: recordName, zoneID: personalZoneID)
-        let record = CKRecord(recordType: companyType, recordID: recordID)
+        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.personalZoneID)
+        let record = CKRecord(recordType: CloudKit.recordType.company.rawValue, recordID: recordID)
         record.setObject(self.name as CKRecordValue?, forKey: "name")
         record.setObject(self.note as CKRecordValue?, forKey: "note")
         record.setObject(self.modifiedLocal as CKRecordValue?, forKey: "modifiedLocal")
 
         return record
     }
+    
+    func updateBy(record: CKRecord) {
+        
+        self.recordID = record.recordID.recordName
+        self.name = record.value(forKey: "name") as? String
+        self.note = record.value(forKey: "note") as? String
+        self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
+        
+    }
 
     func saveToCloudkit() {
+        guard CloudKit.isFetchingFromCloudKit else { return }
         let record = self.createRecord()
         CloudKit.database.save(record, completionHandler: { (record, error) in
             if error != nil {

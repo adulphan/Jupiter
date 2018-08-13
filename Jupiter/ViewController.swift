@@ -8,14 +8,23 @@
 
 import UIKit
 
-class ViewController: UIViewController, SimulateData {
+class ViewController: UIViewController, SimulateData, FetchCloudKit {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
         
-        SimulateData()
-        printOutAllCoreData()
+        clearCoreData()
+
+        fetchChanges {
+            print("fetch completed")
+            DispatchQueue.main.sync {
+                self.saveCoreData()
+                self.printOutAllCoreData()
+            }
+
+        }
+        
 
     }
 

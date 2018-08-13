@@ -9,13 +9,13 @@
 import Foundation
 import CloudKit
 
-extension AccountData: CloudkitConnect {
+extension AccountData: AccessCoreData {
     
-    func createRecord() -> CKRecord {
+    func createRecord() -> CKRecord? {
 
         let recordName = self.recordID!
-        let recordID = CKRecordID(recordName: recordName, zoneID: personalZoneID)
-        let record = CKRecord(recordType: accountType, recordID: recordID)
+        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.personalZoneID)
+        let record = CKRecord(recordType: CloudKit.recordType.account.rawValue, recordID: recordID)
         
         record.setObject(self.name as CKRecordValue?, forKey: "name")
         record.setObject(self.beginBalance as CKRecordValue?, forKey: "beginBalance")
@@ -26,22 +26,41 @@ extension AccountData: CloudkitConnect {
         record.setObject(self.imageData as CKRecordValue?, forKey: "imageData")
         record.setObject(self.modifiedLocal as CKRecordValue?, forKey: "modifiedLocal")
         
-        return record
-    }
-    
-    func saveToCloudkit() {
-        let record = self.createRecord()
-        
         guard let companyRecordID = self.companyData?.recordID else {
-            print("Fail to save: no company recordID")
-            return
+            print("Fail to create record: no company recordID")
+            return nil
         }
         
-        let companyID = CKRecordID(recordName: companyRecordID, zoneID: personalZoneID)
+        let companyID = CKRecordID(recordName: companyRecordID, zoneID: CloudKit.personalZoneID)
         let referenceCompany = CKReference(recordID: companyID, action: .none)
         record.parent = referenceCompany
         
-        database.save(record, completionHandler: { (record, error) in
+        return record
+    }
+    
+    
+    func updateBy(record: CKRecord) {
+        
+        self.recordID = record.recordID.recordName
+        self.name = record.value(forKey: "name") as? String
+        self.beginBalance = record.value(forKey: "beginBalance") as? Int64 ?? 0
+        self.endBalance = record.value(forKey: "endBalance") as? Int64 ?? 0
+        self.type = record.value(forKey: "type") as? Int16 ?? 0
+        self.note = record.value(forKey: "note") as? String
+        self.favourite = record.value(forKey: "favourite") as? Bool ?? false
+        self.imageData = record.value(forKey: "imageData") as? Data
+        self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
+        
+//        let companyID = (record.parent?.recordID.recordName)!
+//        let companyData = ExistingCompanyData(recordID: companyID)!
+//        self.companyData = companyData
+
+    }
+    
+    func saveToCloudkit() {
+        guard CloudKit.isFetchingFromCloudKit else { return }
+        let record = self.createRecord()!
+        CloudKit.database.save(record, completionHandler: { (record, error) in
             if error != nil {
                 print(error!)
             } else {

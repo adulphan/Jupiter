@@ -16,7 +16,7 @@ extension AccessCoreData {
             let fetchRequest: NSFetchRequest<CompanyData> = CompanyData.fetchRequest()
             let companys = try CoreData.context.fetch(fetchRequest)
             CoreData.allCompanyInCoreData = companys
-            print("Number of company: \(CoreData.allCompanyInCoreData.count.description)")
+            //print("Number of company: \(CoreData.allCompanyInCoreData.count.description)")
         } catch {
             print("Loading company failed")
             CoreData.allCompanyInCoreData = []
@@ -28,7 +28,7 @@ extension AccessCoreData {
             let fetchRequest: NSFetchRequest<AccountData> = AccountData.fetchRequest()
             let accounts = try CoreData.context.fetch(fetchRequest)
             CoreData.allAccountsInCoreDate = accounts
-            print("Number of accounts: \(CoreData.allAccountsInCoreDate.count.description)")
+            //print("Number of accounts: \(CoreData.allAccountsInCoreDate.count.description)")
         } catch {
             print("Loading account failed")
             CoreData.allAccountsInCoreDate = []

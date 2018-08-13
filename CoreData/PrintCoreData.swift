@@ -17,6 +17,7 @@ extension AccessCoreData {
             let result = try CoreData.context.fetch(CompanyData.fetchRequest())
             for object in result {
                 let company = Company(coreData: object as! CompanyData)
+                print(company.coreData?.recordID ?? "No recordID")
                 company.printOut()
                 print("----------------")
             }
@@ -28,6 +29,7 @@ extension AccessCoreData {
             let result = try CoreData.context.fetch(AccountData.fetchRequest())
             for object in result {
                 let account = Account(coreData: object as! AccountData)
+                print(account.coreData?.recordID ?? "No recordID")
                 account.printOut()
                 print("----------------")
             }

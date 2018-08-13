@@ -17,23 +17,12 @@ class CloudKit {
         case transaction = "Transaction"
     }
     
+    static var isFetchingFromCloudKit:Bool = false
     static let database = CKContainer(identifier: "iCloud.goldbac-Inc.goldbac").privateCloudDatabase
     static let personalZoneID = CKRecordZone(zoneName: "Personal").zoneID
     
 }
 
-protocol CloudkitConnect {
-    
-}
-
-extension CloudkitConnect {
-    
-    var personalZoneID: CKRecordZoneID { get { return CloudKit.personalZoneID } }
-    var accountType: String { get { return CloudKit.recordType.account.rawValue } }
-    var companyType: String { get { return CloudKit.recordType.company.rawValue } }
-    var database: CKDatabase { get { return CloudKit.database } }
-    
-}
 
 
 

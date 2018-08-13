@@ -11,102 +11,105 @@ import CloudKit
 import CoreData
 
 
-protocol FetchCloudKit: AccessCoreData, CloudkitConnect {
+protocol FetchCloudKit: AccessCoreData {
     
 }
 
-class Fetch_CloudKit: AccessCoreData, CloudkitConnect {
+extension FetchCloudKit {
     
-    func fetchChanges(databaseTokenKey: String, zoneIDs: [CKRecordZoneID], completion: @escaping () -> Void) {
-
+    func fetchChanges(completion: @escaping () -> Void) {
+        
+        CloudKit.isFetchingFromCloudKit = true
+        
         let option = CKFetchRecordZoneChangesOptions()
+        UserDefaults.standard.zoneChangeToken = nil
         option.previousServerChangeToken = UserDefaults.standard.zoneChangeToken
-        let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [personalZoneID], optionsByRecordZoneID: [personalZoneID:option])
+        let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.personalZoneID], optionsByRecordZoneID: [CloudKit.personalZoneID:option])
 
         operation.recordChangedBlock = { (record) in
             
-            
-//            reloadCompanyData()
-//            let account = ExistingAccountData(recordID: "")
-//
-//            let fetchRequest: NSFetchRequest<AccountData> = AccountData.fetchRequest()
-//            let predicate = NSPredicate(format: "recordID == %@", record.recordID.recordName)
-//            fetchRequest.predicate = predicate
-            
-//            do {
-//                if let account = try CoreData.context.fetch(fetchRequest).first {
-//                    account.endBalance = (record.value(forKey: "endBalance") as? Double) ?? 0
-//
-//                    account.imageRecordID = record.value(forKey: "imageRecordID") as? String
-//                    account.modified = record.modificationDate
-//                    account.name = record.value(forKey: "name") as? String
-//                    account.type = (record.value(forKey: "type") as? Int16) ?? 0
-//                } else {
-//                    let account = Account(record: record)
-//                    account?.addToCoreData(recordID: record.recordID.recordName)
-//
-//                }
-//
-//            } catch  {
-//                print(error)
-//            }
-            
-            print("Record changed:", record.recordID.recordName)
+            DispatchQueue.main.sync {
+                self.updateOrSaveToCoreData(record: record)
+            }
             
         }
         
-        operation.recordWithIDWasDeletedBlock = { (recordId, text) in
-            
-            let fetchRequest: NSFetchRequest<AccountData> = AccountData.fetchRequest()
-            let predicate = NSPredicate(format: "recordID == %@", recordId.recordName)
-            fetchRequest.predicate = predicate
-            
-//            do {
-//                if let account = try CoreData.shared.context.fetch(fetchRequest).first {
-//                    CoreData.shared.context.delete(account)
-//                    print("Record deleted:", recordId.recordName)
-//                    print(text)
-//                }
-//            } catch  {
-//                print(error)
-//            }
-            
-            //let account = try context.fetch(fetchRequest)
-            //            let sortDescriptor = NSSortDescriptor(key: "modified", ascending: false)
-            //            fetchRequest.sortDescriptors = [sortDescriptor]
+        operation.recordWithIDWasDeletedBlock = { (recordID, _) in
             
             
-            
+            DispatchQueue.main.sync {
+                if let victim = self.ExistingCompanyData(recordID: recordID.recordName) {
+                    self.deleteCoreData(object: victim)
+                    print("Company deleted: ", recordID.recordName)
+                }
+                
+                if let victim = self.ExistingAccountData(recordID: recordID.recordName) {
+                    self.deleteCoreData(object: victim)
+                    print("Account deleted: ", recordID.recordName)
+                }
+            }
+
         }
-        
-        operation.recordZoneChangeTokensUpdatedBlock = { (zoneId, token, data) in
-            // Flush record changes and deletions for this zone to disk
-            // Write this new zone change token to disk
-            UserDefaults.standard.zoneChangeToken = token
-            print("From recordZoneChangeTokensUpdatedBlock : \(token?.description ?? "No Token")")
-        }
+    
+//        operation.recordZoneChangeTokensUpdatedBlock = { (zoneId, token, data) in
+//
+//            UserDefaults.standard.zoneChangeToken = token
+//            print("From recordZoneChangeTokensUpdatedBlock : token updated")
+//        }
         
         operation.recordZoneFetchCompletionBlock = { (zoneId, changeToken, _, _, error) in
+            
+            
             if let error = error {
-                print("Error fetching zone changes for \(databaseTokenKey) database:", error)
+                print("Error fetching zone changes : ", error)
                 return
             }
-            
-            // Flush record changes and deletions for this zone to disk
-            // Write this new zone change token to disk
+
             UserDefaults.standard.zoneChangeToken = changeToken
-            print("From recordZoneFetchCompletionBlock : \(changeToken?.description ?? "No Token")")
+            print("From recordZoneFetchCompletionBlock : token updated")
         }
         
-        operation.fetchRecordZoneChangesCompletionBlock = { (error) in
-            if let error = error {
-                print("Error fetching zone changes for \(databaseTokenKey) database:", error)
-            }
-            completion()
-        }
+//        operation.fetchRecordZoneChangesCompletionBlock = { (error) in
+//            
+//            
+//            if let error = error {
+//                print("Error fetching zone changes : ", error)
+//            }
+//            CloudKit.isFetchingFromCloudKit = false
+//            completion()
+//        }
         
-        database.add(operation)
+        CloudKit.database.add(operation)
     }
+
+    
+    func updateOrSaveToCoreData(record: CKRecord) {
+        
+        switch record.recordType {
+        case CloudKit.recordType.account.rawValue:
+            if let account = self.ExistingAccountData(recordID: record.recordID.recordName) {
+                account.updateBy(record: record)
+                print("Account updated: ", record.recordID.recordName)
+            } else {
+                let account = AccountData(context: CoreData.context)
+                account.updateBy(record: record)
+                print("Account created: ", record.recordID.recordName)
+            }
+        case CloudKit.recordType.company.rawValue:
+            if let company = self.ExistingCompanyData(recordID: record.recordID.recordName) {
+                company.updateBy(record: record)
+                print("Company updated: ", record.recordID.recordName)
+            } else {
+                let company = CompanyData(context: CoreData.context)
+                company.updateBy(record: record)
+                print("Company created: ", record.recordID.recordName)
+            }
+        default:
+            print("Default")
+        }
+        
+    }
+    
     
     
 }

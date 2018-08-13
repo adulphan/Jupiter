@@ -27,7 +27,7 @@ extension AccessCoreData {
         if let company = filtered.first {
             return company
         }
-        print("No company with name: \(name)")
+        //print("No company with name: \(name)")
         return nil
     }
     
@@ -39,7 +39,7 @@ extension AccessCoreData {
         if let company = filtered.first {
             return company
         }
-        print("No company with recordID: \(recordID)")
+        //print("No company with recordID: \(recordID)")
         return nil
     }
     
@@ -51,7 +51,7 @@ extension AccessCoreData {
         if let account = filtered.first {
             return account
         }
-        print("No account with recordID: \(recordID)")
+        //print("No account with recordID: \(recordID)")
         return nil
     }
 
