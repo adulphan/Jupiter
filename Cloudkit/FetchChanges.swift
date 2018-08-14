@@ -13,7 +13,9 @@ import CoreData
 
 protocol FetchCloudKit: AccessCoreData {
     
-    
+    var companyRecordToSave: [CKRecord] { get set }
+    var accountRecordToSave: [CKRecord] { get set }
+    var recordIDToDelete: [CKRecord] { get set }
     
 }
 
@@ -30,6 +32,11 @@ extension FetchCloudKit  {
 
         operation.recordChangedBlock = { (record) in
  
+            if record.recordType == CloudKit.recordType.company.rawValue {
+                companyRecordToSave.append(record)                
+                
+            }
+            
         }
         
         operation.recordWithIDWasDeletedBlock = { (recordID, _) in
