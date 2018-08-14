@@ -37,6 +37,7 @@
 		539DFC7C21216A4C00B5C740 /* AccountData_Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7B21216A4C00B5C740 /* AccountData_Init.swift */; };
 		539DFC7E21216EC200B5C740 /* CompanyDataCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7D21216EC200B5C740 /* CompanyDataCloudKit.swift */; };
 		539DFC8021219F4900B5C740 /* FetchChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7F21219F4900B5C740 /* FetchChanges.swift */; };
+		539DFC82212266FB00B5C740 /* DataSnatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC81212266FB00B5C740 /* DataSnatcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		539DFC7B21216A4C00B5C740 /* AccountData_Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountData_Init.swift; sourceTree = "<group>"; };
 		539DFC7D21216EC200B5C740 /* CompanyDataCloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDataCloudKit.swift; sourceTree = "<group>"; };
 		539DFC7F21219F4900B5C740 /* FetchChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchChanges.swift; sourceTree = "<group>"; };
+		539DFC81212266FB00B5C740 /* DataSnatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSnatcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				539DFC642121271800B5C740 /* Application.swift */,
+				539DFC81212266FB00B5C740 /* DataSnatcher.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				539DFC7621215BAA00B5C740 /* LoadCoreData.swift in Sources */,
 				537B03ED211F268F00953516 /* ViewModelProtocol.swift in Sources */,
 				539DFC652121271800B5C740 /* Application.swift in Sources */,
+				539DFC82212266FB00B5C740 /* DataSnatcher.swift in Sources */,
 				537B03D5211F19C700953516 /* ViewController.swift in Sources */,
 				539DFC5E2120689C00B5C740 /* CompanyDataObserver.swift in Sources */,
 				539DFC7A21216A1100B5C740 /* AccountDataCloudkit.swift in Sources */,

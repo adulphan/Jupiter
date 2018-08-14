@@ -15,7 +15,7 @@ class ViewController: UIViewController, SimulateData  {
         view.backgroundColor = UIColor.orange
         
         clearCoreData()
-
+        
         CloudKit.shared.fetchChanges {
             print("fetch completed")
             DispatchQueue.main.sync {
