@@ -33,46 +33,13 @@ extension AccessCoreData {
             }
         }
         
-    }
-    
-    func clearCoreData() {
+        reloadCompanyData()
+        reloadAccountData()
         
-        do {
-            let result = try CoreData.context.fetch(CompanyData.fetchRequest())
-            for object in result {
-                CoreData.context.delete(object as! NSManagedObject)
-            }
-        } catch {
-            print("Deleting CompanyData failed")
-        }
-        
-        do {
-            let result = try CoreData.context.fetch(AccountData.fetchRequest())
-            for object in result {
-                CoreData.context.delete(object as! NSManagedObject)
-            }
-        } catch {
-            print("Deleting AccountData failed")
-        }
-        
-        saveCoreData()
         
     }
     
-    func clearAccountData() {
-        
-        do {
-            let result = try CoreData.context.fetch(AccountData.fetchRequest())
-            for object in result {
-                CoreData.context.delete(object as! NSManagedObject)
-            }
-        } catch {
-            print("Deleting AccountData failed")
-        }
-        
-        saveCoreData()
-        
-    }
+
     
     
     

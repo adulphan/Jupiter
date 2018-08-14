@@ -20,7 +20,6 @@ extension AccessCoreData {
     }
     
     func ExistingCompanyData(name: String) -> CompanyData? {
-        reloadCompanyData()
         let filtered = CoreData.allCompanyInCoreData.filter { (data) -> Bool in
             data.name == name
         }
@@ -32,7 +31,6 @@ extension AccessCoreData {
     }
     
     func ExistingCompanyData(recordID: String) -> CompanyData? {
-        reloadCompanyData()
         let filtered = CoreData.allCompanyInCoreData.filter { (data) -> Bool in
             data.recordID == recordID
         }

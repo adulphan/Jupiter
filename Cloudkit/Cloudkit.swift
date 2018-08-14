@@ -11,8 +11,6 @@ import CloudKit
 
 class CloudKit {
     
-    static let shared = CloudKit()
-    
     enum recordType : String {
         case company = "Company"
         case account = "Account"

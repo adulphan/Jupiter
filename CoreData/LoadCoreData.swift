@@ -11,6 +11,11 @@ import CoreData
 
 extension AccessCoreData {
     
+    func reloadData() {
+        reloadCompanyData()
+        reloadAccountData()
+    }
+    
     func reloadCompanyData() {
         do {
             let fetchRequest: NSFetchRequest<CompanyData> = CompanyData.fetchRequest()

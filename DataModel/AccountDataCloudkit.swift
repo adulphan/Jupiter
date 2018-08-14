@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-extension AccountData: AccessCoreData {
+extension AccountData {
     
     func createRecord() -> CKRecord? {
 
@@ -58,7 +58,7 @@ extension AccountData: AccessCoreData {
     }
     
     func saveToCloudkit() {
-        guard CloudKit.isFetchingFromCloudKit else { return }
+        guard !CloudKit.isFetchingFromCloudKit else { return }
         let record = self.createRecord()!
         CloudKit.database.save(record, completionHandler: { (record, error) in
             if error != nil {

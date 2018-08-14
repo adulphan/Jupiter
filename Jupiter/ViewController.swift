@@ -8,23 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController, SimulateData  {
+class ViewController: UIViewController, CoreDataForAdmin  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
-        
-        clearCoreData()
-        
-        CloudKit.shared.fetchChanges {
-            print("fetch completed")
-            DispatchQueue.main.sync {
-                self.saveCoreData()
-                self.printOutAllCoreData()
-            }
-
-        }
-        
 
     }
 

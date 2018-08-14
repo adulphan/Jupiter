@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		533CE78D2122E4DA00762B7D /* ClearCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533CE78C2122E4DA00762B7D /* ClearCoreData.swift */; };
 		537B03D3211F19C700953516 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03D2211F19C700953516 /* AppDelegate.swift */; };
 		537B03D5211F19C700953516 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03D4211F19C700953516 /* ViewController.swift */; };
 		537B03D8211F19C700953516 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537B03D6211F19C700953516 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		533CE78C2122E4DA00762B7D /* ClearCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearCoreData.swift; sourceTree = "<group>"; };
 		537B03CF211F19C700953516 /* Jupiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jupiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		537B03D2211F19C700953516 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		537B03D4211F19C700953516 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				539DFC7521215BAA00B5C740 /* LoadCoreData.swift */,
 				539DFC6D2121429200B5C740 /* ExistingCoreData.swift */,
 				539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */,
+				533CE78C2122E4DA00762B7D /* ClearCoreData.swift */,
 				539DFC73212158D900B5C740 /* PrintCoreData.swift */,
 			);
 			path = CoreData;
@@ -303,6 +306,7 @@
 				537B03E9211F1BAB00953516 /* Account.swift in Sources */,
 				539DFC5C2120623A00B5C740 /* Cloudkit.swift in Sources */,
 				539DFC582120451400B5C740 /* CoreData.swift in Sources */,
+				533CE78D2122E4DA00762B7D /* ClearCoreData.swift in Sources */,
 				539DFC6C21212ED400B5C740 /* CompanyData_Init.swift in Sources */,
 				539DFC53212016A000B5C740 /* AccountFunctions.swift in Sources */,
 				539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */,

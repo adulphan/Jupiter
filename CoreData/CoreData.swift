@@ -19,6 +19,12 @@ class CoreData {
 }
 
 protocol AccessCoreData {
+
+    
+}
+
+protocol CoreDataForAdmin: AccessCoreData {
+    
     
 }
 
