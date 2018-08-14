@@ -8,11 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController, CoreDataForAdmin  {
+class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
+        
+        fetchChangesFromCloudKit {
+            print("Yo")
+            self.printOutAllCoreData()
+        }
 
     }
 

@@ -20,7 +20,13 @@ extension AccessCoreData {
             print("No working company with id: \(companyID)")
             return nil
         }
-        let account = AccountData(inCompany: companyData)
+        let account = newAccount(inCompany: companyData)
+        return account
+    }
+    
+    func newAccount(inCompany: CompanyData) -> AccountData? {
+        let account = AccountData(context: CoreData.context)
+        account.companyData = inCompany
         return account
     }
     

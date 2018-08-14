@@ -33,6 +33,11 @@ extension CompanyData {
 
     func saveToCloudkit() {
         guard !CloudKit.isFetchingFromCloudKit else { return }
+        guard CloudKit.isEnable else {
+            print("Not uploading: CloudKit is disabled")
+            return
+        }
+        
         let record = self.createRecord()
         CloudKit.database.save(record, completionHandler: { (record, error) in
             if error != nil {

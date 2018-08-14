@@ -8,57 +8,114 @@
 
 import Foundation
 import CloudKit
-import CoreData
-
 
 protocol FetchCloudKit: AccessCoreData {
     
-    var companyRecordToSave: [CKRecord] { get set }
-    var accountRecordToSave: [CKRecord] { get set }
-    var recordIDToDelete: [CKRecord] { get set }
     
 }
 
 extension FetchCloudKit  {
     
-    func fetchChanges(completion: @escaping () -> Void) {
+    func fetchChangesFromCloudKit(completion: @escaping () -> Void) {
         
-        CloudKit.isFetchingFromCloudKit = true
+        guard CloudKit.isEnable else {
+            print("Not fetching: CloudKit is disabled")
+            return
+        }
         
         let option = CKFetchRecordZoneChangesOptions()
-        UserDefaults.standard.zoneChangeToken = nil
+        //UserDefaults.standard.zoneChangeToken = nil
         option.previousServerChangeToken = UserDefaults.standard.zoneChangeToken
         let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.personalZoneID], optionsByRecordZoneID: [CloudKit.personalZoneID:option])
 
         operation.recordChangedBlock = { (record) in
- 
             if record.recordType == CloudKit.recordType.company.rawValue {
-                companyRecordToSave.append(record)                
-                
+                CloudKit.companyRecordToSave.append(record)
             }
             
+            if record.recordType == CloudKit.recordType.account.rawValue {
+                CloudKit.accountRecordToSave.append(record)
+            }
+
         }
         
-        operation.recordWithIDWasDeletedBlock = { (recordID, _) in
+        operation.recordWithIDWasDeletedBlock = { (recordID, text) in
+            CloudKit.recordIDToDelete.append(recordID)
             
-
         }
-        
-        operation.recordZoneFetchCompletionBlock = { (zoneId, changeToken, _, _, error) in
 
+        operation.recordZoneFetchCompletionBlock = { (zoneId, changeToken, _, _, error) in
             if let error = error {
-                print("Error fetching zone changes : ", error)
+                print("Error fetching changes : ", error)
+                self.clearCachedRecords()
                 return
             }
 
-            UserDefaults.standard.zoneChangeToken = changeToken
-            print("From recordZoneFetchCompletionBlock : token updated")
+            DispatchQueue.main.sync {
+                self.pushNewFetchToCoreData()
+                UserDefaults.standard.zoneChangeToken = changeToken
+                print("From recordZoneFetchCompletionBlock : token updated")
+                completion()
+            }
         }
         
         CloudKit.database.add(operation)
     }
 
-
+    func pushNewFetchToCoreData() {
+        
+        CloudKit.isFetchingFromCloudKit = true
+        
+        for recordID in CloudKit.recordIDToDelete {
+            if let object = ExistingCompanyData(recordID: recordID.recordName) {
+                deleteCoreData(object: object)
+            }
+            
+            if let object = ExistingAccountData(recordID: recordID.recordName) {
+                deleteCoreData(object: object)
+            }
+            
+        }
+        
+        for record in CloudKit.companyRecordToSave {
+            if let object = ExistingCompanyData(recordID: record.recordID.recordName) {
+                object.updateBy(record: record)
+            } else {
+                let object = CompanyData(context: CoreData.context)
+                object.updateBy(record: record)
+            }
+        }
+        
+        saveCoreData()
+        
+        for record in CloudKit.accountRecordToSave {
+            if let object = ExistingAccountData(recordID: record.recordID.recordName) {
+                object.updateBy(record: record)
+            } else {
+                let object = AccountData(context: CoreData.context)
+                object.updateBy(record: record)
+            }
+        }
+        
+        saveCoreData()
+        clearCachedRecords()
+        CloudKit.isFetchingFromCloudKit = false
+        
+    }
+    
+    func clearCachedRecords() {
+        
+        CloudKit.companyRecordToSave = []
+        CloudKit.accountRecordToSave = []
+        CloudKit.recordIDToDelete = []
+        
+    }
     
     
 }
+
+
+
+
+
+

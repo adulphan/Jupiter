@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-extension AccountData {
+extension AccountData: AccessCoreData {
     
     func createRecord() -> CKRecord? {
 
@@ -51,14 +51,19 @@ extension AccountData {
         self.imageData = record.value(forKey: "imageData") as? Data
         self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
         
-//        let companyID = (record.parent?.recordID.recordName)!
-//        let companyData = ExistingCompanyData(recordID: companyID)!
-//        self.companyData = companyData
+        let companyID = (record.parent?.recordID.recordName)!
+        let companyData = ExistingCompanyData(recordID: companyID)!
+        self.companyData = companyData
 
     }
     
     func saveToCloudkit() {
         guard !CloudKit.isFetchingFromCloudKit else { return }
+        guard CloudKit.isEnable else {
+            print("Not uploading: CloudKit is disabled")
+            return
+        }
+        
         let record = self.createRecord()!
         CloudKit.database.save(record, completionHandler: { (record, error) in
             if error != nil {
