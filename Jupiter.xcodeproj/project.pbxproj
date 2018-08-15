@@ -36,6 +36,7 @@
 		539DFC7A21216A1100B5C740 /* AccountDataCloudkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7921216A1100B5C740 /* AccountDataCloudkit.swift */; };
 		539DFC7E21216EC200B5C740 /* CompanyDataCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7D21216EC200B5C740 /* CompanyDataCloudKit.swift */; };
 		539DFC8021219F4900B5C740 /* FetchChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7F21219F4900B5C740 /* FetchChanges.swift */; };
+		53A052492123F1B60064222F /* DataToCKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A052482123F1B60064222F /* DataToCKAsset.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		539DFC7921216A1100B5C740 /* AccountDataCloudkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataCloudkit.swift; sourceTree = "<group>"; };
 		539DFC7D21216EC200B5C740 /* CompanyDataCloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDataCloudKit.swift; sourceTree = "<group>"; };
 		539DFC7F21219F4900B5C740 /* FetchChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchChanges.swift; sourceTree = "<group>"; };
+		53A052482123F1B60064222F /* DataToCKAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataToCKAsset.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 		537B03C6211F19C700953516 = {
 			isa = PBXGroup;
 			children = (
+				53A052472123F18B0064222F /* Extensions */,
 				539DFC66212128DD00B5C740 /* UserDefaults */,
 				539DFC632121270800B5C740 /* Application */,
 				539DFC5A2120622800B5C740 /* Cloudkit */,
@@ -203,6 +206,14 @@
 			path = UserDefaults;
 			sourceTree = "<group>";
 		};
+		53A052472123F18B0064222F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				53A052482123F1B60064222F /* DataToCKAsset.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -298,6 +309,7 @@
 				539DFC582120451400B5C740 /* CoreData.swift in Sources */,
 				533CE78D2122E4DA00762B7D /* ClearCoreData.swift in Sources */,
 				539DFC53212016A000B5C740 /* AccountFunctions.swift in Sources */,
+				53A052492123F1B60064222F /* DataToCKAsset.swift in Sources */,
 				539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */,
 				539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */,
 				539DFC7621215BAA00B5C740 /* LoadCoreData.swift in Sources */,

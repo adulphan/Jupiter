@@ -14,20 +14,21 @@ extension AccessCoreData {
     func printOutAllCoreData() {
         
         do {
-            let result = try CoreData.context.fetch(CompanyData.fetchRequest())
-            for object in result {
-                let company = Company(coreData: object as! CompanyData)
-                print("Company: \(company.name) : \(company.coreData?.recordID ?? "No recordID")")
+            let result: [CompanyData] = try CoreData.context.fetch(CompanyData.fetchRequest())
+            print("----------------------------------------")
+            for object in result  {
+                print("company: \(object.name ?? "no company name") : \(object.recordID ?? "no id")")
+                
             }
         } catch {
             print("Printing CompanyData failed")
         }
         
         do {
-            let result = try CoreData.context.fetch(AccountData.fetchRequest())
+            let result: [AccountData] = try CoreData.context.fetch(AccountData.fetchRequest())
+            print("----------------------------------------")
             for object in result {
-                let account = Account(coreData: object as! AccountData)
-                print("Account: \(account.name) : \(account.coreData?.recordID ?? "No recordID")")
+                print("account: \(object.name ?? "no account name") : \(object.recordID ?? "no id")")
             }
         } catch {
             print("Deleting AccountData failed")

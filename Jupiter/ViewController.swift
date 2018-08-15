@@ -15,6 +15,9 @@ class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit, Simulat
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
         
+        clearCoreData()
+        UserDefaults.standard.zoneChangeToken = nil
+        
         fetchChangesFromCloudKit {
             print("Yo")
             self.printOutAllCoreData()

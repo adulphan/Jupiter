@@ -26,6 +26,9 @@ extension AccountData: AccessCoreData {
         record.setObject(self.imageData as CKRecordValue?, forKey: "imageData")
         record.setObject(self.modifiedLocal as CKRecordValue?, forKey: "modifiedLocal")
         
+        let asset = self.imageData?.createCKAsset()
+        record.setObject(asset, forKey: "imageData")
+ 
         guard let companyRecordID = self.companyData?.recordID else {
             print("Fail to create record: no company recordID")
             return nil
@@ -50,6 +53,7 @@ extension AccountData: AccessCoreData {
         self.favourite = record.value(forKey: "favourite") as? Bool ?? false
         self.imageData = record.value(forKey: "imageData") as? Data
         self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
+        self.imageData = record.value(forKey: "imageData") as? Data
         
         guard let companyID = record.parent?.recordID.recordName else {
             print("Error: incoming account has no referenced company")
@@ -74,10 +78,12 @@ extension AccountData: AccessCoreData {
                 print(error!)
             } else {
                 print("\(record?.recordID.recordName.description ?? "No ID") is saved")
+                FileManager.default.clearTempFileForCKAsset()
             }
         })
         
     }
+    
     
 }
 

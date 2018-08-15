@@ -19,6 +19,9 @@ extension CompanyData {
         record.setObject(self.note as CKRecordValue?, forKey: "note")
         record.setObject(self.modifiedLocal as CKRecordValue?, forKey: "modifiedLocal")
 
+        let asset = self.imageData?.createCKAsset()
+        record.setObject(asset, forKey: "imageData")
+
         return record
     }
     
@@ -28,6 +31,7 @@ extension CompanyData {
         self.name = record.value(forKey: "name") as? String
         self.note = record.value(forKey: "note") as? String
         self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
+        self.imageData = record.value(forKey: "imageData") as? Data
         
     }
 
