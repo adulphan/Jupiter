@@ -13,7 +13,7 @@ extension Data {
 
     func createCKAsset() -> CKAsset {
 
-        let tempName = UUID().uuidString + ".heic"
+        let tempName = UUID().uuidString + ".tempImage"
         let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(tempName)
         print("TempFile:  \(tempName)")
         do { try self.write(to: url) } catch { print("Error writing temp file: \(error)") }
@@ -28,7 +28,7 @@ extension FileManager {
         do {
             let tmpDirectory = try contentsOfDirectory(atPath: NSTemporaryDirectory())
             try tmpDirectory.forEach {[unowned self] file in
-                if file.hasSuffix(".heic") {
+                if file.hasSuffix(".tempImage") {
                     let path = String.init(format: "%@%@", NSTemporaryDirectory(), file)
                     print("Clearing:  \(file)")
                     try self.removeItem(atPath: path)

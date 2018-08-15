@@ -29,9 +29,23 @@ extension AccessCoreData {
             print("----------------------------------------")
             for object in result {
                 print("account: \(object.name ?? "no account name") : \(object.recordID ?? "no id")")
+                
+                let attributes = object.entity.attributesByName
+                
+                for (name, attr) in  attributes {
+                    //let attrType = attr.attributeType // NSAttributeType enumeration for the property type
+                    let attrClass = attr.attributeValueClassName ?? "unknown"
+                    print("    ",name, "=", object.value(forKey: name) ?? "no value", "type =", attrClass)
+        
+                }
+//                for att in attributes {
+//                    let key = att.element.key
+//                    print(" - \(key): \(object.value(forKey: key) ?? "nil")")
+//                }
+                
             }
         } catch {
-            print("Deleting AccountData failed")
+            print("Printing AccountData failed")
         }
         
     }

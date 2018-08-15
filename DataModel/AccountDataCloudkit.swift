@@ -23,7 +23,6 @@ extension AccountData: AccessCoreData {
         record.setObject(self.type as CKRecordValue?, forKey: "type")
         record.setObject(self.note as CKRecordValue?, forKey: "note")
         record.setObject(self.favourite as CKRecordValue?, forKey: "favourite")
-        record.setObject(self.imageData as CKRecordValue?, forKey: "imageData")
         record.setObject(self.modifiedLocal as CKRecordValue?, forKey: "modifiedLocal")
         
         let asset = self.imageData?.createCKAsset()
@@ -51,7 +50,6 @@ extension AccountData: AccessCoreData {
         self.type = record.value(forKey: "type") as? Int16 ?? 0
         self.note = record.value(forKey: "note") as? String
         self.favourite = record.value(forKey: "favourite") as? Bool ?? false
-        self.imageData = record.value(forKey: "imageData") as? Data
         self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
         self.imageData = record.value(forKey: "imageData") as? Data
         
