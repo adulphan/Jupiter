@@ -9,6 +9,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="testAttribute" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="companyData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyData" inverseName="accountData" inverseEntity="CompanyData" syncable="YES"/>
     </entity>
@@ -21,7 +22,7 @@
         <relationship name="accountData" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AccountData" inverseName="companyData" inverseEntity="AccountData" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AccountData" positionX="-63" positionY="-18" width="128" height="195"/>
+        <element name="AccountData" positionX="-63" positionY="-18" width="128" height="210"/>
         <element name="CompanyData" positionX="-54" positionY="54" width="128" height="135"/>
     </elements>
 </model>

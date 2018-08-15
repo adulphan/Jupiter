@@ -16,25 +16,25 @@ protocol SimulateData: AccessCoreData {
 
 extension SimulateData {
     
-    func SimulateData() {
+    func simulateData() {
         
-        if workingCompany == nil {
-            let company = CompanyData(context: CoreData.context)
-            company.name = "FaceBook Inc."
-            company.note = "note note go go"
-            company.recordID = UUID().uuidString
-            company.modifiedLocal = Date()
-            setAsWorkingCompany(companyData: company)
-            saveCoreData()
-            reloadCompanyData()
-        }
-
-        guard let account = newAccountInWorkingCompany() else { return }
-        account.name = "Wallet"
-        account.favourite = false
-        account.recordID = UUID().uuidString
-        account.type = 2
-        account.modifiedLocal = Date()
+//        if workingCompany == nil {
+//            let company = CompanyData(context: CoreData.context)
+//            company.name = "FaceBook Inc."
+//            company.note = "note note go go"
+//            company.recordID = UUID().uuidString
+//            company.modifiedLocal = Date()
+//            setAsWorkingCompany(companyData: company)
+//            saveCoreData()
+//            reloadCompanyData()
+//        }
+//
+//        guard let account = newAccountInWorkingCompany() else { return }
+//        account.name = "Wallet"
+//        account.favourite = false
+//        account.recordID = UUID().uuidString
+//        account.type = 2
+//        account.modifiedLocal = Date()
 
         saveCoreData()
     }

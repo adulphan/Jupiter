@@ -8,8 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit  {
 
+class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit, SimulateData  {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange

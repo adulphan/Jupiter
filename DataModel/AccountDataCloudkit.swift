@@ -51,7 +51,11 @@ extension AccountData: AccessCoreData {
         self.imageData = record.value(forKey: "imageData") as? Data
         self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
         
-        let companyID = (record.parent?.recordID.recordName)!
+        guard let companyID = record.parent?.recordID.recordName else {
+            print("Error: incoming account has no referenced company")
+            return
+        }
+        
         let companyData = ExistingCompanyData(recordID: companyID)!
         self.companyData = companyData
 

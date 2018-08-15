@@ -34,8 +34,7 @@ extension AccessCoreData {
         }
         
         reloadCompanyData()
-        reloadAccountData()
-        
+        reloadAccountData()        
         
     }
     
