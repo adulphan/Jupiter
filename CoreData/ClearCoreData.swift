@@ -14,21 +14,21 @@ extension CoreDataForAdmin {
     func clearCoreData() {
         
         do {
-            let result = try CoreData.context.fetch(CompanyData.fetchRequest())
+            let result = try CoreData.context.fetch(Company.fetchRequest())
             for object in result {
                 CoreData.context.delete(object as! NSManagedObject)
             }
         } catch {
-            print("Deleting CompanyData failed")
+            print("Deleting Company failed")
         }
         
         do {
-            let result = try CoreData.context.fetch(AccountData.fetchRequest())
+            let result = try CoreData.context.fetch(Account.fetchRequest())
             for object in result {
                 CoreData.context.delete(object as! NSManagedObject)
             }
         } catch {
-            print("Deleting AccountData failed")
+            print("Deleting Account failed")
         }
         
         saveCoreData()
@@ -38,12 +38,12 @@ extension CoreDataForAdmin {
     func clearAccountData() {
         
         do {
-            let result = try CoreData.context.fetch(AccountData.fetchRequest())
+            let result = try CoreData.context.fetch(Account.fetchRequest())
             for object in result {
                 CoreData.context.delete(object as! NSManagedObject)
             }
         } catch {
-            print("Deleting AccountData failed")
+            print("Deleting Account failed")
         }
         
         saveCoreData()

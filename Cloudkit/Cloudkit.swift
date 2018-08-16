@@ -17,10 +17,11 @@ class CloudKit {
         case transaction = "Transaction"
     }
     
-    static var isEnable:Bool = true
     static var isFetchingFromCloudKit:Bool = false
-    static let database = CKContainer(identifier: "iCloud.goldbac-Inc.goldbac").privateCloudDatabase
-    static let personalZoneID = CKRecordZone(zoneName: "Personal").zoneID
+    static let privateDatabase = CKContainer(identifier: "iCloud.goldbac-Inc.goldbac").privateCloudDatabase
+    static let publicDatabase = CKContainer.default().publicCloudDatabase
+    
+    static let financialDataZoneID = CKRecordZone(zoneName: "FinancialData").zoneID
     
     static var companyRecordToSave: [CKRecord] = []
     static var accountRecordToSave: [CKRecord] = []

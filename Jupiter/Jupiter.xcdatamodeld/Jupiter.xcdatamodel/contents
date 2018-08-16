@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="AccountData" representedClassName=".AccountData" syncable="YES" codeGenerationType="class">
+    <entity name="Account" representedClassName=".Account" syncable="YES" codeGenerationType="class">
         <attribute name="beginBalance" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="endBalance" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="favourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="modifiedLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="testAttribute" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="companyData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyData" inverseName="accountData" inverseEntity="CompanyData" syncable="YES"/>
+        <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="accountSet" inverseEntity="Company" syncable="YES"/>
     </entity>
-    <entity name="CompanyData" representedClassName=".CompanyData" syncable="YES" codeGenerationType="class">
-        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+    <entity name="Company" representedClassName=".Company" syncable="YES" codeGenerationType="class">
         <attribute name="modifiedLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="accountData" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AccountData" inverseName="companyData" inverseEntity="AccountData" syncable="YES"/>
+        <relationship name="accountSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Account" inverseName="company" inverseEntity="Account" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AccountData" positionX="-63" positionY="-18" width="128" height="210"/>
-        <element name="CompanyData" positionX="-54" positionY="54" width="128" height="135"/>
+        <element name="Account" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="Company" positionX="-54" positionY="54" width="128" height="105"/>
     </elements>
 </model>

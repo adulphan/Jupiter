@@ -13,9 +13,9 @@ import UIKit
 class CoreData {
 
     static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext    
-    static var allCompanyInCoreData: [CompanyData] = []
-    static var allAccountsInWorkingCompany: [AccountData] = []
-    static var allAccountsInCoreDate: [AccountData] = []
+    static var allCompanyInCoreData: [Company] = []
+    static var allAccountsInWorkingCompany: [Account] = []
+    static var allAccountsInCoreDate: [Account] = []
 }
 
 protocol AccessCoreData {

@@ -14,7 +14,7 @@ extension AccessCoreData {
     func printOutAllCoreData() {
         
         do {
-            let result: [CompanyData] = try CoreData.context.fetch(CompanyData.fetchRequest())
+            let result: [Company] = try CoreData.context.fetch(Company.fetchRequest())
             print("----------------------------------------")
             for object in result  {
                 print("company: \(object.name ?? "no company name") : \(object.recordID ?? "no id")")
@@ -25,7 +25,7 @@ extension AccessCoreData {
         }
         
         do {
-            let result: [AccountData] = try CoreData.context.fetch(AccountData.fetchRequest())
+            let result: [Account] = try CoreData.context.fetch(Account.fetchRequest())
             print("----------------------------------------")
             for object in result {
                 print("account: \(object.name ?? "no account name") : \(object.recordID ?? "no id")")
@@ -45,7 +45,7 @@ extension AccessCoreData {
                 
             }
         } catch {
-            print("Printing AccountData failed")
+            print("Printing Account failed")
         }
         
     }

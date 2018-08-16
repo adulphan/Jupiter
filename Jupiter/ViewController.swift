@@ -15,16 +15,14 @@ class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit, Simulat
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
         
-//        clearCoreData()
-//        UserDefaults.standard.zoneChangeToken = nil
-//
-//        fetchChangesFromCloudKit {
-//            print("Yo")
-//            self.printOutAllCoreData()
-//        }
+        clearCoreData()
+        
+        
+        UserDefaults.standard.workingCompanyID = nil
+        simulateData()
+        
         
         printOutAllCoreData()
-
     }
 
     override func didReceiveMemoryWarning() {

@@ -17,13 +17,11 @@ protocol SimulateData: AccessCoreData {
 extension SimulateData {
     
     func simulateData() {
-        
+
         reloadCompanyData()
-        
         if workingCompany == nil {
-            let company = CompanyData(context: CoreData.context)
+            let company = Company(context: CoreData.context)
             company.name = "Apple Inc."
-            company.note = "note note go go 333"
             company.recordID = UUID().uuidString
             company.modifiedLocal = Date()
             
@@ -32,12 +30,13 @@ extension SimulateData {
             reloadCompanyData()
         }
 
-        guard let account = newAccountInWorkingCompany() else { return }
-        account.name = "Wallet"
-        account.favourite = false
-        account.recordID = UUID().uuidString
-        account.type = 2
-        account.modifiedLocal = Date()        
+        for _ in 1...2 {
+            guard let account = newAccountInWorkingCompany() else { return }
+            account.name = "Wallet"
+            account.recordID = UUID().uuidString
+            account.type = 2
+            account.modifiedLocal = Date()
+        }
 
         saveCoreData()
     }

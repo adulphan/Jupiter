@@ -22,8 +22,66 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let controller = ViewController()
         window?.rootViewController = UINavigationController(rootViewController: controller)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(coreDataDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
 
         return true
+    }
+    
+    
+    @objc func coreDataDidSave(_ notification: Notification) {
+        
+        if let insertedObjects = notification.userInfo?[NSInsertedObjectsKey] as? Set<NSManagedObject>, !insertedObjects.isEmpty {
+            print("InsertedObjects:")
+            
+            for object in insertedObjects {
+                if let company = object as? Company {
+                    print(" company: \(company.recordID ?? "no id")")
+                }
+            }
+            
+            for object in insertedObjects {
+                if let account = object as? Account {
+                    print(" account: \(account.recordID ?? "no id")")
+                }
+            }
+        }
+        
+        if let updatedObjects = notification.userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject>, !updatedObjects.isEmpty {
+            print("UpdatedObjects:")
+            
+            for object in updatedObjects {
+                if let company = object as? Company {
+                    print(" company: \(company.recordID ?? "no id")")
+                }
+            }
+            
+            for object in updatedObjects {
+                if let account = object as? Account {
+                    print(" account: \(account.recordID ?? "no id")")
+                }
+            }
+            
+            
+        }
+        
+        if let deletedObjects = notification.userInfo?[NSDeletedObjectsKey] as? Set<NSManagedObject>, !deletedObjects.isEmpty {
+            print("DeletedObjects:")
+            
+            for object in deletedObjects {
+                if let company = object as? Company {
+                    print(" company: \(company.recordID ?? "no id")")
+                }
+            }
+            
+            for object in deletedObjects {
+                if let account = object as? Account {
+                    print(" account: \(account.recordID ?? "no id")")
+                }
+            }
+        }
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

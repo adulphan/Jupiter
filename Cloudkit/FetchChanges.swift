@@ -18,15 +18,15 @@ extension FetchCloudKit  {
     
     func fetchChangesFromCloudKit(completion: @escaping () -> Void) {
         
-        guard CloudKit.isEnable else {
-            print("Not fetching: CloudKit is disabled")
+        guard Application.connectedToCloudKit else {
+            print("No fetching: CloudKit is disabled")
             return
         }
         
         let option = CKFetchRecordZoneChangesOptions()
         //UserDefaults.standard.zoneChangeToken = nil
-        option.previousServerChangeToken = UserDefaults.standard.zoneChangeToken
-        let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.personalZoneID], optionsByRecordZoneID: [CloudKit.personalZoneID:option])
+        option.previousServerChangeToken = UserDefaults.standard.financialDataChangeToken
+        let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.financialDataZoneID], optionsByRecordZoneID: [CloudKit.financialDataZoneID:option])
 
         operation.recordChangedBlock = { (record) in
             if record.recordType == CloudKit.recordType.company.rawValue {
@@ -53,13 +53,13 @@ extension FetchCloudKit  {
 
             DispatchQueue.main.sync {
                 self.pushNewFetchToCoreData()
-                UserDefaults.standard.zoneChangeToken = changeToken
+                UserDefaults.standard.financialDataChangeToken = changeToken
                 print("From recordZoneFetchCompletionBlock : token updated")
                 completion()
             }
         }
         
-        CloudKit.database.add(operation)
+        CloudKit.privateDatabase.add(operation)
     }
 
     func pushNewFetchToCoreData() {
@@ -67,21 +67,21 @@ extension FetchCloudKit  {
         CloudKit.isFetchingFromCloudKit = true
         
         for recordID in CloudKit.recordIDToDelete {
-            if let object = ExistingCompanyData(recordID: recordID.recordName) {
+            if let object = ExistingCompany(recordID: recordID.recordName) {
                 deleteCoreData(object: object)
             }
             
-            if let object = ExistingAccountData(recordID: recordID.recordName) {
+            if let object = ExistingAccount(recordID: recordID.recordName) {
                 deleteCoreData(object: object)
             }
             
         }
         
         for record in CloudKit.companyRecordToSave {
-            if let object = ExistingCompanyData(recordID: record.recordID.recordName) {
+            if let object = ExistingCompany(recordID: record.recordID.recordName) {
                 object.updateBy(record: record)
             } else {
-                let object = CompanyData(context: CoreData.context)
+                let object = Company(context: CoreData.context)
                 object.updateBy(record: record)
             }
         }
@@ -89,10 +89,10 @@ extension FetchCloudKit  {
         saveCoreData()
         
         for record in CloudKit.accountRecordToSave {
-            if let object = ExistingAccountData(recordID: record.recordID.recordName) {
+            if let object = ExistingAccount(recordID: record.recordID.recordName) {
                 object.updateBy(record: record)
             } else {
-                let object = AccountData(context: CoreData.context)
+                let object = Account(context: CoreData.context)
                 object.updateBy(record: record)
             }
         }

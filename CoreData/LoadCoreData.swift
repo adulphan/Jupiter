@@ -18,7 +18,7 @@ extension AccessCoreData {
     
     func reloadCompanyData() {
         do {
-            let fetchRequest: NSFetchRequest<CompanyData> = CompanyData.fetchRequest()
+            let fetchRequest: NSFetchRequest<Company> = Company.fetchRequest()
             let companys = try CoreData.context.fetch(fetchRequest)
             CoreData.allCompanyInCoreData = companys
             //print("Number of company: \(CoreData.allCompanyInCoreData.count.description)")
@@ -30,7 +30,7 @@ extension AccessCoreData {
     
     func reloadAccountData() {
         do {
-            let fetchRequest: NSFetchRequest<AccountData> = AccountData.fetchRequest()
+            let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
             let accounts = try CoreData.context.fetch(fetchRequest)
             CoreData.allAccountsInCoreDate = accounts
             //print("Number of accounts: \(CoreData.allAccountsInCoreDate.count.description)")

@@ -11,9 +11,9 @@ import CloudKit
 
 public extension UserDefaults {
     
-    public var databaseChangeToken: CKServerChangeToken? {
+    public var financialDataChangeToken: CKServerChangeToken? {
         get {
-            guard let data = self.value(forKey: "databaseChangeToken") as? Data else {
+            guard let data = self.value(forKey: "financialDataChangeToken") as? Data else {
                 return nil
             }
             
@@ -26,31 +26,9 @@ public extension UserDefaults {
         set {
             if let token = newValue {
                 let data = NSKeyedArchiver.archivedData(withRootObject: token)
-                self.set(data, forKey: "databaseChangeToken")
+                self.set(data, forKey: "financialDataChangeToken")
             } else {
-                self.removeObject(forKey: "databaseChangeToken")
-            }
-        }
-    }
-    
-    public var zoneChangeToken: CKServerChangeToken? {
-        get {
-            guard let data = self.value(forKey: "zoneChangeToken") as? Data else {
-                return nil
-            }
-            
-            guard let token = NSKeyedUnarchiver.unarchiveObject(with: data) as? CKServerChangeToken else {
-                return nil
-            }
-            
-            return token
-        }
-        set {
-            if let token = newValue {
-                let data = NSKeyedArchiver.archivedData(withRootObject: token)
-                self.set(data, forKey: "zoneChangeToken")
-            } else {
-                self.removeObject(forKey: "zoneChangeToken")
+                self.removeObject(forKey: "financialDataChangeToken")
             }
         }
     }

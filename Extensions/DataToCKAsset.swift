@@ -24,6 +24,7 @@ extension Data {
 }
 
 extension FileManager {
+    
     func clearTempFileForCKAsset() {
         do {
             let tmpDirectory = try contentsOfDirectory(atPath: NSTemporaryDirectory())

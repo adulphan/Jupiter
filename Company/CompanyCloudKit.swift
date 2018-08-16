@@ -9,18 +9,14 @@
 import Foundation
 import CloudKit
 
-extension CompanyData {
+extension Company {
         
     func createRecord() -> CKRecord {
         let recordName = self.recordID!
-        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.personalZoneID)
+        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
         let record = CKRecord(recordType: CloudKit.recordType.company.rawValue, recordID: recordID)
         record.setObject(self.name as CKRecordValue?, forKey: "name")
-        record.setObject(self.note as CKRecordValue?, forKey: "note")
         record.setObject(self.modifiedLocal as CKRecordValue?, forKey: "modifiedLocal")
-
-        let asset = self.imageData?.createCKAsset()
-        record.setObject(asset, forKey: "imageData")
 
         return record
     }
@@ -29,21 +25,19 @@ extension CompanyData {
         
         self.recordID = record.recordID.recordName
         self.name = record.value(forKey: "name") as? String
-        self.note = record.value(forKey: "note") as? String
         self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
-        self.imageData = record.value(forKey: "imageData") as? Data
-        
+
     }
 
     func saveToCloudkit() {
         guard !CloudKit.isFetchingFromCloudKit else { return }
-        guard CloudKit.isEnable else {
+        guard Application.connectedToCloudKit else {
             print("Not uploading: CloudKit is disabled")
             return
         }
         
         let record = self.createRecord()
-        CloudKit.database.save(record, completionHandler: { (record, error) in
+        CloudKit.privateDatabase.save(record, completionHandler: { (record, error) in
             if error != nil {
                 print(error!)
             } else {

@@ -11,12 +11,12 @@ import CoreData
 
 extension AccessCoreData {
     
-    func newAccountInWorkingCompany() -> AccountData? {
+    func newAccountInWorkingCompany() -> Account? {
         guard let companyID = UserDefaults.standard.workingCompanyID else {
             print("No working company")
             return nil
         }
-        guard let companyData = ExistingCompanyData(recordID: companyID) else {
+        guard let companyData = ExistingCompany(recordID: companyID) else {
             print("No working company with id: \(companyID)")
             return nil
         }
@@ -24,13 +24,13 @@ extension AccessCoreData {
         return account
     }
     
-    func newAccount(inCompany: CompanyData) -> AccountData? {
-        let account = AccountData(context: CoreData.context)
-        account.companyData = inCompany
+    func newAccount(inCompany: Company) -> Account? {
+        let account = Account(context: CoreData.context)
+        account.company = inCompany
         return account
     }
     
-    func setAsWorkingCompany(companyData: CompanyData) {
+    func setAsWorkingCompany(companyData: Company) {
         UserDefaults.standard.workingCompanyID = companyData.recordID
     }
 

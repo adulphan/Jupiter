@@ -11,15 +11,15 @@ import CoreData
 
 extension AccessCoreData {
     
-    var workingCompany: CompanyData? {
+    var workingCompany: Company? {
         get{
             guard let companyID = UserDefaults.standard.workingCompanyID else { return nil }
-            guard let companyData = ExistingCompanyData(recordID: companyID) else { return nil }
+            guard let companyData = ExistingCompany(recordID: companyID) else { return nil }
             return companyData
         }
     }
     
-    func ExistingCompanyData(name: String) -> CompanyData? {
+    func ExistingCompany(name: String) -> Company? {
         let filtered = CoreData.allCompanyInCoreData.filter { (data) -> Bool in
             data.name == name
         }
@@ -30,7 +30,7 @@ extension AccessCoreData {
         return nil
     }
     
-    func ExistingCompanyData(recordID: String) -> CompanyData? {
+    func ExistingCompany(recordID: String) -> Company? {
         let filtered = CoreData.allCompanyInCoreData.filter { (data) -> Bool in
             data.recordID == recordID
         }
@@ -41,7 +41,7 @@ extension AccessCoreData {
         return nil
     }
     
-    func ExistingAccountData(recordID: String) -> AccountData? {
+    func ExistingAccount(recordID: String) -> Account? {
         reloadAccountData()
         let filtered = CoreData.allAccountsInCoreDate.filter { (data) -> Bool in
             data.recordID == recordID
