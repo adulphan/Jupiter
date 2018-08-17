@@ -45,7 +45,7 @@ extension AccessCoreData {
             print("----------------------------------------")
             for object in result {
                 print("transaction: \(object.name ?? "no account name") : \(object.recordID ?? "no id")")
-                print("   accounts: \(object.accounts.map{$0.name!})")
+                print("    ","accounts: \(object.accounts.map{$0.name!})")
                 
                 let attributes = object.entity.attributesByName
                 for (name, _) in  attributes {

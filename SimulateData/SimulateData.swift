@@ -48,7 +48,7 @@ extension SimulateData {
         let transaction = Transaction(context: CoreData.context)
         transaction.name = "Pay some bills"
         transaction.recordID = UUID().uuidString
-        transaction.accounts = [account, account2]
+        transaction.accounts = [account, account2, account]
 
         saveCoreData()
     }
