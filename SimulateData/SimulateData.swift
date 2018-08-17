@@ -49,7 +49,20 @@ extension SimulateData {
         transaction.name = "Pay some bills"
         transaction.recordID = UUID().uuidString
         transaction.accounts = [account, account2, account]
+        transaction.date = Date()
+        transaction.flows = [234,500,700]
 
+        saveCoreData()
+        
+        
+        transaction.name = "Another bill"
+        transaction.flows = [1,1,1]
+        
+        saveCoreData()
+        
+        transaction.name = "Another bill Twice!!"
+        transaction.accounts = [account]
+        transaction.flows = [1,100,1]
         saveCoreData()
     }
     

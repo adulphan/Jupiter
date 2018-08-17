@@ -38,13 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             for object in insertedObjects {
                 if let company = object as? Company {
                     print(" company: \(company.recordID ?? "no id")")
-                }
-                
-                if let account = object as? Account {
+                } else if let account = object as? Account {
                     print(" account: \(account.recordID ?? "no id")")
-                }
-                
-                if let transaction = object as? Account {
+                } else  if let transaction = object as? Transaction {
                     print(" transaction: \(transaction.recordID ?? "no id")")
                 }
             }
@@ -57,16 +53,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             for object in updatedObjects {
                 if let company = object as? Company {
                     print(" company: \(company.recordID ?? "no id")")
-                }
-                
-                if let account = object as? Account {
+                } else if let account = object as? Account {
                     print(" account: \(account.recordID ?? "no id")")
-                }
-                
-                if let transaction = object as? Account {
+                } else  if let transaction = object as? Transaction {
                     print(" transaction: \(transaction.recordID ?? "no id")")
                 }
             }
+            
+            
             
         }
         
@@ -76,13 +70,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             for object in deletedObjects {
                 if let company = object as? Company {
                     print(" company: \(company.recordID ?? "no id")")
-                }
-                
-                if let account = object as? Account {
+                } else if let account = object as? Account {
                     print(" account: \(account.recordID ?? "no id")")
-                }
-                
-                if let transaction = object as? Account {
+                } else  if let transaction = object as? Transaction {
                     print(" transaction: \(transaction.recordID ?? "no id")")
                 }
             }
