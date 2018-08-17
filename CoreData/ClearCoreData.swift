@@ -31,6 +31,15 @@ extension CoreDataForAdmin {
             print("Deleting Account failed")
         }
         
+        do {
+            let result = try CoreData.context.fetch(Transaction.fetchRequest())
+            for object in result {
+                CoreData.context.delete(object as! NSManagedObject)
+            }
+        } catch {
+            print("Deleting Transaction failed")
+        }
+        
         saveCoreData()
         
     }

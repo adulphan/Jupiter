@@ -30,13 +30,25 @@ extension SimulateData {
             reloadCompanyData()
         }
 
-        for _ in 1...2 {
-            guard let account = newAccountInWorkingCompany() else { return }
-            account.name = "Wallet"
-            account.recordID = UUID().uuidString
-            account.type = 2
-            account.modifiedLocal = Date()
-        }
+
+        guard let account = newAccountInWorkingCompany() else { return }
+        account.name = "Wallet"
+        account.recordID = UUID().uuidString
+        account.type = 2
+        account.modifiedLocal = Date()
+        
+        guard let account2 = newAccountInWorkingCompany() else { return }
+        account2.name = "Gorcery"
+        account2.recordID = UUID().uuidString
+        account2.type = 2
+        account2.modifiedLocal = Date()
+        
+        saveCoreData()
+        
+        let transaction = Transaction(context: CoreData.context)
+        transaction.name = "Pay some bills"
+        transaction.recordID = UUID().uuidString
+        transaction.accounts = [account, account2]
 
         saveCoreData()
     }

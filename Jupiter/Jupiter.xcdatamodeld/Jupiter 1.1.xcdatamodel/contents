@@ -8,7 +8,7 @@
         <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="accountSet" inverseEntity="Company" syncable="YES"/>
-        <relationship name="transactionSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Transaction" inverseName="accountSet" inverseEntity="Transaction" syncable="YES"/>
+        <relationship name="transactionSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Transaction" inverseName="accountSet" inverseEntity="Transaction" syncable="YES"/>
     </entity>
     <entity name="Company" representedClassName=".Company" syncable="YES" codeGenerationType="class">
         <attribute name="modifiedLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -26,7 +26,7 @@
         <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="accountSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Account" inverseName="transactionSet" inverseEntity="Account" syncable="YES"/>
+        <relationship name="accountSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="transactionSet" inverseEntity="Account" syncable="YES"/>
     </entity>
     <elements>
         <element name="Account" positionX="-63" positionY="-18" width="128" height="165"/>

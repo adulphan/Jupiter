@@ -8,7 +8,6 @@
         <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="accountSet" inverseEntity="Company" syncable="YES"/>
-        <relationship name="transactionSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Transaction" inverseName="accountSet" inverseEntity="Transaction" syncable="YES"/>
     </entity>
     <entity name="Company" representedClassName=".Company" syncable="YES" codeGenerationType="class">
         <attribute name="modifiedLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -16,21 +15,8 @@
         <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="accountSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Account" inverseName="company" inverseEntity="Account" syncable="YES"/>
     </entity>
-    <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="flowsObject" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="modifieldLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="photoID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="thumbID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="accountSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Account" inverseName="transactionSet" inverseEntity="Account" syncable="YES"/>
-    </entity>
     <elements>
-        <element name="Account" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="Account" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="Company" positionX="-54" positionY="54" width="128" height="105"/>
-        <element name="Transaction" positionX="-63" positionY="54" width="128" height="195"/>
     </elements>
 </model>

@@ -31,21 +31,30 @@ extension AccessCoreData {
                 print("account: \(object.name ?? "no account name") : \(object.recordID ?? "no id")")
                 
                 let attributes = object.entity.attributesByName
-                
-                for (name, attr) in  attributes {
-                    //let attrType = attr.attributeType // NSAttributeType enumeration for the property type
-                    let attrClass = attr.attributeValueClassName ?? "unknown"
-                    print("    ",name, "=", object.value(forKey: name) ?? "no value", "type =", attrClass)
-        
+                for (name, _) in  attributes {
+                    print("    ",name, "=", object.value(forKey: name) ?? "no value")
                 }
-//                for att in attributes {
-//                    let key = att.element.key
-//                    print(" - \(key): \(object.value(forKey: key) ?? "nil")")
-//                }
-                
+   
             }
         } catch {
             print("Printing Account failed")
+        }
+        
+        do {
+            let result: [Transaction] = try CoreData.context.fetch(Transaction.fetchRequest())
+            print("----------------------------------------")
+            for object in result {
+                print("transaction: \(object.name ?? "no account name") : \(object.recordID ?? "no id")")
+                print("   accounts: \(object.accounts.map{$0.name!})")
+                
+                let attributes = object.entity.attributesByName
+                for (name, _) in  attributes {
+                    print("    ",name, "=", object.value(forKey: name) ?? "no value")
+                }
+                
+            }
+        } catch {
+            print("Printing Transaction failed")
         }
         
     }

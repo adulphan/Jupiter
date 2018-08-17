@@ -17,7 +17,6 @@ class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit, Simulat
         
         clearCoreData()
         
-        
         UserDefaults.standard.workingCompanyID = nil
         simulateData()
         

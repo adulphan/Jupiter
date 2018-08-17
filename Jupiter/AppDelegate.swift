@@ -39,13 +39,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let company = object as? Company {
                     print(" company: \(company.recordID ?? "no id")")
                 }
-            }
-            
-            for object in insertedObjects {
+                
                 if let account = object as? Account {
                     print(" account: \(account.recordID ?? "no id")")
                 }
+                
+                if let transaction = object as? Account {
+                    print(" transaction: \(transaction.recordID ?? "no id")")
+                }
             }
+
         }
         
         if let updatedObjects = notification.userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject>, !updatedObjects.isEmpty {
@@ -55,14 +58,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let company = object as? Company {
                     print(" company: \(company.recordID ?? "no id")")
                 }
-            }
-            
-            for object in updatedObjects {
+                
                 if let account = object as? Account {
                     print(" account: \(account.recordID ?? "no id")")
                 }
+                
+                if let transaction = object as? Account {
+                    print(" transaction: \(transaction.recordID ?? "no id")")
+                }
             }
-            
             
         }
         
@@ -73,11 +77,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let company = object as? Company {
                     print(" company: \(company.recordID ?? "no id")")
                 }
-            }
-            
-            for object in deletedObjects {
+                
                 if let account = object as? Account {
                     print(" account: \(account.recordID ?? "no id")")
+                }
+                
+                if let transaction = object as? Account {
+                    print(" transaction: \(transaction.recordID ?? "no id")")
                 }
             }
         }
