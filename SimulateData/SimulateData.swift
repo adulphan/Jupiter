@@ -30,7 +30,6 @@ extension SimulateData {
             reloadCompanyData()
         }
 
-
         guard let account = newAccountInWorkingCompany() else { return }
         account.name = "Wallet"
         account.recordID = UUID().uuidString
@@ -59,8 +58,12 @@ extension SimulateData {
         transaction2.date = Date()
         transaction2.flows = [1000,1000]
 
-        saveCoreData()        
-
+        saveCoreData()
+        
+        CoreData.context.delete(transaction)
+        CoreData.context.delete(transaction2)
+        
+        saveCoreData()
         
     }
     

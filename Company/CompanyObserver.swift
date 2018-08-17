@@ -10,11 +10,12 @@ import Foundation
 
 extension Company {
     
-//    public override func didSave() {
-//        if isInserted {            
-//            self.saveToCloudkit()
-//        }
-//    }
+    public override func didSave() {
+
+        
+        
+        
+    }
     
     
     

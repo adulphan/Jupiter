@@ -13,45 +13,14 @@ extension CoreDataForAdmin {
     
     func clearCoreData() {
         
-        do {
-            let result = try CoreData.context.fetch(Company.fetchRequest())
-            for object in result {
-                CoreData.context.delete(object as! NSManagedObject)
-            }
-        } catch {
-            print("Deleting Company failed")
-        }
+        let entityName = ["Company", "Account", "Transaction", "Month"]
         
-        do {
-            let result = try CoreData.context.fetch(Account.fetchRequest())
-            for object in result {
-                CoreData.context.delete(object as! NSManagedObject)
-            }
-        } catch {
-            print("Deleting Account failed")
+        for name in entityName {
+            let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: name)
+            let request = NSBatchDeleteRequest(fetchRequest: fetch)
+            do { try CoreData.context.execute(request)
+            } catch  { print("Deleting \(name) failed") }
         }
-        
-        do {
-            let result = try CoreData.context.fetch(Transaction.fetchRequest())
-            for object in result {
-                CoreData.context.delete(object as! NSManagedObject)
-            }
-        } catch {
-            print("Deleting Transaction failed")
-        }
-        
-        do {
-            let result = try CoreData.context.fetch(Month.fetchRequest())
-            for object in result {
-                CoreData.context.delete(object as! NSManagedObject)
-            }
-        } catch {
-            print("Deleting Month failed")
-        }
-        
-        CoreData.isClearingData = true
-        saveCoreData()
-        CoreData.isClearingData = false
         
     }
     

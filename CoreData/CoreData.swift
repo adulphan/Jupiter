@@ -16,8 +16,7 @@ class CoreData {
     static var allCompanyInCoreData: [Company] = []
     static var allAccountsInWorkingCompany: [Account] = []
     static var allAccountsInCoreDate: [Account] = []
-    
-    static var isClearingData: Bool = false
+
 }
 
 protocol AccessCoreData {
