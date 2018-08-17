@@ -19,8 +19,9 @@ class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit, Simulat
         
         UserDefaults.standard.workingCompanyID = nil
         simulateData()
+     
         
-        
+        printAllMonth()
         printOutAllCoreData()
     }
 

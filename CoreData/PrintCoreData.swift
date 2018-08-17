@@ -10,6 +10,23 @@ import Foundation
 import CoreData
 
 extension AccessCoreData {
+    
+    
+    func printAllMonth() {
+        
+        do {
+            let result: [Month] = try CoreData.context.fetch(Month.fetchRequest())
+            print("----------------------------------------")
+            for object in result  {
+                print("\(object.account?.name ?? "no name") : \(object.endDate?.description ?? "no date") : \(object.flows) : \(object.balance)")
+                
+            }
+        } catch {
+            print("Printing Month failed")
+        }
+        
+        
+    }
 
     func printOutAllCoreData() {
         
@@ -21,7 +38,7 @@ extension AccessCoreData {
                 
             }
         } catch {
-            print("Printing CompanyData failed")
+            print("Printing Company failed")
         }
         
         do {

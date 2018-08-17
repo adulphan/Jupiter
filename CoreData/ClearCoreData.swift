@@ -40,7 +40,18 @@ extension CoreDataForAdmin {
             print("Deleting Transaction failed")
         }
         
+        do {
+            let result = try CoreData.context.fetch(Month.fetchRequest())
+            for object in result {
+                CoreData.context.delete(object as! NSManagedObject)
+            }
+        } catch {
+            print("Deleting Month failed")
+        }
+        
+        CoreData.isClearingData = true
         saveCoreData()
+        CoreData.isClearingData = false
         
     }
     

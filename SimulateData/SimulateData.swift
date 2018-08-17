@@ -48,22 +48,20 @@ extension SimulateData {
         let transaction = Transaction(context: CoreData.context)
         transaction.name = "Pay some bills"
         transaction.recordID = UUID().uuidString
-        transaction.accounts = [account, account2, account]
+        transaction.accounts = [account, account2]
         transaction.date = Date()
-        transaction.flows = [234,500,700]
+        transaction.flows = [234,500]
+        
+        let transaction2 = Transaction(context: CoreData.context)
+        transaction2.name = "Pay some bills 222222"
+        transaction2.recordID = UUID().uuidString
+        transaction2.accounts = [account, account2]
+        transaction2.date = Date()
+        transaction2.flows = [1000,1000]
 
-        saveCoreData()
+        saveCoreData()        
+
         
-        
-        transaction.name = "Another bill"
-        transaction.flows = [1,1,1]
-        
-        saveCoreData()
-        
-        transaction.name = "Another bill Twice!!"
-        transaction.accounts = [account]
-        transaction.flows = [1,100,1]
-        saveCoreData()
     }
     
 }

@@ -17,7 +17,9 @@
 		537B03F0211FC1A200953516 /* AccountObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03EF211FC1A200953516 /* AccountObserver.swift */; };
 		5383BAD821265A9000D10A11 /* TransactionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BAD721265A9000D10A11 /* TransactionExtensions.swift */; };
 		5383BADB21265E8800D10A11 /* TransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BADA21265E8800D10A11 /* TransactionObserver.swift */; };
-		5383BADE2126737A00D10A11 /* TransactionOldValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BADD2126737A00D10A11 /* TransactionOldValue.swift */; };
+		5383BADE2126737A00D10A11 /* TransactionUpdateFlows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BADD2126737A00D10A11 /* TransactionUpdateFlows.swift */; };
+		5383BAE22126995700D10A11 /* TransactionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BAE12126995700D10A11 /* TransactionProtocol.swift */; };
+		5383BAE421269A4D00D10A11 /* AccountExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BAE321269A4D00D10A11 /* AccountExtensions.swift */; };
 		539DFC51211FFD1600B5C740 /* SimulateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC50211FFD1600B5C740 /* SimulateData.swift */; };
 		539DFC582120451400B5C740 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC572120451400B5C740 /* CoreData.swift */; };
 		539DFC5C2120623A00B5C740 /* Cloudkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC5B2120623A00B5C740 /* Cloudkit.swift */; };
@@ -61,8 +63,11 @@
 		5383BAD921265B5600D10A11 /* Jupiter 1.02.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.02.xcdatamodel"; sourceTree = "<group>"; };
 		5383BADA21265E8800D10A11 /* TransactionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionObserver.swift; sourceTree = "<group>"; };
 		5383BADC21265EFD00D10A11 /* Jupiter 1.03.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.03.xcdatamodel"; sourceTree = "<group>"; };
-		5383BADD2126737A00D10A11 /* TransactionOldValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionOldValue.swift; sourceTree = "<group>"; };
+		5383BADD2126737A00D10A11 /* TransactionUpdateFlows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionUpdateFlows.swift; sourceTree = "<group>"; };
 		5383BADF2126741800D10A11 /* Jupiter 1.04.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.04.xcdatamodel"; sourceTree = "<group>"; };
+		5383BAE02126979A00D10A11 /* Jupiter 1.05.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.05.xcdatamodel"; sourceTree = "<group>"; };
+		5383BAE12126995700D10A11 /* TransactionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionProtocol.swift; sourceTree = "<group>"; };
+		5383BAE321269A4D00D10A11 /* AccountExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountExtensions.swift; sourceTree = "<group>"; };
 		539DFC50211FFD1600B5C740 /* SimulateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateData.swift; sourceTree = "<group>"; };
 		539DFC572120451400B5C740 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		539DFC5B2120623A00B5C740 /* Cloudkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloudkit.swift; sourceTree = "<group>"; };
@@ -157,9 +162,10 @@
 		5383BAD621265A7800D10A11 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				5383BAE12126995700D10A11 /* TransactionProtocol.swift */,
 				5383BAD721265A9000D10A11 /* TransactionExtensions.swift */,
 				5383BADA21265E8800D10A11 /* TransactionObserver.swift */,
-				5383BADD2126737A00D10A11 /* TransactionOldValue.swift */,
+				5383BADD2126737A00D10A11 /* TransactionUpdateFlows.swift */,
 			);
 			name = Transaction;
 			path = Jupiter/Transaction;
@@ -239,6 +245,7 @@
 				537B03EF211FC1A200953516 /* AccountObserver.swift */,
 				539DFC7921216A1100B5C740 /* AccountCloudkit.swift */,
 				53CC44C421245A4A0039CD4E /* AccountReader.swift */,
+				5383BAE321269A4D00D10A11 /* AccountExtensions.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -335,8 +342,10 @@
 				539DFC682121291300B5C740 /* CKLocalCache.swift in Sources */,
 				539DFC78212162B500B5C740 /* WorkingCompany.swift in Sources */,
 				53CC44CA21245E710039CD4E /* CompanyReader.swift in Sources */,
+				5383BAE421269A4D00D10A11 /* AccountExtensions.swift in Sources */,
 				539DFC5C2120623A00B5C740 /* Cloudkit.swift in Sources */,
-				5383BADE2126737A00D10A11 /* TransactionOldValue.swift in Sources */,
+				5383BADE2126737A00D10A11 /* TransactionUpdateFlows.swift in Sources */,
+				5383BAE22126995700D10A11 /* TransactionProtocol.swift in Sources */,
 				53CC44CE212462C70039CD4E /* Date.swift in Sources */,
 				53CC44D2212471FA0039CD4E /* createFinancialData.swift in Sources */,
 				539DFC582120451400B5C740 /* CoreData.swift in Sources */,
@@ -560,6 +569,7 @@
 		537B03D9211F19C700953516 /* Jupiter.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				5383BAE02126979A00D10A11 /* Jupiter 1.05.xcdatamodel */,
 				5383BADF2126741800D10A11 /* Jupiter 1.04.xcdatamodel */,
 				5383BADC21265EFD00D10A11 /* Jupiter 1.03.xcdatamodel */,
 				5383BAD921265B5600D10A11 /* Jupiter 1.02.xcdatamodel */,
