@@ -16,63 +16,33 @@ extension Transaction {
         guard accounts.count != 0 else { return }
         let direction:Int64 = isDeleted ? -1:1
         let flowArray = transaction.flows.map{$0*direction}
-        let date = transaction.date!
+        let monthEnd = (transaction.date)!.monthEnd.standardized
 
         for i in 0...accounts.count-1 {
             
             let account = accounts[i]
             let flow = flowArray[i]
-            let monthEnd = date.monthEnd.standardized
-            
             let monthArray = account.months
-            let withSameMonth = monthArray.filter { (month) -> Bool in
+            let index = monthArray.index(where: {$0.endDate! <= monthEnd}) ?? monthArray.count
+            let isExisted = monthArray.contains { (month) -> Bool in
                 month.endDate == monthEnd
             }
             
-//            let index = monthArray.index(where: {$0.endDate! <= monthEnd}) ?? monthArray.count
-//
-//            
-//            
-//            
-//            
-//            
-//            
-//            
-//            
-            
-            
-            
-            
-            
-            if let thisMonth = withSameMonth.first {
-                
-                thisMonth.flows += flow
-                thisMonth.balance += flow
-                let index = monthArray.index(of: thisMonth)!
+            if isExisted {
+                monthArray[index].flows += flow
+                monthArray[index].balance += flow
                 updateBalanceAbove(index: index, amount: flow, array: account.months)
                 
             } else {
-                
                 let newMonth = Month(context: CoreData.context)
                 newMonth.endDate = monthEnd
                 newMonth.flows = flow
+                let previousBalance = index == monthArray.count ? account.beginBalance : monthArray[index].balance
+                newMonth.balance = previousBalance + flow
+                account.months.insert(newMonth, at: index)
                 
-                if let index = monthArray.index(where: {$0.endDate! < monthEnd}) {
-                    newMonth.balance = monthArray[index].balance + flow
-                    account.months.insert(newMonth, at: index)
-                    updateBalanceAbove(index: index, amount: flow, array: account.months)
-                    
-                } else {
-                    newMonth.balance = account.beginBalance + flow
-                    account.months.append(newMonth)
-                    for month in account.months {
-                        if month != newMonth {
-                            month.balance += flow
-                        }
-                    }
-                    
-                }
             }
+
         }
         
     }
