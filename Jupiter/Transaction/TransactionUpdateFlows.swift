@@ -13,10 +13,11 @@ extension Transaction {
     func updateBalanceWith(transaction: CachedTransactionValues, isDeleted: Bool) {
         
         let accounts = transaction.accounts
+        guard accounts.count != 0 else { return }
         let direction:Int64 = isDeleted ? -1:1
         let flowArray = transaction.flows.map{$0*direction}
         let date = transaction.date!
-        
+
         for i in 0...accounts.count-1 {
             
             let account = accounts[i]
@@ -28,17 +29,29 @@ extension Transaction {
                 month.endDate == monthEnd
             }
             
+//            let index = monthArray.index(where: {$0.endDate! <= monthEnd}) ?? monthArray.count
+//
+//            
+//            
+//            
+//            
+//            
+//            
+//            
+//            
+            
+            
+            
+            
+            
             if let thisMonth = withSameMonth.first {
+                
                 thisMonth.flows += flow
                 thisMonth.balance += flow
                 let index = monthArray.index(of: thisMonth)!
-                if index != 0 {
-                    for i in 0...index-1 {
-                        (account.months[i]).balance += flow
-                    }
-                }
-            }
-            else {
+                updateBalanceAbove(index: index, amount: flow, array: account.months)
+                
+            } else {
                 
                 let newMonth = Month(context: CoreData.context)
                 newMonth.endDate = monthEnd
@@ -47,11 +60,7 @@ extension Transaction {
                 if let index = monthArray.index(where: {$0.endDate! < monthEnd}) {
                     newMonth.balance = monthArray[index].balance + flow
                     account.months.insert(newMonth, at: index)
-
-                    if index != 0 {
-                        for i in 0...index-1 {
-                            account.months[i].balance += flow}
-                    }
+                    updateBalanceAbove(index: index, amount: flow, array: account.months)
                     
                 } else {
                     newMonth.balance = account.beginBalance + flow
@@ -66,6 +75,15 @@ extension Transaction {
             }
         }
         
+    }
+
+    
+    private func updateBalanceAbove(index: Int, amount: Int64, array: [Month]) {
+        if index != 0 {
+            for i in 0...index-1 {
+                array[i].balance += amount
+            }
+        }
     }
 
 }

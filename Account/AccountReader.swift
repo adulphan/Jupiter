@@ -23,12 +23,6 @@ protocol AccountReader: SystemField {
 }
 
 
-protocol SystemField {
-    var name: String? { get }
-    var modifiedLocal: Date? { get }
-    var recordID: String? { get }
-    
-}
 
 
 

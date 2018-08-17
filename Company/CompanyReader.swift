@@ -18,3 +18,11 @@ protocol CompanyReader: SystemField {
     var accounts: [Account] { get }
     
 }
+
+
+protocol SystemField {
+    var name: String? { get }
+    var modifiedLocal: Date? { get }
+    var recordID: String? { get }
+    
+}
