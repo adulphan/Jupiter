@@ -19,8 +19,25 @@ extension Int64 {
         let decimal: Decimal = Decimal(self)/100
         let absolute = abs(decimal)
         let amountString: String = formatter.string(from: absolute as NSNumber)!
-        
+
         return amountString
     }
     
 }
+
+extension Int {
+    
+
+
+}
+
+
+
+
+
+
+
+
+
+
+

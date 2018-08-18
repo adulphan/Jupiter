@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UINavigationController(rootViewController: controller)
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(coreDataDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(coreDataDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
 
         return true
     }

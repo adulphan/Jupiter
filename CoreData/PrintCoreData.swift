@@ -12,68 +12,66 @@ import CoreData
 extension AccessCoreData {
     
     
-    func printAllMonth() {
-        
+    func printMonthFor(account: Account) {
+        print("")
+        print("Monthly balance: \(account.name ?? "no account name")")
         do {
-            let result: [Month] = try CoreData.context.fetch(Month.fetchRequest())
-            print("----------------------------------------")
-            for object in result  {
-                print("\(object.account?.name ?? "no name") : \(object.endDate?.description ?? "no date") : \(object.flows) : \(object.balance)")
-                
+            let fetchRequest: NSFetchRequest<Month> = Month.fetchRequest()
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "endDate", ascending: false)]
+            fetchRequest.predicate = NSPredicate(format: "account == %@", account)
+            let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            for object in fetchedResults {
+                print("\(object.endDate?.description ?? "no date") flow: \(object.flows) balance: \(object.balance)")
             }
-        } catch {
-            print("Printing Month failed")
+            
         }
+        catch { print ("print object failed", error) }
         
         
     }
 
-    func printOutAllCoreData() {
-        
-        do {
-            let result: [Company] = try CoreData.context.fetch(Company.fetchRequest())
-            print("----------------------------------------")
-            for object in result  {
-                print("company: \(object.name ?? "no company name") : \(object.recordID ?? "no id")")
-                
-            }
-        } catch {
-            print("Printing Company failed")
+    func printOutCoreData() {
+        for type in CoreData.dataType.allValues {
+            print("")
+            printData(type: type)
         }
-        
+
+    }
+    
+    func printTransaction() {
+        print("")
         do {
-            let result: [Account] = try CoreData.context.fetch(Account.fetchRequest())
-            print("----------------------------------------")
-            for object in result {
-                print("account: \(object.name ?? "no account name") : \(object.recordID ?? "no id")")
-                
-                let attributes = object.entity.attributesByName
-                for (name, _) in  attributes {
-                    print("    ",name, "=", object.value(forKey: name) ?? "no value")
-                }
-   
+            let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            for object in fetchedResults {
+                print("\(object.date?.description ?? "no date") : \(object.name ?? "no name") :\(object.accounts.map{$0.name!}) : \(object.flows)")
             }
-        } catch {
-            print("Printing Account failed")
+            
         }
-        
-        do {
-            let result: [Transaction] = try CoreData.context.fetch(Transaction.fetchRequest())
-            print("----------------------------------------")
-            for object in result {
-                print("transaction: \(object.name ?? "no account name") : \(object.recordID ?? "no id")")
-                print("    ","accounts: \(object.accounts.map{$0.name!})")
-                
-                let attributes = object.entity.attributesByName
-                for (name, _) in  attributes {
-                    print("    ",name, "=", object.value(forKey: name) ?? "no value")
-                }
-                
-            }
-        } catch {
-            print("Printing Transaction failed")
-        }
+        catch { print ("print object failed", error) }
         
     }
+    
+    private func printData(type: CoreData.dataType) {
+        
+        do {
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: type.rawValue)
+            let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            for object in fetchedResults {
+
+                if let obj = object as? SystemField {
+                    print("\(type.rawValue) : \(obj.recordID ?? "no id") : \(obj.name ?? "no name")")
+                }
+            }
+            
+        }
+        catch { print ("print object failed", error) }
+        
+    }
+    
+    
+    
 
 }

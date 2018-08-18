@@ -16,6 +16,15 @@ class CoreData {
     static var allCompanyInCoreData: [Company] = []
     static var allAccountsInWorkingCompany: [Account] = []
     static var allAccountsInCoreDate: [Account] = []
+    
+    enum dataType : String {
+        case company = "Company"
+        case account = "Account"
+        case transaction = "Transaction"
+        
+        static let allValues = [company, account, transaction]
+    }
+
 
 }
 

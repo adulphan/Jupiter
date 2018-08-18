@@ -11,47 +11,46 @@ import CoreData
 
 extension AccessCoreData {
     
-    var workingCompany: Company? {
-        get{
-            guard let companyID = UserDefaults.standard.workingCompanyID else { return nil }
-            guard let companyData = ExistingCompany(recordID: companyID) else { return nil }
-            return companyData
-        }
+    func ExistingCompany(recordID: String) -> Company?  {
+        return ExistingObject(recordID: recordID, objectName: nil, type: CoreData.dataType.company) as? Company
+        
     }
     
     func ExistingCompany(name: String) -> Company? {
-        let filtered = CoreData.allCompanyInCoreData.filter { (data) -> Bool in
-            data.name == name
-        }
-        if let company = filtered.first {
-            return company
-        }
-        //print("No company with name: \(name)")
-        return nil
-    }
-    
-    func ExistingCompany(recordID: String) -> Company? {
-        let filtered = CoreData.allCompanyInCoreData.filter { (data) -> Bool in
-            data.recordID == recordID
-        }
-        if let company = filtered.first {
-            return company
-        }
-        //print("No company with recordID: \(recordID)")
-        return nil
+        return ExistingObject(recordID: nil, objectName: name, type: CoreData.dataType.company) as? Company
     }
     
     func ExistingAccount(recordID: String) -> Account? {
-        reloadAccountData()
-        let filtered = CoreData.allAccountsInCoreDate.filter { (data) -> Bool in
-            data.recordID == recordID
+        return ExistingObject(recordID: recordID, objectName: nil, type: CoreData.dataType.account) as? Account
+        
+    }
+    
+    func ExistingAccount(name: String) -> Account? {
+        return ExistingObject(recordID: nil, objectName: name, type: CoreData.dataType.account) as? Account
+    }
+
+    private func ExistingObject(recordID: String?, objectName: String?, type: CoreData.dataType) -> Any? {
+        do {
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: type.rawValue)
+            if let id = recordID {
+                fetchRequest.predicate = NSPredicate(format: "recordID == %@", id)
+            }
+            if let name = objectName {
+                fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+            }
+            
+            fetchRequest.fetchLimit = 1
+            let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            if let object = fetchedResults.first {
+                return object
+            }
         }
-        if let account = filtered.first {
-            return account
-        }
-        //print("No account with recordID: \(recordID)")
+        catch { print ("fetch existing object failed", error) }
         return nil
     }
+    
+    
 
 }
 

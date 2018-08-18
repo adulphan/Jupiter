@@ -11,6 +11,8 @@ import Foundation
 class Application {
     
     static var connectedToCloudKit: Bool = false
+
+    
     
 }
 

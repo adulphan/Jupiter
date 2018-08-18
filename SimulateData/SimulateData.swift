@@ -10,61 +10,41 @@ import Foundation
 import CoreData
 import UIKit
 
-protocol SimulateData: AccessCoreData {
+class SimulateData: AccessCoreData {
 
+    static let shared = SimulateData()
 }
 
 extension SimulateData {
     
     func simulateData() {
-
-        reloadCompanyData()
-        if workingCompany == nil {
-            let company = Company(context: CoreData.context)
-            company.name = "Apple Inc."
-            company.recordID = UUID().uuidString
-            company.modifiedLocal = Date()
-            
-            setAsWorkingCompany(companyData: company)
-            saveCoreData()
-            reloadCompanyData()
-        }
-
-        guard let account = newAccountInWorkingCompany() else { return }
-        account.name = "Wallet"
-        account.recordID = UUID().uuidString
-        account.type = 2
-        account.modifiedLocal = Date()
         
-        guard let account2 = newAccountInWorkingCompany() else { return }
-        account2.name = "Gorcery"
-        account2.recordID = UUID().uuidString
-        account2.type = 2
-        account2.modifiedLocal = Date()
+
+        simulateAccounts()
+        simulateTransaciton()
+        
+        printTransaction()
         
         saveCoreData()
         
-        let transaction = Transaction(context: CoreData.context)
-        transaction.name = "Pay some bills"
-        transaction.recordID = UUID().uuidString
-        transaction.accounts = [account, account2]
-        transaction.date = Date()
-        transaction.flows = [234,500]
+        let wallet = ExistingAccount(name: "Wallet")!
+        let grocery = ExistingAccount(name: "Grocery")!
+        printMonthFor(account: wallet)
+        printMonthFor(account: grocery)
         
-        let transaction2 = Transaction(context: CoreData.context)
-        transaction2.name = "Pay some bills 222222"
-        transaction2.recordID = UUID().uuidString
-        transaction2.accounts = [account, account2]
-        transaction2.date = Date()
-        transaction2.flows = [1000,1000]
-
-        saveCoreData()
+    }
+    
+    
+    func simulateTransaciton() {
         
-        CoreData.context.delete(transaction)
-        CoreData.context.delete(transaction2)
+        let wallet = ExistingAccount(name: "Wallet")!
+        let grocery = ExistingAccount(name: "Grocery")!
         
-        saveCoreData()
-        
+        createPeriodicTransactions(from: [wallet], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [510,660,1520,245,2655,345,462], note: nil, url: nil, frequency: .month, multiple: 1, count: 12, startDate: 0, flexibleDate:0)
+    }
+    
+    func randomInt(min: Int, max: Int) -> Int {
+        return min + Int(arc4random_uniform(UInt32(max - min + 1)))
     }
     
 }

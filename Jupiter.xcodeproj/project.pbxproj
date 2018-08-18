@@ -23,6 +23,8 @@
 		5383BAE72126D9FD00D10A11 /* MonthExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BAE62126D9FD00D10A11 /* MonthExtensions.swift */; };
 		5383BAE92126F08B00D10A11 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BAE82126F08B00D10A11 /* String.swift */; };
 		5383BAEB2126F20300D10A11 /* TransactionReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BAEA2126F20300D10A11 /* TransactionReader.swift */; };
+		5383BAED21279BE800D10A11 /* PeriodicTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BAEC21279BE800D10A11 /* PeriodicTransactions.swift */; };
+		5383BAEF21279EA500D10A11 /* SimulateAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BAEE21279EA500D10A11 /* SimulateAccounts.swift */; };
 		539DFC51211FFD1600B5C740 /* SimulateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC50211FFD1600B5C740 /* SimulateData.swift */; };
 		539DFC582120451400B5C740 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC572120451400B5C740 /* CoreData.swift */; };
 		539DFC5C2120623A00B5C740 /* Cloudkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC5B2120623A00B5C740 /* Cloudkit.swift */; };
@@ -74,6 +76,8 @@
 		5383BAE62126D9FD00D10A11 /* MonthExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthExtensions.swift; sourceTree = "<group>"; };
 		5383BAE82126F08B00D10A11 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		5383BAEA2126F20300D10A11 /* TransactionReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReader.swift; sourceTree = "<group>"; };
+		5383BAEC21279BE800D10A11 /* PeriodicTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicTransactions.swift; sourceTree = "<group>"; };
+		5383BAEE21279EA500D10A11 /* SimulateAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulateAccounts.swift; sourceTree = "<group>"; };
 		539DFC50211FFD1600B5C740 /* SimulateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateData.swift; sourceTree = "<group>"; };
 		539DFC572120451400B5C740 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		539DFC5B2120623A00B5C740 /* Cloudkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloudkit.swift; sourceTree = "<group>"; };
@@ -120,12 +124,12 @@
 				539DFC66212128DD00B5C740 /* UserDefaults */,
 				539DFC632121270800B5C740 /* Application */,
 				539DFC5A2120622800B5C740 /* Cloudkit */,
-				539DFC592120456300B5C740 /* SimulateData */,
 				539DFC56212044FB00B5C740 /* CoreData */,
 				537B03EE211FC18500953516 /* Company */,
 				53CC44C821245D9C0039CD4E /* Account */,
 				5383BAD621265A7800D10A11 /* Transaction */,
 				5383BAE52126D9DD00D10A11 /* Month */,
+				539DFC592120456300B5C740 /* SimulateData */,
 				537B03D1211F19C700953516 /* Jupiter */,
 				537B03D0211F19C700953516 /* Products */,
 				539DFC602120690700B5C740 /* Frameworks */,
@@ -205,6 +209,8 @@
 			isa = PBXGroup;
 			children = (
 				539DFC50211FFD1600B5C740 /* SimulateData.swift */,
+				5383BAEE21279EA500D10A11 /* SimulateAccounts.swift */,
+				5383BAEC21279BE800D10A11 /* PeriodicTransactions.swift */,
 			);
 			path = SimulateData;
 			sourceTree = "<group>";
@@ -371,10 +377,12 @@
 				5383BAD821265A9000D10A11 /* TransactionExtensions.swift in Sources */,
 				5383BAE72126D9FD00D10A11 /* MonthExtensions.swift in Sources */,
 				539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */,
+				5383BAED21279BE800D10A11 /* PeriodicTransactions.swift in Sources */,
 				539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */,
 				5383BAEB2126F20300D10A11 /* TransactionReader.swift in Sources */,
 				539DFC7621215BAA00B5C740 /* LoadCoreData.swift in Sources */,
 				5383BADB21265E8800D10A11 /* TransactionObserver.swift in Sources */,
+				5383BAEF21279EA500D10A11 /* SimulateAccounts.swift in Sources */,
 				539DFC652121271800B5C740 /* Application.swift in Sources */,
 				537B03D5211F19C700953516 /* ViewController.swift in Sources */,
 				53CC44D0212464A50039CD4E /* Number.swift in Sources */,

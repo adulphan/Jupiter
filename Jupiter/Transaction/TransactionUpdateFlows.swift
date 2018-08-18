@@ -40,7 +40,7 @@ extension Transaction {
                 let previousBalance = index == monthArray.count ? account.beginBalance : monthArray[index].balance
                 newMonth.balance = previousBalance + flow
                 account.months.insert(newMonth, at: index)
-                
+                updateBalanceAbove(index: index, amount: flow, array: account.months)
             }
 
         }

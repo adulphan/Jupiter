@@ -9,20 +9,17 @@
 import UIKit
 
 
-class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit, SimulateData  {
-    
+class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit {
+    var accountsDictionary: [String : Account] = [:]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
         
         clearCoreData()
-        
         UserDefaults.standard.workingCompanyID = nil
-        simulateData()
-     
+        SimulateData.shared.simulateData()
         
-        printAllMonth()
-        printOutAllCoreData()
     }
 
     override func didReceiveMemoryWarning() {
