@@ -16,7 +16,7 @@ extension Transaction {
         guard accounts.count != 0 else { return }
         let direction:Int64 = isDeleted ? -1:1
         let flowArray = transaction.flows.map{$0*direction}
-        let monthEnd = (transaction.date)!.monthEnd.standardized
+        let monthEnd = getMonthEndfrom(date: date!)
 
         for i in 0...accounts.count-1 {
             
@@ -46,7 +46,6 @@ extension Transaction {
         }
         
     }
-
     
     private func updateBalanceAbove(index: Int, amount: Int64, array: [Month]) {
         if index != 0 {
@@ -54,6 +53,16 @@ extension Transaction {
                 array[i].balance += amount
             }
         }
+    }
+    
+    private func getMonthEndfrom(date: Date) -> Date {
+        let calendar = Calendar.standard
+        let components = calendar.dateComponents([.year, .month], from: date)
+        let startOfMonth = calendar.date(from: components)!
+        let firstNextMonth = calendar.date(byAdding: .month, value: 1, to: startOfMonth)!
+        let endOfMonth = calendar.date(byAdding: .day, value: -1, to: firstNextMonth)!
+        return endOfMonth
+    
     }
 
 }

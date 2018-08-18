@@ -21,26 +21,45 @@ extension SimulateData {
         
 
         simulateAccounts()
-        simulateTransaciton()
-        
+        simulateSplitTransaction()
         printTransaction()
         
         saveCoreData()
         
-        let wallet = ExistingAccount(name: "Wallet")!
+        let bofa = ExistingAccount(name: "Bofa")!
         let grocery = ExistingAccount(name: "Grocery")!
-        printMonthFor(account: wallet)
+        printMonthFor(account: bofa)
         printMonthFor(account: grocery)
         
+        let victim = bofa.transactions[6]
+        CoreData.context.delete(victim)
+        
+        
+        saveCoreData()
+        
+        printMonthFor(account: bofa)
+        printMonthFor(account: grocery)
     }
-    
     
     func simulateTransaciton() {
         
-        let wallet = ExistingAccount(name: "Wallet")!
+        //let wallet = ExistingAccount(name: "Wallet")!
         let grocery = ExistingAccount(name: "Grocery")!
+        let bofa = ExistingAccount(name: "Bofa")!
         
-        createPeriodicTransactions(from: [wallet], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [510,660,1520,245,2655,345,462], note: nil, url: nil, frequency: .month, multiple: 1, count: 12, startDate: 0, flexibleDate:0)
+        createPeriodicTransactions(from: [bofa], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [510,660,1520,245,2655,345,462], note: nil, url: nil, frequency: .month, multiple: 1, count: 12, startDate: 0, flexibleDate:0)
+
+        
+    }
+    
+    private func simulateSplitTransaction() {
+        
+        //let wallet = ExistingAccount(name: "Wallet")!
+        let grocery = ExistingAccount(name: "Grocery")!
+        let bofa = ExistingAccount(name: "Bofa")!
+        
+        createPeriodicSplitTransactions(from: [bofa], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [1000], flowSTD: [-1,1], note: nil, url: nil, frequency: .month, multiple: 1, count: 12, startDate: 0, flexibleDate: 0)
+    
     }
     
     func randomInt(min: Int, max: Int) -> Int {

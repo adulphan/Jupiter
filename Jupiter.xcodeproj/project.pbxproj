@@ -49,6 +49,9 @@
 		53CC44CE212462C70039CD4E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44CD212462C70039CD4E /* Date.swift */; };
 		53CC44D0212464A50039CD4E /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44CF212464A50039CD4E /* Number.swift */; };
 		53CC44D2212471FA0039CD4E /* createFinancialData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44D1212471FA0039CD4E /* createFinancialData.swift */; };
+		53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2D72127D70D003DDB84 /* SplitTransactions.swift */; };
+		53FBE2DA21281529003DDB84 /* PrepareForSimulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */; };
+		53FBE2DE212817E6003DDB84 /* AccessFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2DD212817E6003DDB84 /* AccessFiles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +106,9 @@
 		53CC44CD212462C70039CD4E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		53CC44CF212464A50039CD4E /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		53CC44D1212471FA0039CD4E /* createFinancialData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createFinancialData.swift; sourceTree = "<group>"; };
+		53FBE2D72127D70D003DDB84 /* SplitTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitTransactions.swift; sourceTree = "<group>"; };
+		53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareForSimulation.swift; sourceTree = "<group>"; };
+		53FBE2DD212817E6003DDB84 /* AccessFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessFiles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,8 +215,10 @@
 			isa = PBXGroup;
 			children = (
 				539DFC50211FFD1600B5C740 /* SimulateData.swift */,
+				53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */,
 				5383BAEE21279EA500D10A11 /* SimulateAccounts.swift */,
 				5383BAEC21279BE800D10A11 /* PeriodicTransactions.swift */,
+				53FBE2D72127D70D003DDB84 /* SplitTransactions.swift */,
 			);
 			path = SimulateData;
 			sourceTree = "<group>";
@@ -237,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				539DFC642121271800B5C740 /* Application.swift */,
+				53FBE2DD212817E6003DDB84 /* AccessFiles.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -358,6 +367,7 @@
 				539DFC8021219F4900B5C740 /* FetchChanges.swift in Sources */,
 				539DFC7E21216EC200B5C740 /* CompanyCloudKit.swift in Sources */,
 				539DFC51211FFD1600B5C740 /* SimulateData.swift in Sources */,
+				53FBE2DE212817E6003DDB84 /* AccessFiles.swift in Sources */,
 				537B03DB211F19C700953516 /* Jupiter.xcdatamodeld in Sources */,
 				53CC44CC212460640039CD4E /* Calendar.swift in Sources */,
 				537B03F0211FC1A200953516 /* AccountObserver.swift in Sources */,
@@ -371,6 +381,7 @@
 				5383BAE22126995700D10A11 /* TransactionProtocol.swift in Sources */,
 				53CC44CE212462C70039CD4E /* Date.swift in Sources */,
 				53CC44D2212471FA0039CD4E /* createFinancialData.swift in Sources */,
+				53FBE2DA21281529003DDB84 /* PrepareForSimulation.swift in Sources */,
 				539DFC582120451400B5C740 /* CoreData.swift in Sources */,
 				533CE78D2122E4DA00762B7D /* ClearCoreData.swift in Sources */,
 				53A052492123F1B60064222F /* DataToCKAsset.swift in Sources */,
@@ -382,6 +393,7 @@
 				5383BAEB2126F20300D10A11 /* TransactionReader.swift in Sources */,
 				539DFC7621215BAA00B5C740 /* LoadCoreData.swift in Sources */,
 				5383BADB21265E8800D10A11 /* TransactionObserver.swift in Sources */,
+				53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */,
 				5383BAEF21279EA500D10A11 /* SimulateAccounts.swift in Sources */,
 				539DFC652121271800B5C740 /* Application.swift in Sources */,
 				537B03D5211F19C700953516 /* ViewController.swift in Sources */,

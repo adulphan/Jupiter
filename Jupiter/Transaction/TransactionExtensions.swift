@@ -29,8 +29,6 @@ extension Transaction  {
         }
         
     }
-    
-    
 }
 
 

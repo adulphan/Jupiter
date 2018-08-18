@@ -10,4 +10,14 @@ import Foundation
 
 extension Month {
 
+    public override func willSave() {
+        super.willSave()
+        validateDate()
+    }
+
+    private func validateDate() {
+        if endDate != endDate?.standardized {
+            endDate = endDate?.standardized
+        }
+    }
 }

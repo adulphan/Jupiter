@@ -23,62 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let controller = ViewController()
         window?.rootViewController = UINavigationController(rootViewController: controller)
         
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(coreDataDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
+
 
         return true
     }
     
-    
-    @objc func coreDataDidSave(_ notification: Notification) {
-        
-        if let insertedObjects = notification.userInfo?[NSInsertedObjectsKey] as? Set<NSManagedObject>, !insertedObjects.isEmpty {
-            print("InsertedObjects:")
-            
-            for object in insertedObjects {
-                if let company = object as? Company {
-                    print(" company: \(company.recordID ?? "no id")")
-                } else if let account = object as? Account {
-                    print(" account: \(account.recordID ?? "no id")")
-                } else  if let transaction = object as? Transaction {
-                    print(" transaction: \(transaction.recordID ?? "no id")")
-                }
-            }
-
-        }
-        
-        if let updatedObjects = notification.userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject>, !updatedObjects.isEmpty {
-            print("UpdatedObjects:")
-            
-            for object in updatedObjects {
-                if let company = object as? Company {
-                    print(" company: \(company.recordID ?? "no id")")
-                } else if let account = object as? Account {
-                    print(" account: \(account.recordID ?? "no id")")
-                } else  if let transaction = object as? Transaction {
-                    print(" transaction: \(transaction.recordID ?? "no id")")
-                }
-            }
-            
-            
-            
-        }
-        
-        if let deletedObjects = notification.userInfo?[NSDeletedObjectsKey] as? Set<NSManagedObject>, !deletedObjects.isEmpty {
-            print("DeletedObjects:")
-            
-            for object in deletedObjects {
-                if let company = object as? Company {
-                    print(" company: \(company.recordID ?? "no id")")
-                } else if let account = object as? Account {
-                    print(" account: \(account.recordID ?? "no id")")
-                } else  if let transaction = object as? Transaction {
-                    print(" transaction: \(transaction.recordID ?? "no id")")
-                }
-            }
-        }
-        
-    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
