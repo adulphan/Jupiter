@@ -39,7 +39,7 @@
     <elements>
         <element name="Account" positionX="-63" positionY="-18" width="128" height="180"/>
         <element name="Company" positionX="-54" positionY="54" width="128" height="105"/>
-        <element name="Transaction" positionX="-63" positionY="54" width="128" height="210"/>
         <element name="Month" positionX="-45" positionY="117" width="128" height="105"/>
+        <element name="Transaction" positionX="-63" positionY="54" width="128" height="210"/>
     </elements>
 </model>

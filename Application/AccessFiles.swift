@@ -77,6 +77,7 @@ extension AccessFiles {
             let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys:nil)
             for path in fileURLs {
                 try FileManager.default.removeItem(at: path)
+                print("Delete file: \(path)")
             }
         } catch {
             print("Could not clear temp folder: \(error)")

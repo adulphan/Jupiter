@@ -13,32 +13,17 @@ import UIKit
 class SimulateData: AccessCoreData {
 
     static let shared = SimulateData()
+    static var dummyImageID: String?
+    
 }
 
 extension SimulateData {
     
     func simulateData() {
         
-
         simulateAccounts()
-        simulateSplitTransaction()
-        printTransaction()
-        
         saveCoreData()
         
-        let bofa = ExistingAccount(name: "Bofa")!
-        let grocery = ExistingAccount(name: "Grocery")!
-        printMonthFor(account: bofa)
-        printMonthFor(account: grocery)
-        
-        let victim = bofa.transactions[6]
-        CoreData.context.delete(victim)
-        
-        
-        saveCoreData()
-        
-        printMonthFor(account: bofa)
-        printMonthFor(account: grocery)
     }
     
     func simulateTransaciton() {

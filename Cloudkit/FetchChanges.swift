@@ -62,7 +62,7 @@ extension FetchCloudKit  {
         CloudKit.privateDatabase.add(operation)
     }
 
-    func pushNewFetchToCoreData() {
+    private func pushNewFetchToCoreData() {
         
         CloudKit.isFetchingFromCloudKit = true
         
@@ -103,7 +103,7 @@ extension FetchCloudKit  {
         
     }
     
-    func clearCachedRecords() {
+    private func clearCachedRecords() {
         
         CloudKit.companyRecordToSave = []
         CloudKit.accountRecordToSave = []

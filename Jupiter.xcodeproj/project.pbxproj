@@ -52,6 +52,9 @@
 		53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2D72127D70D003DDB84 /* SplitTransactions.swift */; };
 		53FBE2DA21281529003DDB84 /* PrepareForSimulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */; };
 		53FBE2DE212817E6003DDB84 /* AccessFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2DD212817E6003DDB84 /* AccessFiles.swift */; };
+		53FBE2E02128412E003DDB84 /* TransactionCloudkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2DF2128412E003DDB84 /* TransactionCloudkit.swift */; };
+		53FBE2E221284F49003DDB84 /* CloudkitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2E121284F49003DDB84 /* CloudkitExtensions.swift */; };
+		53FBE2E421285DB9003DDB84 /* CloudKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +112,9 @@
 		53FBE2D72127D70D003DDB84 /* SplitTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitTransactions.swift; sourceTree = "<group>"; };
 		53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareForSimulation.swift; sourceTree = "<group>"; };
 		53FBE2DD212817E6003DDB84 /* AccessFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessFiles.swift; sourceTree = "<group>"; };
+		53FBE2DF2128412E003DDB84 /* TransactionCloudkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCloudkit.swift; sourceTree = "<group>"; };
+		53FBE2E121284F49003DDB84 /* CloudkitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudkitExtensions.swift; sourceTree = "<group>"; };
+		53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +187,7 @@
 			children = (
 				5383BAE12126995700D10A11 /* TransactionProtocol.swift */,
 				5383BADA21265E8800D10A11 /* TransactionObserver.swift */,
+				53FBE2DF2128412E003DDB84 /* TransactionCloudkit.swift */,
 				5383BAEA2126F20300D10A11 /* TransactionReader.swift */,
 				5383BAD721265A9000D10A11 /* TransactionExtensions.swift */,
 				5383BADD2126737A00D10A11 /* TransactionUpdateFlows.swift */,
@@ -227,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				539DFC5B2120623A00B5C740 /* Cloudkit.swift */,
+				53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */,
 				539DFC7F21219F4900B5C740 /* FetchChanges.swift */,
 				53CC44D1212471FA0039CD4E /* createFinancialData.swift */,
 			);
@@ -267,6 +275,7 @@
 				53CC44CD212462C70039CD4E /* Date.swift */,
 				53CC44CF212464A50039CD4E /* Number.swift */,
 				5383BAE82126F08B00D10A11 /* String.swift */,
+				53FBE2E121284F49003DDB84 /* CloudkitExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -365,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				539DFC8021219F4900B5C740 /* FetchChanges.swift in Sources */,
+				53FBE2E221284F49003DDB84 /* CloudkitExtensions.swift in Sources */,
 				539DFC7E21216EC200B5C740 /* CompanyCloudKit.swift in Sources */,
 				539DFC51211FFD1600B5C740 /* SimulateData.swift in Sources */,
 				53FBE2DE212817E6003DDB84 /* AccessFiles.swift in Sources */,
@@ -375,6 +385,7 @@
 				539DFC682121291300B5C740 /* CKLocalCache.swift in Sources */,
 				539DFC78212162B500B5C740 /* WorkingCompany.swift in Sources */,
 				53CC44CA21245E710039CD4E /* CompanyReader.swift in Sources */,
+				53FBE2E02128412E003DDB84 /* TransactionCloudkit.swift in Sources */,
 				5383BAE421269A4D00D10A11 /* AccountExtensions.swift in Sources */,
 				539DFC5C2120623A00B5C740 /* Cloudkit.swift in Sources */,
 				5383BADE2126737A00D10A11 /* TransactionUpdateFlows.swift in Sources */,
@@ -396,6 +407,7 @@
 				53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */,
 				5383BAEF21279EA500D10A11 /* SimulateAccounts.swift in Sources */,
 				539DFC652121271800B5C740 /* Application.swift in Sources */,
+				53FBE2E421285DB9003DDB84 /* CloudKitProtocol.swift in Sources */,
 				537B03D5211F19C700953516 /* ViewController.swift in Sources */,
 				53CC44D0212464A50039CD4E /* Number.swift in Sources */,
 				539DFC5E2120689C00B5C740 /* CompanyObserver.swift in Sources */,

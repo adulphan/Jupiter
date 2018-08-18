@@ -18,7 +18,19 @@ class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit {
         
         clearCoreData()
         UserDefaults.standard.workingCompanyID = nil
+//        UserDefaults.standard.financialDataChangeToken = nil
+//
+//        fetchChangesFromCloudKit {
+//            print("finished")
+//            SimulateData.shared.printOutCoreData()
+//        }
+        
+//        let wallet = ExistingAccount(name: "Wallet")
+//        wallet?.beginBalance = 1000
+//        saveCoreData()
+        
         SimulateData.shared.simulateData()
+        
         
     }
 

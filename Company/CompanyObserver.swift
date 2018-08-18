@@ -10,13 +10,9 @@ import Foundation
 
 extension Company {
     
-    public override func didSave() {
-
-        
-        
-        
+    public override func willSave() {
+        super.willSave()
+        proceedToCloudKit()
     }
-    
-    
-    
+
 }
