@@ -17,8 +17,8 @@ class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit {
         view.backgroundColor = UIColor.orange
         
         clearCoreData()
-//        UserDefaults.standard.workingCompanyID = nil
-//        UserDefaults.standard.financialDataChangeToken = nil
+        UserDefaults.standard.workingCompanyID = nil
+        UserDefaults.standard.financialDataChangeToken = nil
 //
 //        fetchChangesFromCloudKit {
 //            print("finished")

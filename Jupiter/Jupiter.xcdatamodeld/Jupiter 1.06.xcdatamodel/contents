@@ -2,7 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Account" representedClassName=".Account" syncable="YES" codeGenerationType="class">
         <attribute name="beginBalance" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="endBalance" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="endBalance" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="modifiedLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,10 +26,10 @@
     <entity name="Transaction" representedClassName=".Transaction" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="flowsObject" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="isValidated" optional="YES" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="modifiedLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="oldValues" optional="YES" transient="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="photoID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbID" optional="YES" attributeType="String" syncable="YES"/>
@@ -39,7 +39,7 @@
     <elements>
         <element name="Account" positionX="-63" positionY="-18" width="128" height="180"/>
         <element name="Company" positionX="-54" positionY="54" width="128" height="105"/>
-        <element name="Month" positionX="-45" positionY="117" width="128" height="105"/>
         <element name="Transaction" positionX="-63" positionY="54" width="128" height="210"/>
+        <element name="Month" positionX="-45" positionY="117" width="128" height="105"/>
     </elements>
 </model>

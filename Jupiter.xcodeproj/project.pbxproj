@@ -42,6 +42,8 @@
 		539DFC7E21216EC200B5C740 /* CompanyCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7D21216EC200B5C740 /* CompanyCloudKit.swift */; };
 		539DFC8021219F4900B5C740 /* FetchChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7F21219F4900B5C740 /* FetchChanges.swift */; };
 		53A052492123F1B60064222F /* DataToCKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A052482123F1B60064222F /* DataToCKAsset.swift */; };
+		53C1D54D21290A1A0029EBD0 /* AccountValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1D54C21290A1A0029EBD0 /* AccountValidation.swift */; };
+		53C1D54F21290C130029EBD0 /* TransactionValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1D54E21290C130029EBD0 /* TransactionValidation.swift */; };
 		53CC44C521245A4A0039CD4E /* AccountReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44C421245A4A0039CD4E /* AccountReader.swift */; };
 		53CC44C721245C3B0039CD4E /* CompanyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44C621245C3B0039CD4E /* CompanyExtensions.swift */; };
 		53CC44CA21245E710039CD4E /* CompanyReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44C921245E710039CD4E /* CompanyReader.swift */; };
@@ -102,6 +104,9 @@
 		539DFC7D21216EC200B5C740 /* CompanyCloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCloudKit.swift; sourceTree = "<group>"; };
 		539DFC7F21219F4900B5C740 /* FetchChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchChanges.swift; sourceTree = "<group>"; };
 		53A052482123F1B60064222F /* DataToCKAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataToCKAsset.swift; sourceTree = "<group>"; };
+		53C1D54B212904760029EBD0 /* Jupiter 1.06.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.06.xcdatamodel"; sourceTree = "<group>"; };
+		53C1D54C21290A1A0029EBD0 /* AccountValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountValidation.swift; sourceTree = "<group>"; };
+		53C1D54E21290C130029EBD0 /* TransactionValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionValidation.swift; sourceTree = "<group>"; };
 		53CC44C421245A4A0039CD4E /* AccountReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountReader.swift; sourceTree = "<group>"; };
 		53CC44C621245C3B0039CD4E /* CompanyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyExtensions.swift; sourceTree = "<group>"; };
 		53CC44C921245E710039CD4E /* CompanyReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyReader.swift; sourceTree = "<group>"; };
@@ -186,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				5383BAE12126995700D10A11 /* TransactionProtocol.swift */,
+				53C1D54E21290C130029EBD0 /* TransactionValidation.swift */,
 				5383BADA21265E8800D10A11 /* TransactionObserver.swift */,
 				53FBE2DF2128412E003DDB84 /* TransactionCloudkit.swift */,
 				5383BAEA2126F20300D10A11 /* TransactionReader.swift */,
@@ -284,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				537B03EF211FC1A200953516 /* AccountObserver.swift */,
+				53C1D54C21290A1A0029EBD0 /* AccountValidation.swift */,
 				539DFC7921216A1100B5C740 /* AccountCloudkit.swift */,
 				53CC44C421245A4A0039CD4E /* AccountReader.swift */,
 				5383BAE321269A4D00D10A11 /* AccountExtensions.swift */,
@@ -413,6 +420,8 @@
 				539DFC5E2120689C00B5C740 /* CompanyObserver.swift in Sources */,
 				539DFC7A21216A1100B5C740 /* AccountCloudkit.swift in Sources */,
 				539DFC6A2121297C00B5C740 /* UserLocalCache.swift in Sources */,
+				53C1D54D21290A1A0029EBD0 /* AccountValidation.swift in Sources */,
+				53C1D54F21290C130029EBD0 /* TransactionValidation.swift in Sources */,
 				537B03D3211F19C700953516 /* AppDelegate.swift in Sources */,
 				5383BAE92126F08B00D10A11 /* String.swift in Sources */,
 				53CC44C521245A4A0039CD4E /* AccountReader.swift in Sources */,
@@ -621,6 +630,7 @@
 		537B03D9211F19C700953516 /* Jupiter.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				53C1D54B212904760029EBD0 /* Jupiter 1.06.xcdatamodel */,
 				5383BAE02126979A00D10A11 /* Jupiter 1.05.xcdatamodel */,
 				5383BADF2126741800D10A11 /* Jupiter 1.04.xcdatamodel */,
 				5383BADC21265EFD00D10A11 /* Jupiter 1.03.xcdatamodel */,

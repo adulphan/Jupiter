@@ -27,14 +27,14 @@ extension SimulateData {
         
         let cashName = ["wallet"]
         let cardName = ["amex","citi"]
-//        let bankName = ["bofa","barclays","chase","suntrust"]
-//        let expenseName = ["grocery","eatout","fuel","utility","medical","home","car","appliance","subscription","family","interest expense"]
-//        let incomeName = ["salary", "interest income"]
-//        let assetName = ["savings","land","stock"]
-//        let debtName = ["auto leasing","homeLoan","personalLoan"]
-//        let equityName = ["adjustmant","paidup"]
-        //let accountName = [cashName,cardName,bankName,expenseName,incomeName,assetName,debtName,equityName]
-        let accountName = [cashName,cardName]
+        let bankName = ["bofa","barclays","chase","suntrust"]
+        let expenseName = ["grocery","eatout","fuel","utility","medical","home","car","appliance","subscription","family","interest expense"]
+        let incomeName = ["salary", "interest income"]
+        let assetName = ["savings","land","stock"]
+        let debtName = ["auto leasing","homeLoan","personalLoan"]
+        let equityName = ["adjustmant","paidup"]
+        let accountName = [cashName,cardName,bankName,expenseName,incomeName,assetName,debtName,equityName]
+        //let accountName = [cashName,cardName]
         
         for array in accountName {
             let type = accountName.index(of: array)!

@@ -10,4 +10,9 @@ import Foundation
 import CloudKit
 
 
+extension CKRecord {
+    var identifier: UUID {
+        return self.recordID.recordName.uuid()!
+    }
 
+}

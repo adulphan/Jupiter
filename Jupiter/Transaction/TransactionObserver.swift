@@ -10,25 +10,13 @@ import Foundation
 
 extension Transaction {
     
-    public override func willSave() {
-        super.willSave()
-        cacheOldValue()
-    }
-    
-    
     public override func didSave() {
         super.didSave()
-
-        printOldValue()
-        oldValues = nil
         
+        isValidated = false
     }
     
-    
-    
-    
 
-    
 
 }
 

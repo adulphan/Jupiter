@@ -9,8 +9,23 @@
 import Foundation
 
 extension Transaction {
+    
+    func updateMonthFlows() {        
+        if isInserted {
+            updateBalanceWith(transaction: self, isDeleted: false)
+        }
+        
+        if isUpdated && isUpdateNeeded {
+            updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
+            updateBalanceWith(transaction: self, isDeleted: false)
+        }
+        
+        if isDeleted {
+            updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
+        }
+    }
 
-    func updateBalanceWith(transaction: CachedTransactionValues, isDeleted: Bool) {
+    private func updateBalanceWith(transaction: CachedTransactionValues, isDeleted: Bool) {
         
         let accounts = transaction.accounts
         guard accounts.count != 0 else { return }
@@ -44,6 +59,41 @@ extension Transaction {
             }
 
         }
+        
+    }
+    
+    private var isUpdateNeeded: Bool {
+        let old = cachedOldValues
+        let new = (self as CachedTransactionValues)
+        let isAccountChange = old.accounts != new.accounts
+        let isDateChange = old.date != new.date
+        let isFlowsChange = old.flows != new.flows
+        return isAccountChange || isDateChange || isFlowsChange
+        
+    }
+    
+    
+    private var cachedOldValues: cachedValue {
+        
+        let cachedOldValues = cachedValue()
+        if let date = committedValues(forKeys: ["date"]).first?.value as? Date {
+            cachedOldValues.date =  date
+        }
+        if let accounts = committedValues(forKeys: ["accountSet"]).first?.value as? NSOrderedSet {
+            let array = accounts.array as! [Account]
+            cachedOldValues.accounts =  array
+        }
+        if let flows = committedValues(forKeys: ["flowsObject"]).first?.value as? NSObject {
+            cachedOldValues.flows =  (flows as? [Int64])!
+        }
+        return cachedOldValues
+    }
+    
+    private class cachedValue: NSObject, CachedTransactionValues {
+        
+        var date: Date? = nil
+        var accounts: [Account] = []
+        var flows: [Int64] = []
         
     }
     

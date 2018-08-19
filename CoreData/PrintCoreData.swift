@@ -46,6 +46,7 @@ extension AccessCoreData {
             let fetchedResults = try CoreData.context.fetch(fetchRequest)
             for object in fetchedResults {
                 print("\(object.date?.description ?? "no date") : \(object.name ?? "no name") :\(object.accounts.map{$0.name!}) : \(object.flows)")
+            
             }
             
         }

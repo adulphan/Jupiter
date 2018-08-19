@@ -8,7 +8,9 @@
 
 import Foundation
 
-extension Account: AccountReader {}
+extension Account: AccountReader {
+    
+}
 
 protocol AccountReader: SystemField {
     

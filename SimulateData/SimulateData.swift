@@ -22,8 +22,31 @@ extension SimulateData {
     func simulateData() {
         
         simulateAccounts()
+        simulateSplitTransaction()
         saveCoreData()
-        simulateTransaciton()
+        printOutCoreData()
+        
+        let wallet = ExistingAccount(name: "Wallet")!
+        let grocery = ExistingAccount(name: "Grocery")!
+        let bofa = ExistingAccount(name: "Bofa")!
+        
+        printMonthFor(account: grocery)
+        printMonthFor(account: bofa)
+        printMonthFor(account: wallet)
+        
+        let victim = bofa.transactions[2]
+        victim.flows = [-1000,-1000, 2000]
+        
+        saveCoreData()
+        
+//        CoreData.context.delete(victim)
+        
+        print("--------------------")
+//        saveCoreData()
+        
+        printMonthFor(account: grocery)
+        printMonthFor(account: bofa)
+        printMonthFor(account: wallet)
         
     }
     
@@ -40,11 +63,11 @@ extension SimulateData {
     
     private func simulateSplitTransaction() {
         
-        //let wallet = ExistingAccount(name: "Wallet")!
+        let wallet = ExistingAccount(name: "Wallet")!
         let grocery = ExistingAccount(name: "Grocery")!
         let bofa = ExistingAccount(name: "Bofa")!
         
-        createPeriodicSplitTransactions(from: [bofa], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [1000], flowSTD: [-1,1], note: nil, url: nil, frequency: .month, multiple: 1, count: 12, startDate: 0, flexibleDate: 0)
+        createPeriodicSplitTransactions(from: [wallet,bofa], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [100], flowSTD: [-1,-1,2], note: nil, url: nil, frequency: .month, multiple: 1, count: 3, startDate: 0, flexibleDate: 0)
     
     }
     
