@@ -60,9 +60,7 @@ extension CloudKitProtocol {
                 if error != nil { print("Save error: ",error!) }
                 print("\(record?.recordID.recordName.description ?? "No ID") is updated")
             })
-            
         }
-        
     }
     
     private func deleteCloudKit() {
