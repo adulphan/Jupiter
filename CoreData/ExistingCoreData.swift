@@ -11,38 +11,41 @@ import CoreData
 
 extension AccessCoreData {
     
-    func ExistingCompany(recordID: String) -> Company?  {
-        return ExistingObject(recordID: recordID, objectName: nil, type: CoreData.dataType.company) as? Company
+    func ExistingCompany(recordName: String) -> Company?  {
+        return ExistingObject(recordName: recordName, objectName: nil, type: CoreData.dataType.company) as? Company
         
     }
     
     func ExistingCompany(name: String) -> Company? {
-        return ExistingObject(recordID: nil, objectName: name, type: CoreData.dataType.company) as? Company
+        return ExistingObject(recordName: nil, objectName: name, type: CoreData.dataType.company) as? Company
     }
     
-    func ExistingAccount(recordID: String) -> Account? {
-        return ExistingObject(recordID: recordID, objectName: nil, type: CoreData.dataType.account) as? Account
+    func ExistingAccount(recordName: String) -> Account? {
+        return ExistingObject(recordName: recordName, objectName: nil, type: CoreData.dataType.account) as? Account
         
     }
     
     func ExistingAccount(name: String) -> Account? {
-        return ExistingObject(recordID: nil, objectName: name, type: CoreData.dataType.account) as? Account
+        return ExistingObject(recordName: nil, objectName: name, type: CoreData.dataType.account) as? Account
     }
 
-    private func ExistingObject(recordID: String?, objectName: String?, type: CoreData.dataType) -> Any? {
+    private func ExistingObject(recordName: String?, objectName: String?, type: CoreData.dataType) -> Any? {
         do {
-            
+            //print(workingCompany == nil)
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: type.rawValue)
-            if let id = recordID {
-                fetchRequest.predicate = NSPredicate(format: "recordID == %@", id)
+            if let id = recordName?.uuid() {
+                fetchRequest.predicate = NSPredicate(format: "identifier == %@", id as CVarArg)
             }
             if let name = objectName {
                 fetchRequest.predicate = NSPredicate(format: "name == %@", name)
             }
             
             fetchRequest.fetchLimit = 1
+            
             let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            
             if let object = fetchedResults.first {
+                
                 return object
             }
         }

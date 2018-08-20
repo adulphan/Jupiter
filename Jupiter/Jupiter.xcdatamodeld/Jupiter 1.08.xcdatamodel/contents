@@ -2,21 +2,19 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Account" representedClassName=".Account" syncable="YES" codeGenerationType="class">
         <attribute name="beginBalance" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="cachedValues" optional="YES" transient="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="endBalance" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="modifiedLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="accountSet" inverseEntity="Company" syncable="YES"/>
         <relationship name="monthSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Month" inverseName="account" inverseEntity="Month" syncable="YES"/>
         <relationship name="transactionSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Transaction" inverseName="accountSet" inverseEntity="Transaction" syncable="YES"/>
     </entity>
     <entity name="Company" representedClassName=".Company" syncable="YES" codeGenerationType="class">
-        <attribute name="cachedValues" optional="YES" transient="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="modifiedLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="accountSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Account" inverseName="company" inverseEntity="Account" syncable="YES"/>
     </entity>
     <entity name="Month" representedClassName=".Month" syncable="YES" codeGenerationType="class">
@@ -26,23 +24,22 @@
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="monthSet" inverseEntity="Account" syncable="YES"/>
     </entity>
     <entity name="Transaction" representedClassName=".Transaction" syncable="YES" codeGenerationType="class">
-        <attribute name="cachedValues" optional="YES" transient="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="flowsObject" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="isValidated" optional="YES" transient="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="modifiedLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="photoID" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="thumbID" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="photoID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="accountSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Account" inverseName="transactionSet" inverseEntity="Account" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Account" positionX="-63" positionY="-18" width="128" height="195"/>
-        <element name="Company" positionX="-54" positionY="54" width="128" height="120"/>
+        <element name="Account" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="Company" positionX="-54" positionY="54" width="128" height="105"/>
         <element name="Month" positionX="-45" positionY="117" width="128" height="105"/>
-        <element name="Transaction" positionX="-63" positionY="54" width="128" height="225"/>
+        <element name="Transaction" positionX="-63" positionY="54" width="128" height="210"/>
     </elements>
 </model>

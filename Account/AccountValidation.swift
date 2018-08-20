@@ -10,16 +10,6 @@ import Foundation
 
 
 extension Account {
-    
-    public override func validateForInsert() throws {
-        try super.validateForInsert()        
 
-    
-    }
-    
-    public override func validateForUpdate() throws {
-        
-        
-    }
     
 }

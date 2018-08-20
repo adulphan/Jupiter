@@ -63,8 +63,12 @@ extension AccessCoreData {
             for object in fetchedResults {
 
                 if let obj = object as? SystemField {
-                    print("\(type.rawValue) : \(obj.recordID ?? "no id") : \(obj.name ?? "no name")")
+                    print("\(type.rawValue) : \(obj.identifier?.uuidString ?? "no id") : \(obj.name ?? "no name")")
                 }
+                
+//                if let obj = object as? Account {
+//                    print(obj.transactions.map{$0.name!})
+//                }
             }
             
         }

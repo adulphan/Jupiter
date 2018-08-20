@@ -10,15 +10,28 @@ import Foundation
 
 extension Transaction {
     
+    public override func willSave() {
+        super.willSave()        
+        setPrimitiveValue(changedValues() as NSObject, forKey: "cachedValues")
+    }
+    
+    
     public override func didSave() {
         super.didSave()
-        
-        isValidated = false
+        proceedToCloudKit()
+        print("transaction \(self.name!) proceedToCloudkit")
+        updateMonthFlows()
     }
     
 
 
+
 }
+
+
+
+
+
 
 
 

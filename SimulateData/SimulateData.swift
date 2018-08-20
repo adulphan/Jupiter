@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-class SimulateData: AccessCoreData {
+class SimulateData: CoreDataForAdmin {
 
     static let shared = SimulateData()
     static var dummyImageID: String?
@@ -21,32 +21,29 @@ extension SimulateData {
     
     func simulateData() {
         
-        simulateAccounts()
+//        clearCoreData()
+//        UserDefaults.standard.workingCompanyID = nil
+//
+//        simulateCompany()
+//
+//        saveCoreData()
+//
+//        simulateAccounts()
+//
+//        saveCoreData()
+
         simulateSplitTransaction()
+
         saveCoreData()
+        
         printOutCoreData()
         
         let wallet = ExistingAccount(name: "Wallet")!
         let grocery = ExistingAccount(name: "Grocery")!
-        let bofa = ExistingAccount(name: "Bofa")!
         
         printMonthFor(account: grocery)
-        printMonthFor(account: bofa)
         printMonthFor(account: wallet)
-        
-        let victim = bofa.transactions[2]
-        victim.flows = [-1000,-1000, 2000]
-        
-        saveCoreData()
-        
-//        CoreData.context.delete(victim)
-        
-        print("--------------------")
-//        saveCoreData()
-        
-        printMonthFor(account: grocery)
-        printMonthFor(account: bofa)
-        printMonthFor(account: wallet)
+
         
     }
     
@@ -67,7 +64,7 @@ extension SimulateData {
         let grocery = ExistingAccount(name: "Grocery")!
         let bofa = ExistingAccount(name: "Bofa")!
         
-        createPeriodicSplitTransactions(from: [wallet,bofa], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [100], flowSTD: [-1,-1,2], note: nil, url: nil, frequency: .month, multiple: 1, count: 3, startDate: 0, flexibleDate: 0)
+        createPeriodicSplitTransactions(from: [wallet, bofa], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [100], flowSTD: [-1,-1, 2], note: nil, url: nil, frequency: .month, multiple: 1, count: 6, startDate: 0, flexibleDate: 0)
     
     }
     

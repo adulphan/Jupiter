@@ -20,7 +20,7 @@ protocol AccountReader: SystemField {
     var endBalance: Int64 { get }
     var type: Int16 { get }
     var company: Company? { get }
-    var recordID: String? { get }
+    var recordName: String { get }
     
 }
 

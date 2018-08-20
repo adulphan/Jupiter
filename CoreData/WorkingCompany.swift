@@ -13,19 +13,22 @@ extension AccessCoreData {
     
     var workingCompany: Company? {
         get{
-            guard let companyID = UserDefaults.standard.workingCompanyID else { return nil }
-            guard let companyData = ExistingCompany(recordID: companyID) else { return nil }
+            guard let identifier = UserDefaults.standard.workingCompanyID else { return nil }
+            guard let companyData = ExistingCompany(recordName: identifier.uuidString) else { return nil }
             return companyData
         }
     }
     
     func newAccountInWorkingCompany() -> Account? {
-        guard let companyID = UserDefaults.standard.workingCompanyID else {
+        
+        
+        guard let identifier = UserDefaults.standard.workingCompanyID else {
             print("No working company")
             return nil
         }
-        guard let companyData = ExistingCompany(recordID: companyID) else {
-            print("No working company with id: \(companyID)")
+
+        guard let companyData = ExistingCompany(recordName: identifier.uuidString) else {
+            print("No working company with id: \(identifier)")
             return nil
         }
         let account = newAccount(inCompany: companyData)
@@ -38,8 +41,8 @@ extension AccessCoreData {
         return account
     }
     
-    func setAsWorkingCompany(companyData: Company) {
-        UserDefaults.standard.workingCompanyID = companyData.recordID
+    func setAsWorkingCompany(company: Company) {
+        UserDefaults.standard.workingCompanyID = company.identifier
     }
 
 }

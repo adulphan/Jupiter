@@ -10,18 +10,9 @@ import Foundation
 
 extension Company {
     
-    var accounts: [Account] {
-        get {
-            return accountSet?.array as! [Account]
-        }
-    }
-    
-    public override func validateValue(_ value: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKey key: String) throws {
-        if key == "name" && self.isInserted {
-            
-        }
+    var accounts: [Account] { return accountSet?.array as! [Account] }
+
         
-    }
     
 }
 

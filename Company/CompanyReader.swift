@@ -14,7 +14,7 @@ protocol CompanyReader: SystemField {
     
     var name: String? { get }
     var modifiedLocal: Date? { get }
-    var recordID: String? { get }
+    var identifier: UUID? { get }
     var accounts: [Account] { get }
     
 }
@@ -23,6 +23,6 @@ protocol CompanyReader: SystemField {
 protocol SystemField {
     var name: String? { get }
     var modifiedLocal: Date? { get }
-    var recordID: String? { get }
+    var identifier: UUID? { get }
     
 }

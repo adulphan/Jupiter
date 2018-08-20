@@ -12,7 +12,7 @@ import CloudKit
 extension Company: CloudKitProtocol {
         
     func createRecord() -> CKRecord {
-        let recordName = self.recordID!
+        let recordName = self.recordName
         let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
         let record = CKRecord(recordType: CloudKit.recordType.company.rawValue, recordID: recordID)
         record.setObject(self.name as CKRecordValue?, forKey: "name")
@@ -22,7 +22,7 @@ extension Company: CloudKitProtocol {
     }
     
     func updateBy(record: CKRecord) {        
-        self.recordID = record.recordID.recordName
+        self.identifier = record.recordID.recordName.uuid()
         self.name = record.value(forKey: "name") as? String
         self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
 

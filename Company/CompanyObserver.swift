@@ -12,7 +12,19 @@ extension Company {
     
     public override func willSave() {
         super.willSave()
-        proceedToCloudKit()
+        setPrimitiveValue(changedValues() as NSObject, forKey: "cachedValues")
+    }    
+    
+    public override func didSave() {
+        super.didSave()
+        let relationshipNames = entity.relationshipsByName.map{$0.key}
+        let changedKeys = (cachedValues as! [String:Any]).map{$0.key}
+        if !Set(changedKeys).isSubset(of: Set(relationshipNames)) {
+            proceedToCloudKit()
+            print("company \(self.name!) proceedToCloudkit")
+        }
+        
+        cachedValues = nil
     }
 
 }

@@ -67,18 +67,18 @@ extension FetchCloudKit  {
         CloudKit.isFetchingFromCloudKit = true
         
         for recordID in CloudKit.recordIDToDelete {
-            if let object = ExistingCompany(recordID: recordID.recordName) {
+            if let object = ExistingCompany(recordName: recordID.recordName) {
                 deleteCoreData(object: object)
             }
             
-            if let object = ExistingAccount(recordID: recordID.recordName) {
+            if let object = ExistingAccount(recordName: recordID.recordName) {
                 deleteCoreData(object: object)
             }
             
         }
         
         for record in CloudKit.companyRecordToSave {
-            if let object = ExistingCompany(recordID: record.recordID.recordName) {
+            if let object = ExistingCompany(recordName: record.recordID.recordName) {
                 object.updateBy(record: record)
             } else {
                 let object = Company(context: CoreData.context)
@@ -89,7 +89,7 @@ extension FetchCloudKit  {
         saveCoreData()
         
         for record in CloudKit.accountRecordToSave {
-            if let object = ExistingAccount(recordID: record.recordID.recordName) {
+            if let object = ExistingAccount(recordName: record.recordID.recordName) {
                 object.updateBy(record: record)
             } else {
                 let object = Account(context: CoreData.context)

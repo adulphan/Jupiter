@@ -10,10 +10,10 @@ import Foundation
 import CloudKit
 
 protocol CloudKitProtocol {
-    var recordID: String? { get set }
     var isInserted: Bool { get }
     var isUpdated: Bool { get }
     var isDeleted: Bool { get }
+    var identifier: UUID? { get }
     
     func createRecord() -> CKRecord
     func updateBy(record: CKRecord)
@@ -21,56 +21,52 @@ protocol CloudKitProtocol {
 }
 
 extension CloudKitProtocol {
-    
+
     func proceedToCloudKit() {
-        if isInserted { saveToCloudKit() }
-        if isUpdated { updateCloudKit() }
-        if isDeleted { deleteCloudKit() }
+        
+        if isDeleted {
+            deleteCloudKit()
+            return
+        } else {
+            saveToCloudKit()
+            return
+        }
     }
+    
+    var recordName: String { return (identifier?.uuidString)!}
     
     private func saveToCloudKit() {
         guard !CloudKit.isFetchingFromCloudKit else { return }
         guard Application.connectedToCloudKit else {
-            print("Not uploading: CloudKit is disabled")
+            //print("Not saving \(self.recordName) : CloudKit is disabled")
             return
         }
         
         let record = self.createRecord()
-        CloudKit.privateDatabase.save(record, completionHandler: { (record, error) in
+        let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+        
+        operation.modifyRecordsCompletionBlock = { (records, ids, error) in
             if error != nil { print(error!) }
-            print("\(record?.recordID.recordName.description ?? "No ID") is saved")
-            FileManager.default.clearTempFileForCKAsset()
-        })
-        
-    }
-    
-    private func updateCloudKit() {
-        guard !CloudKit.isFetchingFromCloudKit else { return }
-        guard Application.connectedToCloudKit else {
-            print("Not uploading: CloudKit is disabled")
-            return
+            if let savedRecord = records?.first {
+                print("\(savedRecord.recordID.recordName) is saved to CloudKit")
+            }
+            
         }
         
-        let recordName = self.recordID!
-        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-        CloudKit.privateDatabase.fetch(withRecordID: recordID) { (existingRecord, error) in
-            if error != nil { print("Fetch error: ",error!) }
-            let updatedRecord = self.updateTo(record: existingRecord!)
-            CloudKit.privateDatabase.save(updatedRecord, completionHandler: { (record, error) in
-                if error != nil { print("Save error: ",error!) }
-                print("\(record?.recordID.recordName.description ?? "No ID") is updated")
-            })
-        }
+        operation.savePolicy = .changedKeys
+        CloudKit.privateDatabase.add(operation)
+        
+        
     }
     
     private func deleteCloudKit() {
         guard !CloudKit.isFetchingFromCloudKit else { return }
         guard Application.connectedToCloudKit else {
-            print("Not uploading: CloudKit is disabled")
+            print("Not deleting \(self.recordName): CloudKit is disabled")
             return
         }
         
-        let recordName = self.recordID!
+        let recordName = self.recordName
         let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
         CloudKit.privateDatabase.delete(withRecordID: recordID) { (recordID, error) in
             if error != nil { print("Fetch error: ",error!) }

@@ -10,18 +10,18 @@ import Foundation
 
 extension Transaction {
     
-    func updateMonthFlows() {        
-        if isInserted {
-            updateBalanceWith(transaction: self, isDeleted: false)
-        }
-        
-        if isUpdated && isUpdateNeeded {
-            updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
-            updateBalanceWith(transaction: self, isDeleted: false)
-        }
-        
+    func updateMonthFlows() {
+
         if isDeleted {
             updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
+            return
+        } else if isInserted {
+            updateBalanceWith(transaction: self, isDeleted: false)
+            return
+        } else if isUpdateNeeded {
+            updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
+            updateBalanceWith(transaction: self, isDeleted: false)
+            return
         }
     }
 
@@ -72,24 +72,29 @@ extension Transaction {
         
     }
     
-    
-    private var cachedOldValues: cachedValue {
+    private var cachedOldValues: CachedValue {
         
-        let cachedOldValues = cachedValue()
-        if let date = committedValues(forKeys: ["date"]).first?.value as? Date {
-            cachedOldValues.date =  date
-        }
-        if let accounts = committedValues(forKeys: ["accountSet"]).first?.value as? NSOrderedSet {
-            let array = accounts.array as! [Account]
+        let cachedOldValues = CachedValue()
+        let changeValues = cachedValues as! [String: Any]
+        
+        if let oldDate = changeValues["date"] as? Date {
+            cachedOldValues.date =  oldDate
+        } else { cachedOldValues.date = self.date }
+        
+        if let oldAccounts = changeValues["accountSet"] as? NSOrderedSet {
+            let array = oldAccounts.array as! [Account]
             cachedOldValues.accounts =  array
-        }
-        if let flows = committedValues(forKeys: ["flowsObject"]).first?.value as? NSObject {
+        } else { cachedOldValues.accounts = self.accounts }
+        
+        
+        if let flows = changeValues["flowsObject"] as? NSObject {
             cachedOldValues.flows =  (flows as? [Int64])!
-        }
+        } else { cachedOldValues.flows = self.flows }
+        
         return cachedOldValues
     }
     
-    private class cachedValue: NSObject, CachedTransactionValues {
+    private class CachedValue: NSObject, CachedTransactionValues {
         
         var date: Date? = nil
         var accounts: [Account] = []

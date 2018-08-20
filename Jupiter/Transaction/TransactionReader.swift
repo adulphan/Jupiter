@@ -14,7 +14,7 @@ protocol TransactionReader: SystemField {
     
     var name: String? { get }
     var modifiedLocal: Date? { get }
-    var recordID: String? { get }
+    var recordName: String { get }
     
     var date: Date? { get }
     var accounts: [Account] { get }
@@ -22,8 +22,8 @@ protocol TransactionReader: SystemField {
     var note: String? { get }
     var url: String? { get }
     
-    var photoID: String? { get }
-    var thumbID: String? { get }
+    var photoID: UUID? { get }
+    var thumbID: UUID? { get }
 }
 
 

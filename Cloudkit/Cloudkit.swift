@@ -27,6 +27,12 @@ class CloudKit {
     static var accountRecordToSave: [CKRecord] = []
     static var recordIDToDelete: [CKRecordID] = []
     
+    static let modifyingOperation: CKModifyRecordsOperation = {
+        let operation = CKModifyRecordsOperation()
+        operation.savePolicy = .changedKeys
+        return operation
+    }()
+    
 }
 
 
