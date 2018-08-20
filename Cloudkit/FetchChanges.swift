@@ -36,12 +36,16 @@ extension FetchCloudKit  {
             if record.recordType == CloudKit.recordType.account.rawValue {
                 CloudKit.accountRecordToSave.append(record)
             }
-
+            
+            if record.recordType == CloudKit.recordType.transaction.rawValue {
+                CloudKit.transactionRecordToSave.append(record)
+            }
+            print("\(record.recordID.recordName) is fetched")
         }
         
         operation.recordWithIDWasDeletedBlock = { (recordID, text) in
             CloudKit.recordIDToDelete.append(recordID)
-            
+            print("\(recordID.recordName) is to delete")
         }
 
         operation.recordZoneFetchCompletionBlock = { (zoneId, changeToken, _, _, error) in
@@ -67,11 +71,16 @@ extension FetchCloudKit  {
         CloudKit.isFetchingFromCloudKit = true
         
         for recordID in CloudKit.recordIDToDelete {
+            
             if let object = ExistingCompany(recordName: recordID.recordName) {
                 deleteCoreData(object: object)
             }
             
             if let object = ExistingAccount(recordName: recordID.recordName) {
+                deleteCoreData(object: object)
+            }
+            
+            if let object = ExistingTransaction(recordName: recordID.recordName) {
                 deleteCoreData(object: object)
             }
             
@@ -85,9 +94,7 @@ extension FetchCloudKit  {
                 object.updateBy(record: record)
             }
         }
-        
-        saveCoreData()
-        
+
         for record in CloudKit.accountRecordToSave {
             if let object = ExistingAccount(recordName: record.recordID.recordName) {
                 object.updateBy(record: record)
@@ -96,8 +103,17 @@ extension FetchCloudKit  {
                 object.updateBy(record: record)
             }
         }
-        
+
+        for record in CloudKit.transactionRecordToSave {
+            if let object = ExistingTransaction(recordName: record.recordID.recordName) {
+                object.updateBy(record: record)
+            } else {
+                let object = Transaction(context: CoreData.context)
+                object.updateBy(record: record)
+            }
+        }
         saveCoreData()
+        
         clearCachedRecords()
         CloudKit.isFetchingFromCloudKit = false
         

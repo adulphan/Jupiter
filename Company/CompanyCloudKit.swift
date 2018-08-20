@@ -27,12 +27,6 @@ extension Company: CloudKitProtocol {
         self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
 
     }
-    
-    func updateTo(record: CKRecord) -> CKRecord {
-        record.setObject(self.name as CKRecordValue?, forKey: "name")
-        record.setObject(self.modifiedLocal as CKRecordValue?, forKey: "modifiedLocal")
-        return record
-    }
 
 
 }

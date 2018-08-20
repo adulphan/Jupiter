@@ -33,9 +33,6 @@ extension AccessCoreData {
             }
         }
         
-        reloadCompanyData()
-        reloadAccountData()        
-        
     }
     
 

@@ -27,11 +27,16 @@ extension AccessCoreData {
     
     func ExistingAccount(name: String) -> Account? {
         return ExistingObject(recordName: nil, objectName: name, type: CoreData.dataType.account) as? Account
+
     }
 
-    private func ExistingObject(recordName: String?, objectName: String?, type: CoreData.dataType) -> Any? {
+    func ExistingTransaction(recordName: String) -> Transaction? {
+        return ExistingObject(recordName: recordName, objectName: nil, type: CoreData.dataType.transaction) as? Transaction
+        
+    }
+    
+    func ExistingObject(recordName: String?, objectName: String?, type: CoreData.dataType) -> Any? {
         do {
-            //print(workingCompany == nil)
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: type.rawValue)
             if let id = recordName?.uuid() {
                 fetchRequest.predicate = NSPredicate(format: "identifier == %@", id as CVarArg)
@@ -41,11 +46,8 @@ extension AccessCoreData {
             }
             
             fetchRequest.fetchLimit = 1
-            
             let fetchedResults = try CoreData.context.fetch(fetchRequest)
-            
             if let object = fetchedResults.first {
-                
                 return object
             }
         }

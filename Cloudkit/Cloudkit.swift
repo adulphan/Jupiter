@@ -11,6 +11,8 @@ import CloudKit
 
 class CloudKit {
     
+    static let shared = CloudKit()
+    
     enum recordType : String {
         case company = "Company"
         case account = "Account"
@@ -25,17 +27,39 @@ class CloudKit {
     
     static var companyRecordToSave: [CKRecord] = []
     static var accountRecordToSave: [CKRecord] = []
+    static var transactionRecordToSave: [CKRecord] = []
     static var recordIDToDelete: [CKRecordID] = []
     
-    static let modifyingOperation: CKModifyRecordsOperation = {
-        let operation = CKModifyRecordsOperation()
-        operation.savePolicy = .changedKeys
-        return operation
-    }()
+    static var recordsToSaveToCloudKit: [CKRecord] = []
+    static var recordIDsToDeleteFromCloudKit: [CKRecordID] = []
     
 }
 
+extension CloudKit {
+    
+    static func uploadToCloudKit() {
+        guard recordsToSaveToCloudKit.count != 0 || recordIDsToDeleteFromCloudKit.count != 0 else { return }
+        let operation = CKModifyRecordsOperation(recordsToSave: recordsToSaveToCloudKit, recordIDsToDelete: recordIDsToDeleteFromCloudKit)
+        operation.savePolicy = .changedKeys
+        operation.modifyRecordsCompletionBlock = { (records, recordIDs, error) in
+            if let err = error {
+                print(err)
+            }
+            for record in records! {
+                print("\(record.recordID.recordName) is saved")
+            }
+            
+            for id in recordIDs! {
+                print("\(id.recordName) is deleted")
+            }
+        }
+        CloudKit.privateDatabase.add(operation)
+        recordsToSaveToCloudKit = []
+        recordIDsToDeleteFromCloudKit = []
 
+    }
+    
+}
 
 
 

@@ -47,21 +47,7 @@ extension Account: AccessCoreData, CloudKitProtocol {
         self.company = company
 
     }
-    
-    func updateTo(record: CKRecord) -> CKRecord {
-        record.setObject(self.name as CKRecordValue?, forKey: "name")
-        record.setObject(self.beginBalance as CKRecordValue?, forKey: "beginBalance")
-        record.setObject(self.endBalance as CKRecordValue?, forKey: "endBalance")
-        record.setObject(self.type as CKRecordValue?, forKey: "type")
-        record.setObject(self.modifiedLocal as CKRecordValue?, forKey: "modifiedLocal")
-        
-        let companyRecordName = self.company?.recordName
-        let companyID = CKRecordID(recordName: companyRecordName!, zoneID: CloudKit.financialDataZoneID)
-        let referenceCompany = CKReference(recordID: companyID, action: .none)
-        record.parent = referenceCompany
-        return record
-        
-    }
+
 }
 
 

@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-extension Transaction: CloudKitProtocol {
+extension Transaction: AccessCoreData, CloudKitProtocol {
     
     func createRecord() -> CKRecord {
         let recordName = self.recordName
@@ -40,18 +40,25 @@ extension Transaction: CloudKitProtocol {
 
     func updateBy(record: CKRecord) {
         
+        self.identifier = record.recordID.recordName.uuid()
+        self.name = record.value(forKey: "name") as? String
+        self.date = record.value(forKey: "date") as? Date
+        self.flows = record.value(forKey: "flows") as! [Int64]
+        self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
+        self.note = record.value(forKey: "note") as? String
+        self.url = record.value(forKey: "url") as? String
+        self.photoID = (record.value(forKey: "photoID") as? String)?.uuid()
+        self.thumbID = (record.value(forKey: "thumbID") as? String)?.uuid()
         
+        let accountReferences = record.value(forKey: "accounts") as! [CKReference]
+        
+        var accountArray: [Account] = []
+        for reference in accountReferences {
+            let recordName = reference.recordID.recordName
+            let account = ExistingAccount(recordName: recordName)
+            accountArray.append(account!)
+        }        
+        self.accounts = accountArray
     }
-
-    func updateTo(record: CKRecord) -> CKRecord {
-        let recordName = self.recordName
-        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-        let record = CKRecord(recordType: CloudKit.recordType.transaction.rawValue, recordID: recordID)
-        return record
-    }
-    
-    
-    
-    
     
 }

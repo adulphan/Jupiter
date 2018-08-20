@@ -36,7 +36,6 @@
 		539DFC6E2121429200B5C740 /* ExistingCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6D2121429200B5C740 /* ExistingCoreData.swift */; };
 		539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */; };
 		539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC73212158D900B5C740 /* PrintCoreData.swift */; };
-		539DFC7621215BAA00B5C740 /* LoadCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7521215BAA00B5C740 /* LoadCoreData.swift */; };
 		539DFC78212162B500B5C740 /* WorkingCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC77212162B500B5C740 /* WorkingCompany.swift */; };
 		539DFC7A21216A1100B5C740 /* AccountCloudkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7921216A1100B5C740 /* AccountCloudkit.swift */; };
 		539DFC7E21216EC200B5C740 /* CompanyCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7D21216EC200B5C740 /* CompanyCloudKit.swift */; };
@@ -99,7 +98,6 @@
 		539DFC6D2121429200B5C740 /* ExistingCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingCoreData.swift; sourceTree = "<group>"; };
 		539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDeleteCoreData.swift; sourceTree = "<group>"; };
 		539DFC73212158D900B5C740 /* PrintCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintCoreData.swift; sourceTree = "<group>"; };
-		539DFC7521215BAA00B5C740 /* LoadCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCoreData.swift; sourceTree = "<group>"; };
 		539DFC77212162B500B5C740 /* WorkingCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingCompany.swift; sourceTree = "<group>"; };
 		539DFC7921216A1100B5C740 /* AccountCloudkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCloudkit.swift; sourceTree = "<group>"; };
 		539DFC7D21216EC200B5C740 /* CompanyCloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCloudKit.swift; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 			children = (
 				539DFC572120451400B5C740 /* CoreData.swift */,
 				539DFC77212162B500B5C740 /* WorkingCompany.swift */,
-				539DFC7521215BAA00B5C740 /* LoadCoreData.swift */,
 				539DFC6D2121429200B5C740 /* ExistingCoreData.swift */,
 				539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */,
 				533CE78C2122E4DA00762B7D /* ClearCoreData.swift */,
@@ -414,7 +411,6 @@
 				5383BAED21279BE800D10A11 /* PeriodicTransactions.swift in Sources */,
 				539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */,
 				5383BAEB2126F20300D10A11 /* TransactionReader.swift in Sources */,
-				539DFC7621215BAA00B5C740 /* LoadCoreData.swift in Sources */,
 				5383BADB21265E8800D10A11 /* TransactionObserver.swift in Sources */,
 				53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */,
 				5383BAEF21279EA500D10A11 /* SimulateAccounts.swift in Sources */,

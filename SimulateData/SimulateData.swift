@@ -21,28 +21,24 @@ extension SimulateData {
     
     func simulateData() {
         
-//        clearCoreData()
-//        UserDefaults.standard.workingCompanyID = nil
-//
-//        simulateCompany()
-//
-//        saveCoreData()
-//
-//        simulateAccounts()
-//
-//        saveCoreData()
-
-        simulateSplitTransaction()
-
+        clearCoreData()
+        
+        simulateCompany()
+        simulateAccounts()
+        simulateTransaciton()
+        
         saveCoreData()
         
         printOutCoreData()
         
-        let wallet = ExistingAccount(name: "Wallet")!
-        let grocery = ExistingAccount(name: "Grocery")!
+        //UserDefaults.standard.workingCompanyID = nil
+
         
-        printMonthFor(account: grocery)
-        printMonthFor(account: wallet)
+//        let wallet = ExistingAccount(name: "Wallet")!
+//        let transaction = wallet.transactions[2]
+//        transaction.flows = [-200,-200,400]        
+//        CoreData.context.delete(transaction)
+//        saveCoreData()
 
         
     }

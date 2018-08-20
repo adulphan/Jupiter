@@ -69,6 +69,13 @@ extension AccessCoreData {
 //                if let obj = object as? Account {
 //                    print(obj.transactions.map{$0.name!})
 //                }
+                
+                if let obj = object as? Transaction {
+                    print(obj.date!)
+                    print(obj.accounts.map{$0.name!})
+                    print(obj.flows)
+                }
+                
             }
             
         }

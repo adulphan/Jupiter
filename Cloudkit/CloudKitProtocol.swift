@@ -17,12 +17,14 @@ protocol CloudKitProtocol {
     
     func createRecord() -> CKRecord
     func updateBy(record: CKRecord)
-    func updateTo(record: CKRecord) -> CKRecord
 }
 
 extension CloudKitProtocol {
 
     func proceedToCloudKit() {
+        
+        guard !CloudKit.isFetchingFromCloudKit else { return }
+        guard Application.connectedToCloudKit else { return }
         
         if isDeleted {
             deleteCloudKit()
@@ -36,43 +38,14 @@ extension CloudKitProtocol {
     var recordName: String { return (identifier?.uuidString)!}
     
     private func saveToCloudKit() {
-        guard !CloudKit.isFetchingFromCloudKit else { return }
-        guard Application.connectedToCloudKit else {
-            //print("Not saving \(self.recordName) : CloudKit is disabled")
-            return
-        }
-        
         let record = self.createRecord()
-        let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
-        
-        operation.modifyRecordsCompletionBlock = { (records, ids, error) in
-            if error != nil { print(error!) }
-            if let savedRecord = records?.first {
-                print("\(savedRecord.recordID.recordName) is saved to CloudKit")
-            }
-            
-        }
-        
-        operation.savePolicy = .changedKeys
-        CloudKit.privateDatabase.add(operation)
-        
-        
+        CloudKit.recordsToSaveToCloudKit.append(record)
     }
     
     private func deleteCloudKit() {
-        guard !CloudKit.isFetchingFromCloudKit else { return }
-        guard Application.connectedToCloudKit else {
-            print("Not deleting \(self.recordName): CloudKit is disabled")
-            return
-        }
-        
         let recordName = self.recordName
         let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-        CloudKit.privateDatabase.delete(withRecordID: recordID) { (recordID, error) in
-            if error != nil { print("Fetch error: ",error!) }
-            print("\(recordID?.recordName.description ?? "No ID") is deleted")
-        }
-        
+        CloudKit.recordIDsToDeleteFromCloudKit.append(recordID)
     }
     
     
