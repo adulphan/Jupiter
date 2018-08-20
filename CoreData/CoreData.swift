@@ -13,9 +13,6 @@ import UIKit
 class CoreData {
 
     static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext    
-    static var allCompanyInCoreData: [Company] = []
-    static var allAccountsInWorkingCompany: [Account] = []
-    static var allAccountsInCoreDate: [Account] = []
     
     enum dataType : String {
         case company = "Company"
@@ -24,7 +21,6 @@ class CoreData {
         
         static let allValues = [company, account, transaction]
     }
-
 
 }
 

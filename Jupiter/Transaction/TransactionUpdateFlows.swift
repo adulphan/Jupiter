@@ -86,7 +86,6 @@ extension Transaction {
             cachedOldValues.accounts =  array
         } else { cachedOldValues.accounts = self.accounts }
         
-        
         if let flows = changeValues["flowsObject"] as? NSObject {
             cachedOldValues.flows =  (flows as? [Int64])!
         } else { cachedOldValues.flows = self.flows }

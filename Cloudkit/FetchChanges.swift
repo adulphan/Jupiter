@@ -9,10 +9,7 @@
 import Foundation
 import CloudKit
 
-protocol FetchCloudKit: AccessCoreData {
-    
-    
-}
+protocol FetchCloudKit: AccessCoreData {}
 
 extension FetchCloudKit  {
     
@@ -29,17 +26,7 @@ extension FetchCloudKit  {
         let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.financialDataZoneID], optionsByRecordZoneID: [CloudKit.financialDataZoneID:option])
 
         operation.recordChangedBlock = { (record) in
-            if record.recordType == CloudKit.recordType.company.rawValue {
-                CloudKit.companyRecordToSave.append(record)
-            }
-            
-            if record.recordType == CloudKit.recordType.account.rawValue {
-                CloudKit.accountRecordToSave.append(record)
-            }
-            
-            if record.recordType == CloudKit.recordType.transaction.rawValue {
-                CloudKit.transactionRecordToSave.append(record)
-            }
+            CloudKit.recordsToSave.append(record)
             print("\(record.recordID.recordName) is fetched")
         }
         
@@ -58,7 +45,6 @@ extension FetchCloudKit  {
             DispatchQueue.main.sync {
                 self.pushNewFetchToCoreData()
                 UserDefaults.standard.financialDataChangeToken = changeToken
-                print("From recordZoneFetchCompletionBlock : token updated")
                 completion()
             }
         }
@@ -69,51 +55,14 @@ extension FetchCloudKit  {
     private func pushNewFetchToCoreData() {
         
         CloudKit.isFetchingFromCloudKit = true
-        
         for recordID in CloudKit.recordIDToDelete {
-            
-            if let object = ExistingCompany(recordName: recordID.recordName) {
+            if let object = ExistingObject(recordName: recordID.recordName) {
                 deleteCoreData(object: object)
             }
-            
-            if let object = ExistingAccount(recordName: recordID.recordName) {
-                deleteCoreData(object: object)
-            }
-            
-            if let object = ExistingTransaction(recordName: recordID.recordName) {
-                deleteCoreData(object: object)
-            }
-            
         }
         
-        for record in CloudKit.companyRecordToSave {
-            if let object = ExistingCompany(recordName: record.recordID.recordName) {
-                object.updateBy(record: record)
-            } else {
-                let object = Company(context: CoreData.context)
-                object.updateBy(record: record)
-            }
-        }
-
-        for record in CloudKit.accountRecordToSave {
-            if let object = ExistingAccount(recordName: record.recordID.recordName) {
-                object.updateBy(record: record)
-            } else {
-                let object = Account(context: CoreData.context)
-                object.updateBy(record: record)
-            }
-        }
-
-        for record in CloudKit.transactionRecordToSave {
-            if let object = ExistingTransaction(recordName: record.recordID.recordName) {
-                object.updateBy(record: record)
-            } else {
-                let object = Transaction(context: CoreData.context)
-                object.updateBy(record: record)
-            }
-        }
+        saveNewFetchToCoreData()
         saveCoreData()
-        
         clearCachedRecords()
         CloudKit.isFetchingFromCloudKit = false
         
@@ -124,6 +73,51 @@ extension FetchCloudKit  {
         CloudKit.companyRecordToSave = []
         CloudKit.accountRecordToSave = []
         CloudKit.recordIDToDelete = []
+        
+    }
+    
+    private func saveNewFetchToCoreData() {
+        
+        var sortedRecords: [CKRecord] = []
+        for type in CloudKit.recordType.allValues {
+            let filtered = CloudKit.recordsToSave.filter{$0.recordType == type.rawValue}
+            sortedRecords += filtered
+        }
+        
+        for record in sortedRecords {
+            
+            let recordName = record.recordID.recordName
+            
+            switch record.recordType {
+                
+            case CloudKit.recordType.company.rawValue:
+                if let object = ExistingCompany(recordName: recordName) {
+                    object.updateBy(record: record)
+                } else {
+                    let object = Company(context: CoreData.context)
+                    object.updateBy(record: record)
+                }
+            case CloudKit.recordType.account.rawValue:
+                if let object = ExistingAccount(recordName: recordName) {
+                    object.updateBy(record: record)
+                } else {
+                    let object = Account(context: CoreData.context)
+                    object.updateBy(record: record)
+                }
+            case CloudKit.recordType.transaction.rawValue:
+                if let object = ExistingTransaction(recordName: recordName) {
+                    object.updateBy(record: record)
+                } else {
+                    let object = Transaction(context: CoreData.context)
+                    object.updateBy(record: record)
+                }
+                
+            default:
+                print("unidentified recordtype")
+            }
+            
+            
+        }
         
     }
     

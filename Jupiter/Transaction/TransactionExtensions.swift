@@ -19,8 +19,7 @@ extension Transaction  {
         get{ return accountSet?.array as! [Account] }
         set{ accountSet = NSOrderedSet(array: newValue) }        
     }
-    
-    var recordName: String { return (identifier?.uuidString)!}
+
 }
 
 

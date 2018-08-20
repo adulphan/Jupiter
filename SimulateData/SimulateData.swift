@@ -21,24 +21,6 @@ extension SimulateData {
     
     func simulateData() {
         
-        clearCoreData()
-        
-        simulateCompany()
-        simulateAccounts()
-        simulateTransaciton()
-        
-        saveCoreData()
-        
-        printOutCoreData()
-        
-        //UserDefaults.standard.workingCompanyID = nil
-
-        
-//        let wallet = ExistingAccount(name: "Wallet")!
-//        let transaction = wallet.transactions[2]
-//        transaction.flows = [-200,-200,400]        
-//        CoreData.context.delete(transaction)
-//        saveCoreData()
 
         
     }

@@ -19,8 +19,7 @@ extension AccessCoreData {
         }
     }
     
-    func newAccountInWorkingCompany() -> Account? {
-        
+    func newAccountInWorkingCompany() -> Account? {        
         
         guard let identifier = UserDefaults.standard.workingCompanyID else {
             print("No working company")

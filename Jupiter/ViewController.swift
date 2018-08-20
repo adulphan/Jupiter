@@ -16,15 +16,48 @@ class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
         
-        clearCoreData()
-        UserDefaults.standard.workingCompanyID = nil
-        UserDefaults.standard.financialDataChangeToken = nil
 
-        fetchChangesFromCloudKit {
-            print("finished")
-            self.printOutCoreData()
+        
+        
+//        clearCoreData()
+//        UserDefaults.standard.workingCompanyID = nil
+//        UserDefaults.standard.financialDataChangeToken = nil
+//
+//        fetchChangesFromCloudKit {
+//            print("finished")
+//            self.printOutCoreData()
+//        }
+        
+        
+        
+       let wallet = ExistingAccount(name: "Grocery")!
+        
+        let entity = wallet.transactions[0].entity
+        
+        //print(entity.managedObjectModel.configurations)
+        
+        let attributes = entity.attributesByName
+        
+        for att in attributes {
+
+            let type = att.value.attributeValueClassName
+            
+            print("\(att.key)  type: \(type ?? "nil")")
+            
         }
         
+
+        
+//        let properties = entity.properties
+        
+//        for prop in properties {
+//
+//            print("\(prop.name) type : \(prop))")
+//
+//        }
+//
+        
+
         //printOutCoreData()
         
         //SimulateData.shared.simulateData()

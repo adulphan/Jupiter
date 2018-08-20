@@ -35,7 +35,7 @@ extension AccessCoreData {
         
     }
     
-    func ExistingObject(recordName: String?, objectName: String?, type: CoreData.dataType) -> Any? {
+    private func ExistingObject(recordName: String?, objectName: String?, type: CoreData.dataType) -> Any? {
         do {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: type.rawValue)
             if let id = recordName?.uuid() {
@@ -55,7 +55,25 @@ extension AccessCoreData {
         return nil
     }
     
-    
+    func ExistingObject(recordName: String?) -> NSManagedObject? {
+        
+        do {
+            for type in CoreData.dataType.allValues {
+                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: type.rawValue)                
+                if let id = recordName?.uuid() {
+                    fetchRequest.predicate = NSPredicate(format: "identifier == %@", id as CVarArg)
+                }
+
+                fetchRequest.fetchLimit = 1
+                let fetchedResults = try CoreData.context.fetch(fetchRequest)
+                if let object = fetchedResults.first {
+                    return object
+                }
+            }
+        }
+        catch { print ("fetch existing object failed", error) }
+        return nil
+    }
 
 }
 

@@ -15,11 +15,10 @@ extension Transaction {
         setPrimitiveValue(changedValues() as NSObject, forKey: "cachedValues")
     }
     
-    
     public override func didSave() {
         super.didSave()
         proceedToCloudKit()
-        print("transaction \(self.name!) proceedToCloudkit")
+        cachedValues = nil
         updateMonthFlows()
     }
     

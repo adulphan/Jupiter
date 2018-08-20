@@ -11,12 +11,11 @@ import CloudKit
 
 class CloudKit {
     
-    static let shared = CloudKit()
-    
     enum recordType : String {
         case company = "Company"
         case account = "Account"
         case transaction = "Transaction"
+        static let allValues = [company, account, transaction]
     }
     
     static var isFetchingFromCloudKit:Bool = false
@@ -28,6 +27,8 @@ class CloudKit {
     static var companyRecordToSave: [CKRecord] = []
     static var accountRecordToSave: [CKRecord] = []
     static var transactionRecordToSave: [CKRecord] = []
+    
+    static var recordsToSave: [CKRecord] = []
     static var recordIDToDelete: [CKRecordID] = []
     
     static var recordsToSaveToCloudKit: [CKRecord] = []
@@ -52,10 +53,11 @@ extension CloudKit {
             for id in recordIDs! {
                 print("\(id.recordName) is deleted")
             }
+            recordsToSaveToCloudKit = []
+            recordIDsToDeleteFromCloudKit = []
         }
+        
         CloudKit.privateDatabase.add(operation)
-        recordsToSaveToCloudKit = []
-        recordIDsToDeleteFromCloudKit = []
 
     }
     

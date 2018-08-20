@@ -10,8 +10,6 @@ import Foundation
 import CloudKit
 
 protocol CloudKitProtocol {
-    var isInserted: Bool { get }
-    var isUpdated: Bool { get }
     var isDeleted: Bool { get }
     var identifier: UUID? { get }
     
@@ -27,27 +25,16 @@ extension CloudKitProtocol {
         guard Application.connectedToCloudKit else { return }
         
         if isDeleted {
-            deleteCloudKit()
-            return
+            let recordName = self.recordName
+            let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
+            CloudKit.recordIDsToDeleteFromCloudKit.append(recordID)
         } else {
-            saveToCloudKit()
-            return
+            let record = self.createRecord()
+            CloudKit.recordsToSaveToCloudKit.append(record)
         }
     }
     
     var recordName: String { return (identifier?.uuidString)!}
-    
-    private func saveToCloudKit() {
-        let record = self.createRecord()
-        CloudKit.recordsToSaveToCloudKit.append(record)
-    }
-    
-    private func deleteCloudKit() {
-        let recordName = self.recordName
-        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-        CloudKit.recordIDsToDeleteFromCloudKit.append(recordID)
-    }
-    
     
 }
 

@@ -21,7 +21,6 @@ extension Company {
         let changedKeys = (cachedValues as! [String:Any]).map{$0.key}
         if !Set(changedKeys).isSubset(of: Set(relationshipNames)) {
             proceedToCloudKit()
-            print("company \(self.name!) proceedToCloudkit")
         }
         
         cachedValues = nil
