@@ -8,12 +8,15 @@
 
 import Foundation
 
-extension Transaction: CachedTransactionValues {}
+extension Transaction: CachedTransactionValues {
+
+    
+}
 
 protocol CachedTransactionValues {
     
     var date: Date? { get set }
     var accounts: [Account] { get set }
-    var flows: [Int64] { get set }
+    var flows: [Int64]? { get set }
     
 }

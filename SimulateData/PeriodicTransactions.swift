@@ -35,6 +35,8 @@ extension SimulateData {
             transaction.date = date
             transaction.modifiedLocal = Date()
             
+            transaction.photoID = UUID()
+            
         }
         
     }

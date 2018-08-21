@@ -18,8 +18,10 @@ class CoreData {
         case company = "Company"
         case account = "Account"
         case transaction = "Transaction"
+        case month = "Month"
         
-        static let allValues = [company, account, transaction]
+        static let coreValues = [company, account, transaction]
+        static let allValues = [company, account, transaction, month]
     }
 
 }

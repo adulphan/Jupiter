@@ -18,8 +18,8 @@ extension Transaction {
     public override func didSave() {
         super.didSave()
         proceedToCloudKit()
-        cachedValues = nil
         updateMonthFlows()
+        cachedValues = nil
     }
     
 

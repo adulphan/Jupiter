@@ -12,19 +12,8 @@ import CloudKit
 extension Transaction: AccessCoreData, CloudKitProtocol {
     
     func createRecord() -> CKRecord {
-        let recordName = self.recordName
-        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-        let record = CKRecord(recordType: CloudKit.recordType.transaction.rawValue, recordID: recordID)
-
-        record.setObject(self.name as CKRecordValue?, forKey: "name")
-        record.setObject(self.date as CKRecordValue?, forKey: "date")
-        record.setObject(self.flows as CKRecordValue?, forKey: "flows")
-        record.setObject(self.modifiedLocal as CKRecordValue?, forKey: "modifiedLocal")
-        record.setObject(self.note as CKRecordValue?, forKey: "note")
-        record.setObject(self.url as CKRecordValue?, forKey: "url")
-        record.setObject(self.photoID?.uuidString as CKRecordValue?, forKey: "photoID")
-        record.setObject(self.thumbID?.uuidString as CKRecordValue?, forKey: "thumbID")
         
+        let record = recordWithAttributes()
         var accountReferenceList: [CKReference] = []
         for account in accounts {
             let recordName = account.recordName
@@ -40,18 +29,10 @@ extension Transaction: AccessCoreData, CloudKitProtocol {
 
     func updateBy(record: CKRecord) {
         
-        self.identifier = record.recordID.recordName.uuid()
-        self.name = record.value(forKey: "name") as? String
-        self.date = record.value(forKey: "date") as? Date
-        self.flows = record.value(forKey: "flows") as! [Int64]
-        self.modifiedLocal = record.value(forKey: "modifiedLocal") as? Date
-        self.note = record.value(forKey: "note") as? String
-        self.url = record.value(forKey: "url") as? String
-        self.photoID = (record.value(forKey: "photoID") as? String)?.uuid()
-        self.thumbID = (record.value(forKey: "thumbID") as? String)?.uuid()
+        self.identifier = record.recordID.recordName.uuid()        
+        getAttributesFrom(record: record)
         
         let accountReferences = record.value(forKey: "accounts") as! [CKReference]
-        
         var accountArray: [Account] = []
         for reference in accountReferences {
             let recordName = reference.recordID.recordName

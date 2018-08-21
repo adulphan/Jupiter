@@ -10,51 +10,18 @@ import Foundation
 import CoreData
 
 extension AccessCoreData {
-    
-    
-    func printMonthFor(account: Account) {
-        print("")
-        print("Monthly balance: \(account.name ?? "no account name")")
-        do {
-            let fetchRequest: NSFetchRequest<Month> = Month.fetchRequest()
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "endDate", ascending: false)]
-            fetchRequest.predicate = NSPredicate(format: "account == %@", account)
-            let fetchedResults = try CoreData.context.fetch(fetchRequest)
-            for object in fetchedResults {
-                print("\(object.endDate?.description ?? "no date") flow: \(object.flows) balance: \(object.balance)")
-            }
-            
-        }
-        catch { print ("print object failed", error) }
-        
-        
-    }
 
     func printOutCoreData() {
         for type in CoreData.dataType.allValues {
             print("")
-            printData(type: type)
+            printSystemField(type: type)
         }
-
-    }
-    
-    func printTransaction() {
-        print("")
-        do {
-            let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-            let fetchedResults = try CoreData.context.fetch(fetchRequest)
-            for object in fetchedResults {
-                print("\(object.date?.description ?? "no date") : \(object.name ?? "no name") :\(object.accounts.map{$0.name!}) : \(object.flows)")
-            
-            }
-            
-        }
-        catch { print ("print object failed", error) }
         
+        printMonths()
+        printTransaction()
     }
     
-    private func printData(type: CoreData.dataType) {
+    private func printSystemField(type: CoreData.dataType) {
         
         do {
             
@@ -63,19 +30,8 @@ extension AccessCoreData {
             for object in fetchedResults {
 
                 if let obj = object as? SystemField {
-                    print("\(type.rawValue) : \(obj.identifier?.uuidString ?? "no id") : \(obj.name ?? "no name")")
+                    print("\(type.rawValue) : \(obj.identifier?.uuidString.dropLast(25) ?? "no id") : \(obj.name ?? "no name")")
                 }
-                
-//                if let obj = object as? Account {
-//                    print(obj.transactions.map{$0.name!})
-//                }
-                
-                if let obj = object as? Transaction {
-                    print(obj.date!)
-                    print(obj.accounts.map{$0.name!})
-                    print(obj.flows)
-                }
-                
             }
             
         }
@@ -83,7 +39,54 @@ extension AccessCoreData {
         
     }
     
+    private func printMonths() {
+        do {
+            
+            let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
+            let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            for object in fetchedResults {
+                print("Monthly flows: ",object.name!)
+                for month in object.months {
+                    print("\(month.endDate?.description.dropLast(8) ?? "no date") flow: \(month.flows) balance: \(month.balance)")
+                }
+                print("")
+            }
+            
+        }
+        catch { print ("print object failed", error) }
+        
+    }
     
-    
+    private func printTransaction() {
+        print("-----------------------------transaction dateils----------------------------------")
+        print("")
+        do {
+            
+            let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+            let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            for object in fetchedResults {
+                for prop in object.entity.propertiesByName {
+                    let key = prop.key
+                    guard !prop.value.isTransient else { continue }
+
+                    if key == "flows" {
+                        print("\(key): ", "\(object.value(forKey: key) as! [Int64])")
+                    } else if key == "accountSet" {
+                        let value = object.value(forKey: key) as! NSOrderedSet
+                        let array = value.array as! [Account]
+                        print("\(key): ", "\(array.map{$0.name!})")
+
+                    } else {
+
+                        print("\(key): ", "\(object.value(forKey: key) ?? "nil")")
+                    }
+                }
+                print("")
+            }
+            
+        }
+        catch { print ("print object failed", error) }
+    }
+
 
 }

@@ -58,7 +58,7 @@ extension AccessCoreData {
     func ExistingObject(recordName: String?) -> NSManagedObject? {
         
         do {
-            for type in CoreData.dataType.allValues {
+            for type in CoreData.dataType.coreValues {
                 let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: type.rawValue)                
                 if let id = recordName?.uuid() {
                     fetchRequest.predicate = NSPredicate(format: "identifier == %@", id as CVarArg)

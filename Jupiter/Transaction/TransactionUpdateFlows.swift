@@ -30,7 +30,7 @@ extension Transaction {
         let accounts = transaction.accounts
         guard accounts.count != 0 else { return }
         let direction:Int64 = isDeleted ? -1:1
-        let flowArray = transaction.flows.map{$0*direction}
+        let flowArray = transaction.flows!.map{$0*direction}
         let monthEnd = getMonthEndfrom(date: date!)
 
         for i in 0...accounts.count-1 {
@@ -86,9 +86,9 @@ extension Transaction {
             cachedOldValues.accounts =  array
         } else { cachedOldValues.accounts = self.accounts }
         
-        if let flows = changeValues["flowsObject"] as? NSObject {
-            cachedOldValues.flows =  (flows as? [Int64])!
-        } else { cachedOldValues.flows = self.flows }
+        if let flows = changeValues["flows"] as? [Int64] {
+            cachedOldValues.flows = flows
+        } else { cachedOldValues.flows = self.flows! }
         
         return cachedOldValues
     }
@@ -97,7 +97,7 @@ extension Transaction {
         
         var date: Date? = nil
         var accounts: [Account] = []
-        var flows: [Int64] = []
+        var flows: [Int64]? = []
         
     }
     

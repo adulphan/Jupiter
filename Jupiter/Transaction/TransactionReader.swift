@@ -8,7 +8,9 @@
 
 import Foundation
 
-extension Transaction: TransactionReader {}
+extension Transaction: TransactionReader {
+
+}
 
 protocol TransactionReader: SystemField {
     
@@ -18,7 +20,7 @@ protocol TransactionReader: SystemField {
     
     var date: Date? { get }
     var accounts: [Account] { get }
-    var flows: [Int64] { get }
+    var flows: [Int64]? { get }
     var note: String? { get }
     var url: String? { get }
     
