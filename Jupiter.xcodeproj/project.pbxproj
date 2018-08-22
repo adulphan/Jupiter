@@ -37,7 +37,6 @@
 		539DFC6E2121429200B5C740 /* ExistingCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6D2121429200B5C740 /* ExistingCoreData.swift */; };
 		539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */; };
 		539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC73212158D900B5C740 /* PrintCoreData.swift */; };
-		539DFC78212162B500B5C740 /* WorkingCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC77212162B500B5C740 /* WorkingCompany.swift */; };
 		539DFC8021219F4900B5C740 /* DownloadFromCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7F21219F4900B5C740 /* DownloadFromCloudKit.swift */; };
 		53A052492123F1B60064222F /* DataToCKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A052482123F1B60064222F /* DataToCKAsset.swift */; };
 		53C1D54D21290A1A0029EBD0 /* AccountValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1D54C21290A1A0029EBD0 /* AccountValidation.swift */; };
@@ -49,6 +48,7 @@
 		53CC44CE212462C70039CD4E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44CD212462C70039CD4E /* Date.swift */; };
 		53CC44D0212464A50039CD4E /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44CF212464A50039CD4E /* Number.swift */; };
 		53DFACAD212D1B1300B23486 /* ResolveConflicts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFACAC212D1B1300B23486 /* ResolveConflicts.swift */; };
+		53DFACAF212D300600B23486 /* CreateNewCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFACAE212D300600B23486 /* CreateNewCoreData.swift */; };
 		53E2DBD9212C22B000F75F58 /* EnsureFinancialDataZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */; };
 		53E2DBDC212C58F700F75F58 /* CompanyValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2DBDB212C58F700F75F58 /* CompanyValidation.swift */; };
 		53EB98B9212D023E009B5EF5 /* HandleNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EB98B8212D023E009B5EF5 /* HandleNotification.swift */; };
@@ -101,7 +101,6 @@
 		539DFC6D2121429200B5C740 /* ExistingCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingCoreData.swift; sourceTree = "<group>"; };
 		539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDeleteCoreData.swift; sourceTree = "<group>"; };
 		539DFC73212158D900B5C740 /* PrintCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintCoreData.swift; sourceTree = "<group>"; };
-		539DFC77212162B500B5C740 /* WorkingCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingCompany.swift; sourceTree = "<group>"; };
 		539DFC7F21219F4900B5C740 /* DownloadFromCloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFromCloudKit.swift; sourceTree = "<group>"; };
 		53A052482123F1B60064222F /* DataToCKAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataToCKAsset.swift; sourceTree = "<group>"; };
 		53AE6E8B212AE11900DCABB6 /* Jupiter 1.102.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.102.xcdatamodel"; sourceTree = "<group>"; };
@@ -116,6 +115,7 @@
 		53CC44CD212462C70039CD4E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		53CC44CF212464A50039CD4E /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		53DFACAC212D1B1300B23486 /* ResolveConflicts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveConflicts.swift; sourceTree = "<group>"; };
+		53DFACAE212D300600B23486 /* CreateNewCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCoreData.swift; sourceTree = "<group>"; };
 		53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsureFinancialDataZone.swift; sourceTree = "<group>"; };
 		53E2DBDA212C26A700F75F58 /* Jupiter 1.010.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.010.xcdatamodel"; sourceTree = "<group>"; };
 		53E2DBDB212C58F700F75F58 /* CompanyValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyValidation.swift; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				539DFC572120451400B5C740 /* CoreData.swift */,
-				539DFC77212162B500B5C740 /* WorkingCompany.swift */,
+				53DFACAE212D300600B23486 /* CreateNewCoreData.swift */,
 				539DFC6D2121429200B5C740 /* ExistingCoreData.swift */,
 				539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */,
 				533CE78C2122E4DA00762B7D /* ClearCoreData.swift */,
@@ -393,6 +393,7 @@
 				539DFC8021219F4900B5C740 /* DownloadFromCloudKit.swift in Sources */,
 				53FBE2E221284F49003DDB84 /* CloudkitExtensions.swift in Sources */,
 				539DFC51211FFD1600B5C740 /* SimulateData.swift in Sources */,
+				53DFACAF212D300600B23486 /* CreateNewCoreData.swift in Sources */,
 				53FBE2DE212817E6003DDB84 /* AccessFiles.swift in Sources */,
 				537B03DB211F19C700953516 /* Jupiter.xcdatamodeld in Sources */,
 				53CC44CC212460640039CD4E /* Calendar.swift in Sources */,
@@ -400,7 +401,6 @@
 				537B03F0211FC1A200953516 /* AccountObserver.swift in Sources */,
 				539DFC6E2121429200B5C740 /* ExistingCoreData.swift in Sources */,
 				539DFC682121291300B5C740 /* CKLocalCache.swift in Sources */,
-				539DFC78212162B500B5C740 /* WorkingCompany.swift in Sources */,
 				53CC44CA21245E710039CD4E /* CompanyReader.swift in Sources */,
 				5383BAE421269A4D00D10A11 /* AccountExtensions.swift in Sources */,
 				53E2DBD9212C22B000F75F58 /* EnsureFinancialDataZone.swift in Sources */,
