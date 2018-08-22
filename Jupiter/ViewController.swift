@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit {
+class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
     var accountsDictionary: [String : Account] = [:]
 
     override func viewDidLoad() {
@@ -17,16 +17,16 @@ class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit {
         view.backgroundColor = UIColor.orange
         
 
-        clearCoreData()
+//        clearCoreData()
 //        UserDefaults.standard.workingCompanyID = nil
-        UserDefaults.standard.financialDataChangeToken = nil
-
-        fetchChangesFromCloudKit {
-            print("finished")
-            self.printOutCoreData()
-        }
+//        UserDefaults.standard.financialDataChangeToken = nil
+//
+//        downloadFromCloudKit {
+//            print("finished")
+//            self.printOutCoreData()
+//        }
         
-//        SimulateData.shared.simulateData()
+        SimulateData.shared.simulateData()
 //        printOutCoreData()
         
 //        saveCoreData()

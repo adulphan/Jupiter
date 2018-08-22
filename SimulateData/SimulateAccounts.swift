@@ -47,7 +47,7 @@ extension SimulateData {
             let type = accountName.index(of: array)!
             for name in array {
                 
-                guard let newAcount = newAccountInWorkingCompany() else { return }
+                guard let newAcount = newAccount(inCompany: workingCompany!) else { return }
                 
                 
                 newAcount.name = String(name.uppercased().first!) + String(name.dropFirst())

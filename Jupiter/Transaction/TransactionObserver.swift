@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Transaction {
+extension Transaction: CloudKitProtocol {
     
     public override func willSave() {
         super.willSave()

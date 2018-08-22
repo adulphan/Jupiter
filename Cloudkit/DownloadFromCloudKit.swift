@@ -8,12 +8,13 @@
 
 import Foundation
 import CloudKit
+import UIKit
 
-protocol FetchCloudKit: AccessCoreData {}
+protocol OperationCloudKit: AccessCoreData {}
 
-extension FetchCloudKit  {
+extension OperationCloudKit {
     
-    func fetchChangesFromCloudKit(completion: @escaping () -> Void) {
+    func downloadFromCloudKit(completion: @escaping () -> Void) {
         
         guard Application.connectedToCloudKit else {
             print("No fetching: CloudKit is disabled")
@@ -26,12 +27,12 @@ extension FetchCloudKit  {
         let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.financialDataZoneID], optionsByRecordZoneID: [CloudKit.financialDataZoneID:option])
 
         operation.recordChangedBlock = { (record) in
-            CloudKit.recordsToSave.append(record)
+            CloudKit.recordsToSaveToCoreData.append(record)
             print("\(record.recordID.recordName) is fetched")
         }
         
         operation.recordWithIDWasDeletedBlock = { (recordID, text) in
-            CloudKit.recordIDToDelete.append(recordID)
+            CloudKit.recordIDToDeleteFromCoreData.append(recordID)
             print("\(recordID.recordName) is to delete")
         }
 
@@ -54,12 +55,12 @@ extension FetchCloudKit  {
 
     private func pushNewFetchToCoreData() {
         
-        CloudKit.isFetchingFromCloudKit = true
+        CloudKit.isDownloadingFromCloudKit = true
         
         saveNewFetchToCoreData()
         saveCoreData()
         clearCachedRecords()
-        CloudKit.isFetchingFromCloudKit = false
+        CloudKit.isDownloadingFromCloudKit = false
         
     }
     
@@ -67,13 +68,13 @@ extension FetchCloudKit  {
         
         CloudKit.companyRecordToSave = []
         CloudKit.accountRecordToSave = []
-        CloudKit.recordIDToDelete = []
+        CloudKit.recordIDToDeleteFromCoreData = []
         
     }
     
     private func saveNewFetchToCoreData() {
         
-        for recordID in CloudKit.recordIDToDelete {
+        for recordID in CloudKit.recordIDToDeleteFromCoreData {
             if let object = ExistingObject(recordName: recordID.recordName) {
                 deleteCoreData(object: object)
             }
@@ -81,7 +82,7 @@ extension FetchCloudKit  {
         
         var sortedRecords: [CKRecord] = []
         for type in CloudKit.recordType.allValues {
-            let filtered = CloudKit.recordsToSave.filter{$0.recordType == type.rawValue}
+            let filtered = CloudKit.recordsToSaveToCoreData.filter{$0.recordType == type.rawValue}
             sortedRecords += filtered
         }
         

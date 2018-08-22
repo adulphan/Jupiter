@@ -11,7 +11,7 @@ import Foundation
 import Foundation
 import CloudKit
 
-extension FetchCloudKit  {
+extension OperationCloudKit  {
     
     func ensureZoneForFinancialData() {
         

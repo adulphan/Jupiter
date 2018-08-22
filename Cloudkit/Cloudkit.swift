@@ -18,7 +18,7 @@ class CloudKit {
         static let allValues = [company, account, transaction]
     }
     
-    static var isFetchingFromCloudKit:Bool = false
+    static var isDownloadingFromCloudKit:Bool = false
     static let privateDatabase = CKContainer(identifier: "iCloud.goldbac-Inc.goldbac").privateCloudDatabase
     static let publicDatabase = CKContainer.default().publicCloudDatabase
     
@@ -28,8 +28,8 @@ class CloudKit {
     static var accountRecordToSave: [CKRecord] = []
     static var transactionRecordToSave: [CKRecord] = []
     
-    static var recordsToSave: [CKRecord] = []
-    static var recordIDToDelete: [CKRecordID] = []
+    static var recordsToSaveToCoreData: [CKRecord] = []
+    static var recordIDToDeleteFromCoreData: [CKRecordID] = []
     
     static var recordsToSaveToCloudKit: [CKRecord] = []
     static var recordIDsToDeleteFromCloudKit: [CKRecordID] = []

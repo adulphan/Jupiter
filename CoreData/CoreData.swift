@@ -26,7 +26,7 @@ class CoreData {
 
 }
 
-protocol AccessCoreData {
+protocol AccessCoreData: AccessExistingCoreData, CreateNewCoreData {
     
     
 }

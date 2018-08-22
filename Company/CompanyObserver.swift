@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Company {
+extension Company: CloudKitProtocol {
     
     public override func willSave() {
         super.willSave()

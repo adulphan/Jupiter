@@ -9,7 +9,21 @@
 import Foundation
 import CoreData
 
-extension AccessCoreData {
+protocol AccessExistingCoreData {}
+
+extension AccessExistingCoreData {
+    
+    func setAsWorkingCompany(company: Company) {
+        UserDefaults.standard.workingCompanyID = company.identifier
+    }
+    
+    var workingCompany: Company? {
+        get{
+            guard let identifier = UserDefaults.standard.workingCompanyID else { return nil }
+            guard let companyData = ExistingCompany(recordName: identifier.uuidString) else { return nil }
+            return companyData
+        }
+    }
     
     func ExistingCompany(recordName: String) -> Company?  {
         return ExistingObject(recordName: recordName, objectName: nil, type: CoreData.dataType.company) as? Company
