@@ -12,12 +12,13 @@ extension Transaction: CloudKitProtocol {
     
     public override func willSave() {
         super.willSave()
-        setPrimitiveValue(Date(), forKey: "modifiedLocal")
         setPrimitiveValue(changedValues() as NSObject, forKey: "cachedValues")
+        setPrimitiveValue(Date(), forKey: "modifiedLocal")
     }
     
     public override func didSave() {
         super.didSave()
+        
         proceedToCloudKit()
         updateMonthFlows()
         cachedValues = nil

@@ -14,7 +14,7 @@ protocol OperationCloudKit: AccessCoreData {}
 
 extension OperationCloudKit {
     
-    func downloadFromCloudKit(completion: @escaping () -> Void) {
+    func exchangeDataWithCloudKit(completion: @escaping () -> Void) {
         
         guard Application.connectedToCloudKit else {
             print("No fetching: CloudKit is disabled")
@@ -44,8 +44,12 @@ extension OperationCloudKit {
             }
 
             DispatchQueue.main.sync {
+                
+                self.resolveConflicts()
                 self.pushNewFetchToCoreData()
+                //self.uploadToCloudKit()
                 UserDefaults.standard.financialDataChangeToken = changeToken
+                
                 completion()
             }
         }
@@ -56,7 +60,6 @@ extension OperationCloudKit {
     private func pushNewFetchToCoreData() {
         
         CloudKit.isDownloadingFromCloudKit = true
-        
         saveNewFetchToCoreData()
         saveCoreData()
         clearCachedRecords()
@@ -66,8 +69,7 @@ extension OperationCloudKit {
     
     private func clearCachedRecords() {
         
-        CloudKit.companyRecordToSave = []
-        CloudKit.accountRecordToSave = []
+        CloudKit.recordsToSaveToCoreData = []
         CloudKit.recordIDToDeleteFromCoreData = []
         
     }

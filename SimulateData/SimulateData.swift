@@ -22,7 +22,7 @@ extension SimulateData {
     func simulateData() {
         
         clearCoreData()
-        
+
         simulateCompany()
 
         simulateAccounts()

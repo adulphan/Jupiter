@@ -13,10 +13,13 @@ extension OperationCloudKit {
     
     func uploadToCloudKit() {
         
+        guard CloudKit.hasDataToUpload else { return }
         let recordToSave = CloudKit.recordsToSaveToCloudKit
         let recordIDToDelete = CloudKit.recordIDsToDeleteFromCloudKit
         
-        guard recordToSave.count != 0 || recordIDToDelete.count != 0 else { return }
+        print(recordToSave.map{$0.recordType})
+        print(recordToSave.map{$0.recordID.recordName})
+        
         let operation = CKModifyRecordsOperation(recordsToSave: recordToSave, recordIDsToDelete: recordIDToDelete)
         operation.savePolicy = .changedKeys
         operation.modifyRecordsCompletionBlock = { (records, recordIDs, error) in
@@ -36,6 +39,18 @@ extension OperationCloudKit {
         
         CloudKit.privateDatabase.add(operation)
         
+//        let option = CKFetchRecordZoneChangesOptions()
+//        option.previousServerChangeToken = UserDefaults.standard.financialDataChangeToken
+        let operationGetNewToken = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.financialDataZoneID], optionsByRecordZoneID: nil)
+        operationGetNewToken.recordZoneFetchCompletionBlock = { (zoneId, changeToken, _, _, error) in
+            if let err = error { print(err) }
+            UserDefaults.standard.financialDataChangeToken = changeToken
+            print("get new token!!")
+        }
+        
+        operationGetNewToken.addDependency(operation)
+        CloudKit.privateDatabase.add(operationGetNewToken)
+
     }
     
     

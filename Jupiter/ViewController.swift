@@ -18,19 +18,31 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
         
 
 //        clearCoreData()
-//        UserDefaults.standard.workingCompanyID = nil
-//        UserDefaults.standard.financialDataChangeToken = nil
 //
-//        downloadFromCloudKit {
+//        UserDefaults.standard.financialDataChangeToken = nil
+
+        
+//        exchangeDataWithCloudKit {
 //            print("finished")
 //            self.printOutCoreData()
 //        }
         
-        SimulateData.shared.simulateData()
+//        SimulateData.shared.simulateData()
+        
+//        SimulateData.shared.simulateTransaciton()
+//        saveCoreData()
 //        printOutCoreData()
         
 //        saveCoreData()
-        //let wallet = ExistingAccount(name: "Wallet")!
+//        let wallet = ExistingAccount(name: "Wallet")!
+//        wallet.beginBalance = 888888
+
+//        CoreData.context.delete(workingCompany!)
+ //       saveCoreData()
+//        printOutCoreData()
+//
+        
+        
         //let grocery = ExistingAccount(name: "Grocery")!
 //        printMonthFor(account: grocery)
 //        printMonthFor(account: wallet)

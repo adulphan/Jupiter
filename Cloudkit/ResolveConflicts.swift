@@ -11,13 +11,14 @@ import Foundation
 
 extension OperationCloudKit {
     
-    func resolveConflicts(completion: @escaping () -> Void) {
-        
+    func resolveConflicts() {
+
+        guard CloudKit.hasDataToUpload && CloudKit.hasDownloadedData else { return }
         let incomingSaveRecords = CloudKit.recordsToSaveToCoreData
         let incomingDeleteRecords = CloudKit.recordIDToDeleteFromCoreData
         
         var outgoingSaveRecords = CloudKit.recordsToSaveToCloudKit
-        var outgoingDeleteRecords = CloudKit.recordIDsToDeleteFromCloudKit
+        let outgoingDeleteRecords = CloudKit.recordIDsToDeleteFromCloudKit
         
         
         for recordID in incomingDeleteRecords {
@@ -25,12 +26,6 @@ extension OperationCloudKit {
                 if record.recordID.recordName == recordID.recordName {
                     let index = outgoingSaveRecords.index(of: record)
                     outgoingSaveRecords.remove(at: index!)
-                }
-            }
-            for recordID in outgoingDeleteRecords {
-                if recordID.recordName == recordID.recordName {
-                    let index = outgoingDeleteRecords.index(of: recordID)
-                    outgoingDeleteRecords.remove(at: index!)
                 }
             }
         }
@@ -44,8 +39,6 @@ extension OperationCloudKit {
             }
         }
         
-        
-        completion()
     }
     
     

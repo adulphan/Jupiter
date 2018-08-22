@@ -15,17 +15,16 @@ extension SimulateData {
     
     func simulateCompany() {
         
-        if workingCompany == nil {
-            
-            let company = Company(context: CoreData.context)
-            
-            company.name = "Apple Inc."
-            company.identifier = UUID()
-            company.modifiedLocal = Date()
-            
-            setAsWorkingCompany(company: company)
-            print("Company: \(company.recordName) is set workingCompany")
-        }
+
+        let company = Company(context: CoreData.context)
+        
+        company.name = "Apple"
+        company.identifier = UUID()
+        company.modifiedLocal = Date()
+        
+        setAsWorkingCompany(company: company)
+        print("Company: \(company.recordName) is set workingCompany")
+
         
     }
 

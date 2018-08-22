@@ -29,10 +29,28 @@ extension CloudKitProtocol where Self: NSManagedObject {
         if isDeleted {
             let recordName = self.recordName
             let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-            CloudKit.recordIDsToDeleteFromCloudKit.append(recordID)
+            
+            let isDuplicate:Bool = CloudKit.recordIDsToDeleteFromCloudKit.contains { (id) -> Bool in
+                id.recordName == recordName
+            }
+            
+            if !isDuplicate {
+                CloudKit.recordIDsToDeleteFromCloudKit.insert(recordID, at: 0)
+            }
+           
         } else {
             let record = self.recordToUpload()
-            CloudKit.recordsToSaveToCloudKit.append(record)
+            
+            let index = CloudKit.recordsToSaveToCloudKit.index { (existing) -> Bool in
+                existing.recordID.recordName == record.recordID.recordName
+            }
+
+            if let index = index {
+                CloudKit.recordsToSaveToCloudKit[index] = record
+            } else {
+                CloudKit.recordsToSaveToCloudKit.append(record)
+            }
+            
         }
     }
     
@@ -56,19 +74,26 @@ extension CloudKitProtocol where Self: NSManagedObject {
             for account in accounts {
                 let recordName = account.recordName
                 let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-                let referenceAccount = CKReference(recordID: recordID, action: .none)
+                let referenceAccount = CKReference(recordID: recordID, action: .deleteSelf)
                 accountReferenceList.append(referenceAccount)
+                if account == accounts.first {
+                    let parentAccount = CKReference(recordID: recordID, action: .none)
+                    record.parent = parentAccount
+                }
             }
             record.setObject(accountReferenceList as CKRecordValue, forKey: "accounts")
-            record.parent = accountReferenceList.first!
+
             
         }
         
         if recordType == CloudKit.recordType.account.rawValue {
             let recordName = (value(forKey: "company") as! Company).identifier?.uuidString
             let companyID = CKRecordID(recordName: recordName!, zoneID: CloudKit.financialDataZoneID)
-            let referenceCompany = CKReference(recordID: companyID, action: .none)
-            record.parent = referenceCompany
+            let referenceCompany = CKReference(recordID: companyID, action: .deleteSelf)
+            record.setObject(referenceCompany as CKRecordValue, forKey: "company")
+            let parentCompany = CKReference(recordID: companyID, action: .none)
+            record.parent = parentCompany
+            
             
         }
         
