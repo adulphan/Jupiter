@@ -27,7 +27,7 @@ extension AccessCoreData {
     
     func ExistingAccount(name: String) -> Account? {
         return ExistingObject(recordName: nil, objectName: name, type: CoreData.dataType.account) as? Account
-
+        
     }
 
     func ExistingTransaction(recordName: String) -> Transaction? {

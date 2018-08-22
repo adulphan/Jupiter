@@ -55,11 +55,6 @@ extension FetchCloudKit  {
     private func pushNewFetchToCoreData() {
         
         CloudKit.isFetchingFromCloudKit = true
-        for recordID in CloudKit.recordIDToDelete {
-            if let object = ExistingObject(recordName: recordID.recordName) {
-                deleteCoreData(object: object)
-            }
-        }
         
         saveNewFetchToCoreData()
         saveCoreData()
@@ -78,6 +73,12 @@ extension FetchCloudKit  {
     
     private func saveNewFetchToCoreData() {
         
+        for recordID in CloudKit.recordIDToDelete {
+            if let object = ExistingObject(recordName: recordID.recordName) {
+                deleteCoreData(object: object)
+            }
+        }
+        
         var sortedRecords: [CKRecord] = []
         for type in CloudKit.recordType.allValues {
             let filtered = CloudKit.recordsToSave.filter{$0.recordType == type.rawValue}
@@ -92,24 +93,24 @@ extension FetchCloudKit  {
                 
             case CloudKit.recordType.company.rawValue:
                 if let object = ExistingCompany(recordName: recordName) {
-                    object.updateBy(record: record)
+                    object.downloadFrom(record: record)
                 } else {
                     let object = Company(context: CoreData.context)
-                    object.updateBy(record: record)
+                    object.downloadFrom(record: record)
                 }
             case CloudKit.recordType.account.rawValue:
                 if let object = ExistingAccount(recordName: recordName) {
-                    object.updateBy(record: record)
+                    object.downloadFrom(record: record)
                 } else {
                     let object = Account(context: CoreData.context)
-                    object.updateBy(record: record)
+                    object.downloadFrom(record: record)
                 }
             case CloudKit.recordType.transaction.rawValue:
                 if let object = ExistingTransaction(recordName: recordName) {
-                    object.updateBy(record: record)
+                    object.downloadFrom(record: record)
                 } else {
                     let object = Transaction(context: CoreData.context)
-                    object.updateBy(record: record)
+                    object.downloadFrom(record: record)
                 }
                 
             default:

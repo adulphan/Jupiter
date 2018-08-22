@@ -11,7 +11,8 @@ import Foundation
 extension Transaction {
     
     public override func willSave() {
-        super.willSave()        
+        super.willSave()
+        setPrimitiveValue(Date(), forKey: "modifiedLocal")
         setPrimitiveValue(changedValues() as NSObject, forKey: "cachedValues")
     }
     

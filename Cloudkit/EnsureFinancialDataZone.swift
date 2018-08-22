@@ -1,25 +1,27 @@
 //
-//  FetchZone.swift
+//  EnsureFinancialDataZone.swift
 //  Jupiter
 //
-//  Created by adulphan youngmod on 15/8/18.
+//  Created by adulphan youngmod on 21/8/18.
 //  Copyright © 2018 goldbac. All rights reserved.
 //
+
+import Foundation
 
 import Foundation
 import CloudKit
 
 extension FetchCloudKit  {
-
+    
     func ensureZoneForFinancialData() {
         
         let operation = CKFetchRecordZonesOperation.fetchAllRecordZonesOperation()
         operation.fetchRecordZonesCompletionBlock = { (recordZones, error) in
-
+            
             if error != nil { print(error!) ; return }
             let zoneID = CloudKit.financialDataZoneID
-            let isContained = recordZones?.contains(where: { (dd) -> Bool in
-                dd.value.zoneID == zoneID
+            let isContained = recordZones?.contains(where: { (dictionary) -> Bool in
+                dictionary.value.zoneID == zoneID
             }) ?? false
             
             if isContained {
@@ -49,14 +51,3 @@ extension FetchCloudKit  {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-

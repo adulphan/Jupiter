@@ -11,21 +11,37 @@ import CloudKit
 import CoreData
 
 protocol CloudKitProtocol {
-    var isDeleted: Bool { get }
-    var identifier: UUID? { get }
-    var entity: NSEntityDescription { get }
-    
-    func value(forKey: String) -> Any?
-    func setValue(_: Any?, forKey: String)
-    
-    func createRecord() -> CKRecord
-    func updateBy(record: CKRecord)
+
+    var identifier: UUID? { get set }
+    func prepareToUpload(record: CKRecord)
+    func prepareToDownload(record: CKRecord)
     
 }
 
-extension CloudKitProtocol {
+extension CloudKitProtocol where Self: NSManagedObject {
     
     var recordName: String { return (identifier?.uuidString)!}
+    
+    func recordToUpload() -> CKRecord {
+        let record = fillUploadingRecordWithAttributes()
+        
+        
+        prepareToUpload(record: record)
+        
+        
+        return record
+    }
+    
+    
+    func downloadFrom(record: CKRecord) {
+        fillAttributesFromDownloading(record: record)
+        
+        
+        prepareToDownload(record: record)
+        
+        
+        
+    }
     
     func proceedToCloudKit() {
         
@@ -37,22 +53,29 @@ extension CloudKitProtocol {
             let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
             CloudKit.recordIDsToDeleteFromCloudKit.append(recordID)
         } else {
-            let record = self.createRecord()
+            let record = self.recordToUpload()
             CloudKit.recordsToSaveToCloudKit.append(record)
         }
     }
     
-    func recordWithAttributes() -> CKRecord {
+    var recordType: String {
+        if self is Company { return CloudKit.recordType.company.rawValue }
+        if self is Account { return CloudKit.recordType.account.rawValue }
+        if self is Transaction { return CloudKit.recordType.transaction.rawValue }
+        return ""
+    }
+    
+    func fillUploadingRecordWithAttributes() -> CKRecord {
         
+
         let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-        let record = CKRecord(recordType: CloudKit.recordType.transaction.rawValue, recordID: recordID)
+        let record = CKRecord(recordType: recordType, recordID: recordID)
         
         for attibute in entity.attributesByName {
             guard !attibute.value.isTransient else { continue }
             guard attibute.key != "identifier" else { continue }
             let key = attibute.key
             let transferValue = value(forKey: key)
-        
             if attibute.value.attributeValueClassName == "NSUUID" {
                 if let id = transferValue {
                     record.setObject((id as! UUID).uuidString as CKRecordValue, forKey: key)
@@ -66,7 +89,7 @@ extension CloudKitProtocol {
         return record
     }
     
-    func getAttributesFrom(record: CKRecord) {
+    func fillAttributesFromDownloading(record: CKRecord) {
         
         for attibute in entity.attributesByName {
             guard !attibute.value.isTransient else { continue }

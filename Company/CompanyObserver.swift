@@ -12,6 +12,7 @@ extension Company {
     
     public override func willSave() {
         super.willSave()
+        setPrimitiveValue(Date(), forKey: "modifiedLocal")
         setPrimitiveValue(changedValues() as NSObject, forKey: "cachedValues")
     }    
     

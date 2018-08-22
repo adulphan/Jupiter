@@ -11,9 +11,7 @@ import CloudKit
 
 extension Transaction: AccessCoreData, CloudKitProtocol {
     
-    func createRecord() -> CKRecord {
-        
-        let record = recordWithAttributes()
+    func prepareToUpload(record: CKRecord) {
         var accountReferenceList: [CKReference] = []
         for account in accounts {
             let recordName = account.recordName
@@ -24,22 +22,32 @@ extension Transaction: AccessCoreData, CloudKitProtocol {
         record.setObject(accountReferenceList as CKRecordValue, forKey: "accounts")
         record.parent = accountReferenceList.first!
 
-        return record
     }
-
-    func updateBy(record: CKRecord) {
-        
-        self.identifier = record.recordID.recordName.uuid()        
-        getAttributesFrom(record: record)
-        
+    
+    
+    func prepareToDownload(record: CKRecord) {
+        self.identifier = record.recordID.recordName.uuid()
         let accountReferences = record.value(forKey: "accounts") as! [CKReference]
         var accountArray: [Account] = []
         for reference in accountReferences {
             let recordName = reference.recordID.recordName
-            let account = ExistingAccount(recordName: recordName)
-            accountArray.append(account!)
-        }        
+            guard let account = ExistingAccount(recordName: recordName) else {
+                print("Error: downloading transacton has no match referenceed account") ; return
+            }
+            accountArray.append(account)
+        }
         self.accounts = accountArray
+        
     }
+
     
 }
+
+
+
+
+
+
+
+
+

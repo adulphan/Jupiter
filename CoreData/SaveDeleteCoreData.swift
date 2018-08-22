@@ -29,7 +29,13 @@ extension AccessCoreData {
             } catch {
                 
                 let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                print("")
+                print("Description: ",nserror.userInfo["NSLocalizedDescription"] ?? "no description")
+                print("")
+                print(nserror)
+                print("")
+                print(nserror.userInfo)
+                fatalError("Unresolved error")
             }
         }        
     }

@@ -16,24 +16,41 @@ class ViewController: UIViewController, CoreDataForAdmin, FetchCloudKit {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
         
-//        clearCoreData()
+
+        clearCoreData()
 //        UserDefaults.standard.workingCompanyID = nil
-//        UserDefaults.standard.financialDataChangeToken = nil
-//
-//        fetchChangesFromCloudKit {
-//            print("finished")
-//            self.saveCoreData()
-//            self.printOutCoreData()
-//        }
+        UserDefaults.standard.financialDataChangeToken = nil
+
+        fetchChangesFromCloudKit {
+            print("finished")
+            self.printOutCoreData()
+        }
         
 //        SimulateData.shared.simulateData()
-        printOutCoreData()
+//        printOutCoreData()
         
 //        saveCoreData()
-//        let wallet = ExistingAccount(name: "Wallet")!
-//        let grocery = ExistingAccount(name: "Grocery")!
+        //let wallet = ExistingAccount(name: "Wallet")!
+        //let grocery = ExistingAccount(name: "Grocery")!
 //        printMonthFor(account: grocery)
 //        printMonthFor(account: wallet)
+        
+//        let transaction = Transaction(context: CoreData.context)
+//        transaction.name = "Bad transaction"
+//        transaction.identifier = UUID()
+//        transaction.date = Date()
+//        transaction.modifiedLocal = Date()
+//        transaction.accounts = [wallet]
+//        transaction.flows = [100, 100]
+//
+//        let account = newAccountInWorkingCompany()
+//        account?.name = "Wallet"
+//        account?.identifier = UUID()
+//        account?.modifiedLocal = Date()
+ 
+
+        
+ //       printOutCoreData()
         
     }
 
