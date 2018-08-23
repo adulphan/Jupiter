@@ -11,15 +11,12 @@ import CloudKit
 
 extension OperationCloudKit {
     
-    func uploadToCloudKit() {
+    func uploadToCloudKit(completion: @escaping () -> Void) {
         
-        guard CloudKit.hasDataToUpload else { return }
+        guard CloudKit.hasDataToUpload else { completion(); return }
         let recordToSave = CloudKit.recordsToSaveToCloudKit
         let recordIDToDelete = CloudKit.recordIDsToDeleteFromCloudKit
-        
-        print(recordToSave.map{$0.recordType})
-        print(recordToSave.map{$0.recordID.recordName})
-        
+
         let operation = CKModifyRecordsOperation(recordsToSave: recordToSave, recordIDsToDelete: recordIDToDelete)
         operation.savePolicy = .changedKeys
         operation.modifyRecordsCompletionBlock = { (records, recordIDs, error) in
@@ -33,24 +30,34 @@ extension OperationCloudKit {
             for id in recordIDs! {
                 print("\(id.recordName) is deleted")
             }
+            
             CloudKit.recordsToSaveToCloudKit = []
             CloudKit.recordIDsToDeleteFromCloudKit = []
+            self.operationRefreshToken(dependency: operation) {
+                completion()
+            }
+            
         }
         
         CloudKit.privateDatabase.add(operation)
-        
-//        let option = CKFetchRecordZoneChangesOptions()
-//        option.previousServerChangeToken = UserDefaults.standard.financialDataChangeToken
+
+
+
+    }
+    
+    func operationRefreshToken(dependency: CKOperation? ,completion: @escaping () -> Void) {
         let operationGetNewToken = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.financialDataZoneID], optionsByRecordZoneID: nil)
         operationGetNewToken.recordZoneFetchCompletionBlock = { (zoneId, changeToken, _, _, error) in
             if let err = error { print(err) }
             UserDefaults.standard.financialDataChangeToken = changeToken
             print("get new token!!")
+            completion()
+        }
+        if let operation = dependency {
+            operationGetNewToken.addDependency(operation)
         }
         
-        operationGetNewToken.addDependency(operation)
         CloudKit.privateDatabase.add(operationGetNewToken)
-
     }
     
     

@@ -49,6 +49,11 @@ extension AccessExistingCoreData {
         
     }
     
+    func ExistingTransaction(name: String) -> Transaction? {
+        return ExistingObject(recordName: nil, objectName: name, type: CoreData.dataType.transaction) as? Transaction
+        
+    }
+    
     private func ExistingObject(recordName: String?, objectName: String?, type: CoreData.dataType) -> Any? {
         do {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: type.rawValue)

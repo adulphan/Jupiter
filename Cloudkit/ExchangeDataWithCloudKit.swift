@@ -28,12 +28,12 @@ extension OperationCloudKit {
 
         operation.recordChangedBlock = { (record) in
             CloudKit.recordsToSaveToCoreData.append(record)
-            print("\(record.recordID.recordName) is fetched")
+            print("\(record.recordID.recordName) is downloaded")
         }
         
         operation.recordWithIDWasDeletedBlock = { (recordID, text) in
             CloudKit.recordIDToDeleteFromCoreData.append(recordID)
-            print("\(recordID.recordName) is to delete")
+            print("\(recordID.recordName) is ordered to delete")
         }
 
         operation.recordZoneFetchCompletionBlock = { (zoneId, changeToken, _, _, error) in
@@ -42,18 +42,29 @@ extension OperationCloudKit {
                 self.clearCachedRecords()
                 return
             }
-
+            
+            UserDefaults.standard.financialDataChangeToken = changeToken
+            
             DispatchQueue.main.sync {
                 
                 self.resolveConflicts()
                 self.pushNewFetchToCoreData()
-                //self.uploadToCloudKit()
-                UserDefaults.standard.financialDataChangeToken = changeToken
-                
-                completion()
+                self.uploadToCloudKit(completion: {
+                    
+
+
+                    completion()
+                })
+
             }
         }
-        
+//        CloudKit.pendingOperation.append(operation)
+//        let index = CloudKit.pendingOperation.index(of: operation)
+//        if index != 0 {
+//            let previousOperation = CloudKit.pendingOperation[index-1]
+//            operation.addDependency(previousOperation)
+//        }
+
         CloudKit.privateDatabase.add(operation)
     }
 

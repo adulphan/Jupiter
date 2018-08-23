@@ -37,7 +37,7 @@
 		539DFC6E2121429200B5C740 /* ExistingCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6D2121429200B5C740 /* ExistingCoreData.swift */; };
 		539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */; };
 		539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC73212158D900B5C740 /* PrintCoreData.swift */; };
-		539DFC8021219F4900B5C740 /* DownloadFromCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7F21219F4900B5C740 /* DownloadFromCloudKit.swift */; };
+		539DFC8021219F4900B5C740 /* ExchangeDataWithCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC7F21219F4900B5C740 /* ExchangeDataWithCloudKit.swift */; };
 		53A052492123F1B60064222F /* DataToCKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A052482123F1B60064222F /* DataToCKAsset.swift */; };
 		53C1D54D21290A1A0029EBD0 /* AccountValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1D54C21290A1A0029EBD0 /* AccountValidation.swift */; };
 		53C1D54F21290C130029EBD0 /* TransactionValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1D54E21290C130029EBD0 /* TransactionValidation.swift */; };
@@ -101,7 +101,7 @@
 		539DFC6D2121429200B5C740 /* ExistingCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingCoreData.swift; sourceTree = "<group>"; };
 		539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDeleteCoreData.swift; sourceTree = "<group>"; };
 		539DFC73212158D900B5C740 /* PrintCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintCoreData.swift; sourceTree = "<group>"; };
-		539DFC7F21219F4900B5C740 /* DownloadFromCloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFromCloudKit.swift; sourceTree = "<group>"; };
+		539DFC7F21219F4900B5C740 /* ExchangeDataWithCloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDataWithCloudKit.swift; sourceTree = "<group>"; };
 		53A052482123F1B60064222F /* DataToCKAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataToCKAsset.swift; sourceTree = "<group>"; };
 		53AE6E8B212AE11900DCABB6 /* Jupiter 1.102.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.102.xcdatamodel"; sourceTree = "<group>"; };
 		53C1D54B212904760029EBD0 /* Jupiter 1.06.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.06.xcdatamodel"; sourceTree = "<group>"; };
@@ -248,7 +248,7 @@
 			children = (
 				539DFC5B2120623A00B5C740 /* Cloudkit.swift */,
 				53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */,
-				539DFC7F21219F4900B5C740 /* DownloadFromCloudKit.swift */,
+				539DFC7F21219F4900B5C740 /* ExchangeDataWithCloudKit.swift */,
 				53EB98BA212D06C3009B5EF5 /* UploadToCloudKit.swift */,
 				53DFACAC212D1B1300B23486 /* ResolveConflicts.swift */,
 				53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */,
@@ -390,7 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				539DFC8021219F4900B5C740 /* DownloadFromCloudKit.swift in Sources */,
+				539DFC8021219F4900B5C740 /* ExchangeDataWithCloudKit.swift in Sources */,
 				53FBE2E221284F49003DDB84 /* CloudkitExtensions.swift in Sources */,
 				539DFC51211FFD1600B5C740 /* SimulateData.swift in Sources */,
 				53DFACAF212D300600B23486 /* CreateNewCoreData.swift in Sources */,

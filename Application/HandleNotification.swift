@@ -14,8 +14,12 @@ class HandleNotification: OperationCloudKit {
     static let shared = HandleNotification()
     @objc func coreDataDidSave(_ notification: Notification) {
         print("contextDidSave")
-            
-        uploadToCloudKit()
-
+        
+        if !CloudKit.isDownloadingFromCloudKit {
+            exchangeDataWithCloudKit {
+                print("finish data exchange")
+                //self.printOutCoreData()
+            }
+        }
     }
 }

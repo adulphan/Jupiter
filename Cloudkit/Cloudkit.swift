@@ -36,6 +36,8 @@ class CloudKit {
     static var recordIDsToDeleteFromCloudKit: [CKRecordID] = []
     static var hasDataToUpload: Bool = recordsToSaveToCloudKit != [] || recordIDsToDeleteFromCloudKit != []
     
+    static var pendingOperation: [CKOperation] = []
+    
 }
 
 
