@@ -30,25 +30,25 @@ extension CloudKitProtocol where Self: NSManagedObject {
             let recordName = self.recordName
             let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
             
-            let isDuplicate:Bool = CloudKit.recordIDsToDeleteFromCloudKit.contains { (id) -> Bool in
+            let isDuplicate:Bool = CloudKit.outgoingDeleteRecordIDs.contains { (id) -> Bool in
                 id.recordName == recordName
             }
             
             if !isDuplicate {
-                CloudKit.recordIDsToDeleteFromCloudKit.insert(recordID, at: 0)
+                CloudKit.outgoingDeleteRecordIDs.insert(recordID, at: 0)
             }
            
         } else {
             let record = self.recordToUpload()
             
-            let index = CloudKit.recordsToSaveToCloudKit.index { (existing) -> Bool in
+            let index = CloudKit.outgoingSaveRecords.index { (existing) -> Bool in
                 existing.recordID.recordName == record.recordID.recordName
             }
 
             if let index = index {
-                CloudKit.recordsToSaveToCloudKit[index] = record
+                CloudKit.outgoingSaveRecords[index] = record
             } else {
-                CloudKit.recordsToSaveToCloudKit.append(record)
+                CloudKit.outgoingSaveRecords.append(record)
             }
             
         }

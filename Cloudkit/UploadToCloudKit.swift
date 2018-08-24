@@ -10,12 +10,36 @@ import Foundation
 import CloudKit
 
 extension OperationCloudKit {
+
+    var uploadOperation: CKModifyRecordsOperation {
+
+        let operation = CKModifyRecordsOperation(recordsToSave: CloudKit.outgoingSaveRecords, recordIDsToDelete: CloudKit.outgoingDeleteRecordIDs)
+        operation.savePolicy = .changedKeys
+        operation.modifyRecordsCompletionBlock = { (records, recordIDs, error) in
+            if let err = error {
+                print(err)
+            }
+            for record in records! {
+                print("\(record.recordID.recordName) is saved on Cloud")
+            }
+            
+            for id in recordIDs! {
+                print("\(id.recordName) is deleted from Cloud")
+            }
+            
+            CloudKit.outgoingSaveRecords = []
+            CloudKit.outgoingDeleteRecordIDs = []
+            
+        }
+        
+        return operation
+    }
     
     func uploadToCloudKit(completion: @escaping () -> Void) {
         
-        guard CloudKit.hasDataToUpload else { completion(); return }
-        let recordToSave = CloudKit.recordsToSaveToCloudKit
-        let recordIDToDelete = CloudKit.recordIDsToDeleteFromCloudKit
+        guard CloudKit.hasOutgoings else { completion(); return }
+        let recordToSave = CloudKit.outgoingSaveRecords
+        let recordIDToDelete = CloudKit.outgoingDeleteRecordIDs
 
         let operation = CKModifyRecordsOperation(recordsToSave: recordToSave, recordIDsToDelete: recordIDToDelete)
         operation.savePolicy = .changedKeys
@@ -31,8 +55,8 @@ extension OperationCloudKit {
                 print("\(id.recordName) is deleted")
             }
             
-            CloudKit.recordsToSaveToCloudKit = []
-            CloudKit.recordIDsToDeleteFromCloudKit = []
+            CloudKit.outgoingSaveRecords = []
+            CloudKit.outgoingDeleteRecordIDs = []
             self.operationRefreshToken(dependency: operation) {
                 completion()
             }

@@ -16,36 +16,53 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
         
-        var count: Int = 0
-        _ = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { t in
-            print(Date(), "  count : \(count)")
-            count += 1
-
-            let grocery = self.ExistingAccount(name: "Grocery")!
-            //let random = SimulateData.shared.randomInt(min: 0, max: wallet.transactions.count - 1)
-            let transaction = grocery.transactions[0]
-            transaction.name = "Update: " + Date().description
-            self.saveCoreData()
-
-            if count == 3 {
-
-                print("finish timer loop")
-                self.printOutCoreData()
-                t.invalidate()
-
-            }
-
-        }
-        
-        
-        
-        
-        
-
 //        clearCoreData()
-//
+//        
 //        UserDefaults.standard.financialDataChangeToken = nil
+//        
+//        exchangeCK()
 
+
+ //       SimulateData.shared.simulateData()
+        
+        
+//        let bofa = ExistingAccount(name: "Bofa")!
+//
+//        bofa.beginBalance = 8888888
+//
+//        saveCoreData()
+        
+        
+        
+//        var count: Int = 0
+//        _ = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { t in
+//            print(Date(), "  count : \(count)")
+//            count += 1
+//
+//            let grocery = self.ExistingAccount(name: "Grocery")!
+//            //let random = SimulateData.shared.randomInt(min: 0, max: wallet.transactions.count - 1)
+//            let transaction = grocery.transactions[0]
+//            transaction.name = "Update: " + Date().description
+//            self.saveCoreData()
+//
+//            if count == 3 {
+//
+//                print("finish timer loop")
+//                self.printOutCoreData()
+//                t.invalidate()
+//
+//            }
+//
+//        }
+        
+        
+        
+        
+        
+
+
+
+        //saveCoreData()
         
 //        exchangeDataWithCloudKit {
 //            print("finished")
@@ -106,20 +123,25 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
 //        saveCoreData()
 //        let wallet = ExistingAccount(name: "Wallet")!
 //
-//        wallet.endBalance = 54321
-////
+//        wallet.endBalance = 54
+//
 //        saveCoreData()
 //        printOutCoreData()
-//
         
-//        let victim = ExistingTransaction(name: "Villa Paseo BB")
+        //        let recordExchange = RecordExchange()
+        //        recordExchange.start()
+
+        
+//        let victim = ExistingTransaction(name: "Villa Device")!
 //
-//        CoreData.context.delete(victim!)
+//        CoreData.context.delete(victim)
+//
+//        saveCoreData()
 //
 //
-//        let transaction = ExistingTransaction(name: "Villa Paseo 2")
+//        let transaction = ExistingTransaction(name: "Big C Mega Bangna 22")
 //
-//        transaction?.name = "Villa device change"
+//        transaction?.name = "Big C Mega Bangna Device"
 //
 //        saveCoreData()
 //        let grocery = newAccount(inCompany: workingCompany)

@@ -28,15 +28,15 @@ class CloudKit {
     static var accountRecordToSave: [CKRecord] = []
     static var transactionRecordToSave: [CKRecord] = []
     
-    static var recordsToSaveToCoreData: [CKRecord] = []
-    static var recordIDToDeleteFromCoreData: [CKRecordID] = []
-    static var hasDownloadedData: Bool = recordsToSaveToCoreData != [] || recordIDToDeleteFromCoreData != []
+    static var incomingSaveRecords: [CKRecord] = []
+    static var incomingDeleteRecordIDs: [CKRecordID] = []
+    static var hasIncomings: Bool = incomingSaveRecords != [] || incomingDeleteRecordIDs != []
     
-    static var recordsToSaveToCloudKit: [CKRecord] = []
-    static var recordIDsToDeleteFromCloudKit: [CKRecordID] = []
-    static var hasDataToUpload: Bool = recordsToSaveToCloudKit != [] || recordIDsToDeleteFromCloudKit != []
+    static var outgoingSaveRecords: [CKRecord] = []
+    static var outgoingDeleteRecordIDs: [CKRecordID] = []
+    static var hasOutgoings: Bool = outgoingSaveRecords != [] || outgoingDeleteRecordIDs != []
     
-    static var pendingOperation: [CKOperation] = []
+    static var pendingOperations: [CKOperation] = []
     
 }
 

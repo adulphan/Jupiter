@@ -14,6 +14,62 @@ protocol OperationCloudKit: AccessCoreData {}
 
 extension OperationCloudKit {
     
+    func exchangeCK() {
+        
+        let download = downloadOperation
+        let upload = uploadOperation
+        
+        CloudKit.pendingOperations.append(download)
+        CloudKit.pendingOperations.append(upload)
+        upload.addDependency(download)
+        
+        if CloudKit.pendingOperations.count > 2  {
+            let index = CloudKit.pendingOperations.index(of: download)
+            let previousOperation = CloudKit.pendingOperations[index!-1]
+            download.addDependency(previousOperation)
+        }
+        
+        CloudKit.privateDatabase.add(download)
+        CloudKit.privateDatabase.add(upload)
+        
+    }
+    
+    var downloadOperation: CKFetchRecordZoneChangesOperation {
+        
+        let option = CKFetchRecordZoneChangesOptions()
+        option.previousServerChangeToken = UserDefaults.standard.financialDataChangeToken
+        let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.financialDataZoneID], optionsByRecordZoneID: [CloudKit.financialDataZoneID:option])
+        
+        operation.recordChangedBlock = { (record) in
+            
+            CloudKit.incomingSaveRecords.append(record)
+            print("incomingSave: \(record.recordID.recordName)")
+        }
+        
+        operation.recordWithIDWasDeletedBlock = { (recordID, text) in
+
+            CloudKit.incomingDeleteRecordIDs.append(recordID)
+            print("incomingDelete: \(recordID.recordName)")
+            
+        }
+        
+        operation.recordZoneFetchCompletionBlock = { (zoneId, changeToken, _, _, error) in
+            if let error = error {
+                print("Error download operation : ", error)
+                self.clearCachedRecords()
+                return
+            }
+            
+            UserDefaults.standard.financialDataChangeToken = changeToken
+            //self.resolveConflicts()
+            
+            
+            DispatchQueue.main.sync { self.pushNewFetchToCoreData() }
+        }
+        
+        return operation
+    }
+    
     func exchangeDataWithCloudKit(completion: @escaping () -> Void) {
         
         guard Application.connectedToCloudKit else {
@@ -27,12 +83,12 @@ extension OperationCloudKit {
         let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.financialDataZoneID], optionsByRecordZoneID: [CloudKit.financialDataZoneID:option])
 
         operation.recordChangedBlock = { (record) in
-            CloudKit.recordsToSaveToCoreData.append(record)
+            CloudKit.incomingSaveRecords.append(record)
             print("\(record.recordID.recordName) is downloaded")
         }
         
         operation.recordWithIDWasDeletedBlock = { (recordID, text) in
-            CloudKit.recordIDToDeleteFromCoreData.append(recordID)
+            CloudKit.incomingDeleteRecordIDs.append(recordID)
             print("\(recordID.recordName) is ordered to delete")
         }
 
@@ -44,26 +100,11 @@ extension OperationCloudKit {
             }
             
             UserDefaults.standard.financialDataChangeToken = changeToken
-            
+            self.resolveConflicts()
             DispatchQueue.main.sync {
-                
-                self.resolveConflicts()
                 self.pushNewFetchToCoreData()
-                self.uploadToCloudKit(completion: {
-                    
-
-
-                    completion()
-                })
-
             }
         }
-//        CloudKit.pendingOperation.append(operation)
-//        let index = CloudKit.pendingOperation.index(of: operation)
-//        if index != 0 {
-//            let previousOperation = CloudKit.pendingOperation[index-1]
-//            operation.addDependency(previousOperation)
-//        }
 
         CloudKit.privateDatabase.add(operation)
     }
@@ -80,14 +121,14 @@ extension OperationCloudKit {
     
     private func clearCachedRecords() {
         
-        CloudKit.recordsToSaveToCoreData = []
-        CloudKit.recordIDToDeleteFromCoreData = []
+        CloudKit.incomingSaveRecords = []
+        CloudKit.incomingDeleteRecordIDs = []
         
     }
     
     private func saveNewFetchToCoreData() {
         
-        for recordID in CloudKit.recordIDToDeleteFromCoreData {
+        for recordID in CloudKit.incomingDeleteRecordIDs {
             if let object = ExistingObject(recordName: recordID.recordName) {
                 deleteCoreData(object: object)
             }
@@ -95,7 +136,7 @@ extension OperationCloudKit {
         
         var sortedRecords: [CKRecord] = []
         for type in CloudKit.recordType.allValues {
-            let filtered = CloudKit.recordsToSaveToCoreData.filter{$0.recordType == type.rawValue}
+            let filtered = CloudKit.incomingSaveRecords.filter{$0.recordType == type.rawValue}
             sortedRecords += filtered
         }
         
@@ -142,5 +183,45 @@ extension OperationCloudKit {
 
 
 
+//            let deviceAlreadyDelete = CloudKit.outgoingDeleteRecordIDs.map{$0.recordName}.contains(recordID.recordName)
+//            let deviceHasUpdate = CloudKit.outgoingSaveRecords.map{$0.recordID.recordName}.contains(recordID.recordName)
+//
+//            if !deviceAlreadyDelete {
+//                CloudKit.incomingDeleteRecordIDs.append(recordID)
+//                print("incomingDelete: \(recordID.recordName)")
+//            }
+//
+//            if deviceHasUpdate {
+//                let index = CloudKit.outgoingSaveRecords.index(where: { (record) -> Bool in
+//                    record.recordID.recordName == recordID.recordName
+//                })
+//
+//                CloudKit.outgoingSaveRecords.remove(at: index!)
+//            }
+
+
+
+//let deviceAlreadyDelete = CloudKit.outgoingDeleteRecordIDs.map{$0.recordName}.contains(record.recordID.recordName)
+////            let deviceHasUpdate = CloudKit.outgoingSaveRecords.map{$0.recordID.recordName}.contains(record.recordID.recordName)
+////
+//let index = CloudKit.outgoingSaveRecords.index(where: { (outRecord) -> Bool in
+//    outRecord.recordID.recordName == record.recordID.recordName
+//})
+//
+//var deviceVersionPrevail: Bool = false
+//if let index = index {
+//    let outgoingDate = CloudKit.outgoingSaveRecords[index].value(forKey: "modifiedLocal") as! Date
+//    let incomingDate = record.value(forKey: "modifiedLocal") as! Date
+//    if outgoingDate > incomingDate {
+//        deviceVersionPrevail = true
+//    } else {
+//        CloudKit.outgoingSaveRecords.remove(at: index)
+//    }
+//}
+//
+//if !deviceAlreadyDelete && !deviceVersionPrevail {
+//    CloudKit.incomingSaveRecords.append(record)
+//    print("incomingSave: \(record.recordID.recordName)")
+//}
 
 

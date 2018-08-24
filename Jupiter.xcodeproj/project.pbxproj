@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		532280B5212AA83E00EB96D8 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532280B4212AA83E00EB96D8 /* NSManagedObject.swift */; };
+		533AB93B212FA1540022C512 /* RecordExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB93A212FA1540022C512 /* RecordExchange.swift */; };
+		533AB93D212FA2970022C512 /* DownloadRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB93C212FA2970022C512 /* DownloadRecords.swift */; };
+		533AB93F212FA3460022C512 /* ResolveConflicts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB93E212FA3460022C512 /* ResolveConflicts.swift */; };
+		533AB941212FA4D00022C512 /* UploadRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB940212FA4D00022C512 /* UploadRecords.swift */; };
 		533CE78D2122E4DA00762B7D /* ClearCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533CE78C2122E4DA00762B7D /* ClearCoreData.swift */; };
 		537B03D3211F19C700953516 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03D2211F19C700953516 /* AppDelegate.swift */; };
 		537B03D5211F19C700953516 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03D4211F19C700953516 /* ViewController.swift */; };
@@ -47,7 +51,7 @@
 		53CC44CC212460640039CD4E /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44CB212460640039CD4E /* Calendar.swift */; };
 		53CC44CE212462C70039CD4E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44CD212462C70039CD4E /* Date.swift */; };
 		53CC44D0212464A50039CD4E /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44CF212464A50039CD4E /* Number.swift */; };
-		53DFACAD212D1B1300B23486 /* ResolveConflicts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFACAC212D1B1300B23486 /* ResolveConflicts.swift */; };
+		53DFACAD212D1B1300B23486 /* ResolveConflicts_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFACAC212D1B1300B23486 /* ResolveConflicts_old.swift */; };
 		53DFACAF212D300600B23486 /* CreateNewCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFACAE212D300600B23486 /* CreateNewCoreData.swift */; };
 		53E2DBD9212C22B000F75F58 /* EnsureFinancialDataZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */; };
 		53E2DBDC212C58F700F75F58 /* CompanyValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2DBDB212C58F700F75F58 /* CompanyValidation.swift */; };
@@ -63,6 +67,10 @@
 /* Begin PBXFileReference section */
 		532280B3212A4C1700EB96D8 /* Jupiter 1.12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.12.xcdatamodel"; sourceTree = "<group>"; };
 		532280B4212AA83E00EB96D8 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
+		533AB93A212FA1540022C512 /* RecordExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordExchange.swift; sourceTree = "<group>"; };
+		533AB93C212FA2970022C512 /* DownloadRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadRecords.swift; sourceTree = "<group>"; };
+		533AB93E212FA3460022C512 /* ResolveConflicts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveConflicts.swift; sourceTree = "<group>"; };
+		533AB940212FA4D00022C512 /* UploadRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRecords.swift; sourceTree = "<group>"; };
 		533CE78C2122E4DA00762B7D /* ClearCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearCoreData.swift; sourceTree = "<group>"; };
 		537B03CF211F19C700953516 /* Jupiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jupiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		537B03D2211F19C700953516 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +122,7 @@
 		53CC44CB212460640039CD4E /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		53CC44CD212462C70039CD4E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		53CC44CF212464A50039CD4E /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
-		53DFACAC212D1B1300B23486 /* ResolveConflicts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveConflicts.swift; sourceTree = "<group>"; };
+		53DFACAC212D1B1300B23486 /* ResolveConflicts_old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveConflicts_old.swift; sourceTree = "<group>"; };
 		53DFACAE212D300600B23486 /* CreateNewCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCoreData.swift; sourceTree = "<group>"; };
 		53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsureFinancialDataZone.swift; sourceTree = "<group>"; };
 		53E2DBDA212C26A700F75F58 /* Jupiter 1.010.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.010.xcdatamodel"; sourceTree = "<group>"; };
@@ -250,8 +258,12 @@
 				53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */,
 				539DFC7F21219F4900B5C740 /* ExchangeDataWithCloudKit.swift */,
 				53EB98BA212D06C3009B5EF5 /* UploadToCloudKit.swift */,
-				53DFACAC212D1B1300B23486 /* ResolveConflicts.swift */,
+				53DFACAC212D1B1300B23486 /* ResolveConflicts_old.swift */,
 				53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */,
+				533AB93A212FA1540022C512 /* RecordExchange.swift */,
+				533AB93C212FA2970022C512 /* DownloadRecords.swift */,
+				533AB93E212FA3460022C512 /* ResolveConflicts.swift */,
+				533AB940212FA4D00022C512 /* UploadRecords.swift */,
 			);
 			path = Cloudkit;
 			sourceTree = "<group>";
@@ -393,6 +405,7 @@
 				539DFC8021219F4900B5C740 /* ExchangeDataWithCloudKit.swift in Sources */,
 				53FBE2E221284F49003DDB84 /* CloudkitExtensions.swift in Sources */,
 				539DFC51211FFD1600B5C740 /* SimulateData.swift in Sources */,
+				533AB941212FA4D00022C512 /* UploadRecords.swift in Sources */,
 				53DFACAF212D300600B23486 /* CreateNewCoreData.swift in Sources */,
 				53FBE2DE212817E6003DDB84 /* AccessFiles.swift in Sources */,
 				537B03DB211F19C700953516 /* Jupiter.xcdatamodeld in Sources */,
@@ -407,6 +420,7 @@
 				53EB98B9212D023E009B5EF5 /* HandleNotification.swift in Sources */,
 				539DFC5C2120623A00B5C740 /* Cloudkit.swift in Sources */,
 				5383BADE2126737A00D10A11 /* TransactionUpdateFlows.swift in Sources */,
+				533AB93B212FA1540022C512 /* RecordExchange.swift in Sources */,
 				5383BAE22126995700D10A11 /* TransactionProtocol.swift in Sources */,
 				53CC44CE212462C70039CD4E /* Date.swift in Sources */,
 				53E2DBDC212C58F700F75F58 /* CompanyValidation.swift in Sources */,
@@ -417,17 +431,19 @@
 				5383BAD821265A9000D10A11 /* TransactionExtensions.swift in Sources */,
 				5383BAE72126D9FD00D10A11 /* MonthExtensions.swift in Sources */,
 				539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */,
+				533AB93F212FA3460022C512 /* ResolveConflicts.swift in Sources */,
 				5383BAED21279BE800D10A11 /* PeriodicTransactions.swift in Sources */,
 				539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */,
 				5383BAEB2126F20300D10A11 /* TransactionReader.swift in Sources */,
 				5383BADB21265E8800D10A11 /* TransactionObserver.swift in Sources */,
 				53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */,
-				53DFACAD212D1B1300B23486 /* ResolveConflicts.swift in Sources */,
+				53DFACAD212D1B1300B23486 /* ResolveConflicts_old.swift in Sources */,
 				5383BAEF21279EA500D10A11 /* SimulateAccounts.swift in Sources */,
 				539DFC652121271800B5C740 /* Application.swift in Sources */,
 				53FBE2E421285DB9003DDB84 /* CloudKitProtocol.swift in Sources */,
 				537B03D5211F19C700953516 /* ViewController.swift in Sources */,
 				53CC44D0212464A50039CD4E /* Number.swift in Sources */,
+				533AB93D212FA2970022C512 /* DownloadRecords.swift in Sources */,
 				539DFC5E2120689C00B5C740 /* CompanyObserver.swift in Sources */,
 				539DFC6A2121297C00B5C740 /* UserLocalCache.swift in Sources */,
 				53C1D54D21290A1A0029EBD0 /* AccountValidation.swift in Sources */,
