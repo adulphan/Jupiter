@@ -17,8 +17,8 @@ extension AccessCoreData {
             printSystemField(type: type)
         }
         
-        printMonths()
-        printTransaction()
+        //printMonths()
+        //printTransaction()
     }
     
     private func printSystemField(type: CoreData.dataType) {

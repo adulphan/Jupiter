@@ -18,7 +18,7 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
         
 //        clearCoreData()
 //        
-//        UserDefaults.standard.financialDataChangeToken = nil
+        
 //        
 //        exchangeCK()
 
@@ -32,28 +32,41 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
 //
 //        saveCoreData()
         
+//        printOutCoreData()
         
-        
-//        var count: Int = 0
-//        _ = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { t in
-//            print(Date(), "  count : \(count)")
-//            count += 1
-//
-//            let grocery = self.ExistingAccount(name: "Grocery")!
-//            //let random = SimulateData.shared.randomInt(min: 0, max: wallet.transactions.count - 1)
-//            let transaction = grocery.transactions[0]
-//            transaction.name = "Update: " + Date().description
-//            self.saveCoreData()
-//
-//            if count == 3 {
-//
-//                print("finish timer loop")
-//                self.printOutCoreData()
-//                t.invalidate()
-//
-//            }
-//
-//        }
+        var count: Int = 0
+        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { t in
+            print(Date(), "  count : \(count)")
+            count += 1
+
+            let wallet = self.ExistingAccount(name: "Wallet")!
+            let grocery = self.ExistingAccount(name: "Grocery")!
+            //let random = SimulateData.shared.randomInt(min: 0, max: wallet.transactions.count - 1)
+            let transaction = grocery.transactions[0]
+            CoreData.context.delete(transaction)
+            
+            let update = grocery.transactions[1]
+            update.name = "Update: " + Date().description
+
+            let newTransaction = Transaction(context: CoreData.context)
+            newTransaction.name = "Creates: " + Date().description
+            newTransaction.identifier = UUID()
+            newTransaction.date = Date()
+            newTransaction.accounts = [wallet, grocery]
+            newTransaction.flows = [-888, 888]
+
+
+            self.saveCoreData()
+
+            if count == 3 {
+
+                print("finish timer loop")
+                //self.printOutCoreData()
+                t.invalidate()
+
+            }
+
+        }
         
         
         
@@ -127,24 +140,31 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
 //
 //        saveCoreData()
 //        printOutCoreData()
-        
-        //        let recordExchange = RecordExchange()
-        //        recordExchange.start()
+//        UserDefaults.standard.financialDataChangeToken = nil
+//
+//                let recordExchange = RecordExchange()
+//                recordExchange.start()
 
         
-//        let victim = ExistingTransaction(name: "Villa Device")!
+//        let victim = ExistingTransaction(name: "This should be deleted")!
 //
-//        CoreData.context.delete(victim)
+//        victim.name = "This should not survive"
 //
 //        saveCoreData()
 //
+
+//        SimulateData.shared.simulateData()
+        
+        
+//        let transaction = ExistingTransaction(name: "Tesco Online 13")
 //
-//        let transaction = ExistingTransaction(name: "Big C Mega Bangna 22")
-//
-//        transaction?.name = "Big C Mega Bangna Device"
+//        transaction?.name = "Tesco Online 14"
 //
 //        saveCoreData()
 //        let grocery = newAccount(inCompany: workingCompany)
+        
+//        SimulateData.shared.simulateTransaciton()
+//        saveCoreData()
         
         
 //        printMonthFor(account: grocery)

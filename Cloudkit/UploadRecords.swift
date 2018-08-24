@@ -12,7 +12,7 @@ import CloudKit
 extension RecordExchange {
     
     var uploadOperation: CKModifyRecordsOperation {
-        
+
         let operation = CKModifyRecordsOperation(recordsToSave: outgoingSaveRecords, recordIDsToDelete: outgoingDeleteRecordIDs)
         operation.savePolicy = .changedKeys
         operation.modifyRecordsCompletionBlock = { (records, recordIDs, error) in
@@ -28,7 +28,8 @@ extension RecordExchange {
             }
             
             print("finished upload: \(self.uploadOperation.operationID)")
-            DispatchQueue.main.sync { self.printOutCoreData() }
+            DispatchQueue.main.sync { self.printOutCoreData() }        
+            
         }
         
         return operation

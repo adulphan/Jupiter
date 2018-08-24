@@ -48,6 +48,7 @@ extension RecordExchange {
         outgoingSaveRecords_int = outgoingSaveRecords.map{$0.recordID.recordName}
         
         let competingSave = incomingSaveRecords_int.filter(outgoingSaveRecords_int.contains)
+            guard competingSave.count != 0 else { printTransferingRecords(); return }
         for recordName in competingSave {
             let index1 = incomingSaveRecords_int.index(of: recordName)
             let incoming = incomingSaveRecords[index1!]

@@ -10,7 +10,7 @@ import Foundation
 import CloudKit
 
 
-class RecordExchange {
+class RecordExchange: OperationCloudKit {
     
     var incomingSaveRecords: [CKRecord] = []
     var incomingDeleteRecordIDs: [CKRecordID] = []
@@ -27,9 +27,25 @@ class RecordExchange {
     }
     
     func start() {
+        
+
+//        uploadOperation.addDependency(downloadOperation)
+//        let operationQueue = OperationQueue.main
+//        operationQueue.addOperations([downloadOperation, uploadOperation], waitUntilFinished: false)
         CloudKit.privateDatabase.add(downloadOperation)
+//        CloudKit.privateDatabase.add(uploadOperation)
+
+        
+        
     }
 
 }
+
+
+
+
+
+
+
 
 

@@ -15,9 +15,15 @@ class HandleNotification: OperationCloudKit {
     @objc func coreDataDidSave(_ notification: Notification) {
         print("contextDidSave")
         
-        guard !CloudKit.isDownloadingFromCloudKit else { return }
-        let recordExchange = RecordExchange()
-        recordExchange.start()
+        if !CloudKit.isDownloadingFromCloudKit {
+            
+            
+            print(CloudKit.outgoingSaveRecords.map{$0.recordID.recordName})
+            
+            
+            let recordExchange = RecordExchange()
+            recordExchange.start()
+        }
         
         CloudKit.outgoingDeleteRecordIDs = []
         CloudKit.outgoingSaveRecords = []

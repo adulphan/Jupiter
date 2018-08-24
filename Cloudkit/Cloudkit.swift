@@ -19,7 +19,7 @@ class CloudKit {
     }
     
     static var isDownloadingFromCloudKit:Bool = false
-    static let privateDatabase = CKContainer(identifier: "iCloud.goldbac-Inc.goldbac").privateCloudDatabase
+    static let privateDatabase = CKContainer.default().privateCloudDatabase
     static let publicDatabase = CKContainer.default().publicCloudDatabase
     
     static let financialDataZoneID = CKRecordZone(zoneName: "FinancialData").zoneID

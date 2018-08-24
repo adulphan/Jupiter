@@ -23,6 +23,7 @@ extension RecordExchange: AccessCoreData {
             print("incomingSave: \(record.recordID.recordName)")
         }
         
+        
         operation.recordWithIDWasDeletedBlock = { (recordID, text) in
             
             self.incomingDeleteRecordIDs.append(recordID)
@@ -40,8 +41,8 @@ extension RecordExchange: AccessCoreData {
             UserDefaults.standard.financialDataChangeToken = changeToken
             self.resolveConflicts()
             DispatchQueue.main.sync { self.pushNewFetchToCoreData() }
-            
-            self.uploadOperation.addDependency(self.downloadOperation)
+            print("recordFetchComplete")
+            //self.uploadOperation.addDependency(self.downloadOperation)
             CloudKit.privateDatabase.add(self.uploadOperation)
             
         }
