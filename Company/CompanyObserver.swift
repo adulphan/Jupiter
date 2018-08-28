@@ -12,9 +12,12 @@ extension Company: CloudKitProtocol {
     
     public override func willSave() {
         super.willSave()
-        setPrimitiveValue(changedValues() as NSObject, forKey: "cachedValues")
+        
+        let changeKeys = changedValues().map{$0.key}
+        setPrimitiveValue(committedValues(forKeys: changeKeys) as NSObject, forKey: "cachedValues")
         setPrimitiveValue(Date(), forKey: "modifiedLocal")
-    }    
+    
+    }
     
     public override func didSave() {
         super.didSave()

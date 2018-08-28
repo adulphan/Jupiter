@@ -24,5 +24,7 @@ protocol SystemField {
     var name: String? { get }
     var modifiedLocal: Date? { get }
     var identifier: UUID? { get }
+    var recordData: Data? { get }
+    var cachedValues: NSObject? { get }
     
 }

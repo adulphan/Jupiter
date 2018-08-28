@@ -17,7 +17,7 @@ extension AccessCoreData {
             printSystemField(type: type)
         }
         
-        //printMonths()
+        printMonths()
         //printTransaction()
     }
     

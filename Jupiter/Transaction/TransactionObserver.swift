@@ -12,13 +12,16 @@ extension Transaction: CloudKitProtocol {
     
     public override func willSave() {
         super.willSave()
-        setPrimitiveValue(changedValues() as NSObject, forKey: "cachedValues")
+
+        let changeKeys = changedValues().map{$0.key}
+        setPrimitiveValue(committedValues(forKeys: changeKeys) as NSObject, forKey: "cachedValues")
         setPrimitiveValue(Date(), forKey: "modifiedLocal")
+
     }
     
     public override func didSave() {
         super.didSave()
-        
+
         let relationshipNames = entity.relationshipsByName.map{$0.key}
         let changedKeys = (cachedValues as! [String:Any]).map{$0.key}
         updateMonthFlows()
@@ -28,19 +31,6 @@ extension Transaction: CloudKitProtocol {
             cachedValues = nil
             return
         }
-        
-        guard let set = (cachedValues as! [String:Any])["accountSet"] else { return }
-        let array = (set as! NSOrderedSet).array as! [Account]
-        if array != self.accounts {
-            proceedToCloudKit()
-            cachedValues = nil
-            return
- 
-        }
-        
-//
-//
-//        proceedToCloudKit()
 
     }
     

@@ -9,9 +9,10 @@
 import Foundation
 import CloudKit
 import CoreData
+import UIKit
 
-protocol CloudKitProtocol: AccessExistingCoreData {
-
+protocol CloudKitProtocol: AccessCoreData {
+    
 }
 
 extension CloudKitProtocol where Self: NSManagedObject {
@@ -20,6 +21,7 @@ extension CloudKitProtocol where Self: NSManagedObject {
         let id = value(forKey: "identifier") as! UUID
         return id.uuidString        
     }
+    
     
     func proceedToCloudKit() {
         
@@ -39,8 +41,9 @@ extension CloudKitProtocol where Self: NSManagedObject {
             }
            
         } else {
-            let record = self.recordToUpload()
             
+            let record = self.recordToUpload()
+
             let index = CloudKit.outgoingSaveRecords.index { (existing) -> Bool in
                 existing.recordID.recordName == record.recordID.recordName
             }
@@ -55,7 +58,23 @@ extension CloudKitProtocol where Self: NSManagedObject {
     }
     
     func recordToUpload() -> CKRecord {
-        let record = fillUploadingRecordWithAttributes()
+
+        var record: CKRecord!
+        
+        if let recordData = self.value(forKey: "recordData") {
+            let unarchiver = NSKeyedUnarchiver(forReadingWith: recordData as! Data)
+            unarchiver.requiresSecureCoding = true
+            record = CKRecord(coder: unarchiver)!
+            print(record.description)
+        } else {
+            
+            let recordName = self.recordName
+            let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
+            record = CKRecord(recordType: self.recordType, recordID: recordID)
+        }
+        
+        fillUploadingRecordWithAttributes(record: record)
+        record.setValue(UIDevice.current.identifierForVendor?.uuidString, forKey: "lastModifyDevice")
         setupReferenceFor(record: record)
         return record
     }
@@ -64,6 +83,13 @@ extension CloudKitProtocol where Self: NSManagedObject {
     func downloadFrom(record: CKRecord) {
         fillAttributesFromDownloading(record: record)
         setupRelationshipFromDownloading(record: record)
+        
+        let data = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWith: data)
+        archiver.requiresSecureCoding = true
+        record.encodeSystemFields(with: archiver)
+        archiver.finishEncoding()
+        self.setValue(data, forKey: "recordData")
 
     }
     
@@ -135,14 +161,15 @@ extension CloudKitProtocol where Self: NSManagedObject {
         return ""
     }
     
-    private func fillUploadingRecordWithAttributes() -> CKRecord {
+    private func fillUploadingRecordWithAttributes(record: CKRecord) {
 
-        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-        let record = CKRecord(recordType: recordType, recordID: recordID)
+//        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
+//        let record = CKRecord(recordType: recordType, recordID: recordID)
         
         for attibute in entity.attributesByName {
             guard !attibute.value.isTransient else { continue }
             guard attibute.key != "identifier" else { continue }
+            guard attibute.key != "recordData" else { continue }
             let key = attibute.key
             let transferValue = value(forKey: key)
             if attibute.value.attributeValueClassName == "NSUUID" {
@@ -154,8 +181,8 @@ extension CloudKitProtocol where Self: NSManagedObject {
                 record.setObject(transferValue as? CKRecordValue, forKey: key)
             }
         }
-        
-        return record
+//
+//        return record
     }
     
     private func fillAttributesFromDownloading(record: CKRecord) {
@@ -164,6 +191,7 @@ extension CloudKitProtocol where Self: NSManagedObject {
         for attibute in entity.attributesByName {
             guard !attibute.value.isTransient else { continue }
             guard attibute.key != "identifier" else { continue }
+            guard attibute.key != "recordData" else { continue }
             let key = attibute.key
             let transferValue = record.value(forKey: key)
             

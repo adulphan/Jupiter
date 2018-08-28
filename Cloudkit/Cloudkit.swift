@@ -24,10 +24,6 @@ class CloudKit {
     
     static let financialDataZoneID = CKRecordZone(zoneName: "FinancialData").zoneID
     
-    static var companyRecordToSave: [CKRecord] = []
-    static var accountRecordToSave: [CKRecord] = []
-    static var transactionRecordToSave: [CKRecord] = []
-    
     static var incomingSaveRecords: [CKRecord] = []
     static var incomingDeleteRecordIDs: [CKRecordID] = []
     static var hasIncomings: Bool = incomingSaveRecords != [] || incomingDeleteRecordIDs != []
@@ -36,11 +32,15 @@ class CloudKit {
     static var outgoingDeleteRecordIDs: [CKRecordID] = []
     static var hasOutgoings: Bool = outgoingSaveRecords != [] || outgoingDeleteRecordIDs != []
     
-    static var pendingOperations: [CKOperation] = []
-    
+    static var operationQueue: OperationQueue = {
+        let queue = OperationQueue.init()
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+
+
 }
-
-
 
 
 

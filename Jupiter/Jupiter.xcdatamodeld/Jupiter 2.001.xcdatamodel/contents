@@ -18,7 +18,6 @@
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="modifiedLocal" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="recordData" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="accountSet" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Account" inverseName="company" inverseEntity="Account" syncable="YES"/>
     </entity>
     <entity name="Month" representedClassName=".Month" syncable="YES" codeGenerationType="class">
@@ -36,15 +35,14 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photoID" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="recordData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="thumbID" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="accountSet" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Account" inverseName="transactionSet" inverseEntity="Account" syncable="YES"/>
     </entity>
     <elements>
         <element name="Account" positionX="-63" positionY="-18" width="128" height="210"/>
-        <element name="Company" positionX="-54" positionY="54" width="128" height="135"/>
+        <element name="Company" positionX="-54" positionY="54" width="128" height="120"/>
         <element name="Month" positionX="-45" positionY="117" width="128" height="105"/>
-        <element name="Transaction" positionX="-63" positionY="54" width="128" height="225"/>
+        <element name="Transaction" positionX="-63" positionY="54" width="128" height="210"/>
     </elements>
 </model>

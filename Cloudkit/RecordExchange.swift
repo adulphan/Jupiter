@@ -15,8 +15,8 @@ class RecordExchange: OperationCloudKit {
     var incomingSaveRecords: [CKRecord] = []
     var incomingDeleteRecordIDs: [CKRecordID] = []
     
-    var outgoingSaveRecords: [CKRecord] = CloudKit.outgoingSaveRecords
-    var outgoingDeleteRecordIDs: [CKRecordID] = CloudKit.outgoingDeleteRecordIDs
+    var outgoingSaveRecords: [CKRecord] = []
+    var outgoingDeleteRecordIDs: [CKRecordID] = []
     
     var hasIncomings: Bool {
         return incomingSaveRecords.count != 0 || incomingDeleteRecordIDs.count != 0
@@ -25,19 +25,39 @@ class RecordExchange: OperationCloudKit {
     var hasOutgoings: Bool {
         return outgoingSaveRecords.count != 0 || outgoingDeleteRecordIDs.count != 0
     }
-    
+
+    var uploadOperation = CKModifyRecordsOperation()
+    var downloadOperation = CKFetchRecordZoneChangesOperation()
+    var refrechToken = CKFetchRecordZoneChangesOperation()
+
     func start() {
         
-
-//        uploadOperation.addDependency(downloadOperation)
-//        let operationQueue = OperationQueue.main
-//        operationQueue.addOperations([downloadOperation, uploadOperation], waitUntilFinished: false)
-        CloudKit.privateDatabase.add(downloadOperation)
-//        CloudKit.privateDatabase.add(uploadOperation)
-
+        let operationQueue = CloudKit.operationQueue
+        let group = CKOperationGroup()
         
+        uploadOperation = createUploadOperation()
+        downloadOperation = createDownloadOperation()
+//        refrechToken = createRefreshTokenOperation()
         
+        uploadOperation.group = group
+        downloadOperation.group = group
+//        refrechToken.group = group
+        
+        uploadOperation.addDependency(downloadOperation)
+//        refrechToken.addDependency(uploadOperation)
+
+        if let lastOperation = operationQueue.operations.last {
+            downloadOperation.addDependency(lastOperation)
+        }
+        operationQueue.maxConcurrentOperationCount = 1
+        outgoingSaveRecords = CloudKit.outgoingSaveRecords
+        outgoingDeleteRecordIDs = CloudKit.outgoingDeleteRecordIDs
+        
+        operationQueue.addOperations([downloadOperation, uploadOperation], waitUntilFinished: false)
+        print("operation added: ", Date().description)
+    
     }
+
 
 }
 

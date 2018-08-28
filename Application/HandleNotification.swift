@@ -7,50 +7,36 @@
 //
 
 import Foundation
-
+import CoreData
 
 class HandleNotification: OperationCloudKit {
     
     static let shared = HandleNotification()
     @objc func coreDataDidSave(_ notification: Notification) {
         print("contextDidSave")
-        
-        if !CloudKit.isDownloadingFromCloudKit {
-            
-            
-            print(CloudKit.outgoingSaveRecords.map{$0.recordID.recordName})
-            
-            
-            let recordExchange = RecordExchange()
-            recordExchange.start()
+
+        if let insertedObjects = notification.userInfo?[NSInsertedObjectsKey] as? Set<NSManagedObject>, !insertedObjects.isEmpty {
+            guard let array = Array(insertedObjects) as? [SystemField] else {return}
+            for id in array {
+                print("Inserted: " ,id.identifier?.uuidString ?? "nil")
+            }
+ 
+        }
+        if let updatedObjects = notification.userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject>, !updatedObjects.isEmpty {
+
+            guard let array = Array(updatedObjects) as? [SystemField] else {return}
+            for id in array {
+                print("Updateded: ",id.identifier?.uuidString ?? "nil")
+            }
+        }
+        if let deletedObjects = notification.userInfo?[NSDeletedObjectsKey] as? Set<NSManagedObject>, !deletedObjects.isEmpty {
+
+            guard let array = Array(deletedObjects) as? [SystemField] else {return}
+            for id in array {
+                print("Deleted: ",id.identifier?.uuidString ?? "nil")
+            }
         }
         
-        CloudKit.outgoingDeleteRecordIDs = []
-        CloudKit.outgoingSaveRecords = []
-        
-//        guard !CloudKit.isDownloadingFromCloudKit else { return }
-//        let download = downloadOperation
-//        let upload = uploadOperation
-//
-//        CloudKit.pendingOperations.append(download)
-//        CloudKit.pendingOperations.append(upload)
-//        upload.addDependency(download)
-//
-//        if CloudKit.pendingOperations.count > 2  {
-//            let index = CloudKit.pendingOperations.index(of: download)
-//            let previousOperation = CloudKit.pendingOperations[index!-1]
-//            download.addDependency(previousOperation)
-//        }
-//
-//        CloudKit.privateDatabase.add(download)
-//        CloudKit.privateDatabase.add(upload)
-        
-        
-//        if !CloudKit.isDownloadingFromCloudKit {
-//            exchangeDataWithCloudKit {
-//                print("finish data exchange")
-//                //self.printOutCoreData()
-//            }
-//        }
+
     }
 }

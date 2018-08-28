@@ -19,6 +19,7 @@ extension Transaction {
             updateBalanceWith(transaction: self, isDeleted: false)
             return
         } else if isUpdateNeeded {
+
             updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
             updateBalanceWith(transaction: self, isDeleted: false)
             return

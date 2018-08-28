@@ -12,7 +12,11 @@ import CoreData
 
 extension NSManagedObject {
     
-    
+    var updateIsInAttributes: Bool {
+        
+        return false
+    }
     
 }
+
 
