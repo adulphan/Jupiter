@@ -17,8 +17,8 @@ extension AccessCoreData {
             printSystemField(type: type)
         }
         
-        printMonths()
-        //printTransaction()
+//        printMonths()
+        printTransaction()
     }
     
     private func printSystemField(type: CoreData.dataType) {
@@ -76,6 +76,10 @@ extension AccessCoreData {
                         let array = value.array as! [Account]
                         print("\(key): ", "\(array.map{$0.name!})")
 
+                    } else if let data = object.value(forKey: key) as? Data {
+                        
+                        print("\(key): ",!data.isEmpty)
+                        
                     } else {
 
                         print("\(key): ", "\(object.value(forKey: key) ?? "nil")")

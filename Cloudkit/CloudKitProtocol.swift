@@ -65,7 +65,7 @@ extension CloudKitProtocol where Self: NSManagedObject {
             let unarchiver = NSKeyedUnarchiver(forReadingWith: recordData as! Data)
             unarchiver.requiresSecureCoding = true
             record = CKRecord(coder: unarchiver)!
-            print(record.description)
+            
         } else {
             
             let recordName = self.recordName
@@ -73,8 +73,7 @@ extension CloudKitProtocol where Self: NSManagedObject {
             record = CKRecord(recordType: self.recordType, recordID: recordID)
         }
         
-        fillUploadingRecordWithAttributes(record: record)
-        record.setValue(UIDevice.current.identifierForVendor?.uuidString, forKey: "lastModifyDevice")
+        fillUploadingRecordWithAttributes(record: record)        
         setupReferenceFor(record: record)
         return record
     }
@@ -162,10 +161,7 @@ extension CloudKitProtocol where Self: NSManagedObject {
     }
     
     private func fillUploadingRecordWithAttributes(record: CKRecord) {
-
-//        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-//        let record = CKRecord(recordType: recordType, recordID: recordID)
-        
+     
         for attibute in entity.attributesByName {
             guard !attibute.value.isTransient else { continue }
             guard attibute.key != "identifier" else { continue }
@@ -181,8 +177,7 @@ extension CloudKitProtocol where Self: NSManagedObject {
                 record.setObject(transferValue as? CKRecordValue, forKey: key)
             }
         }
-//
-//        return record
+
     }
     
     private func fillAttributesFromDownloading(record: CKRecord) {

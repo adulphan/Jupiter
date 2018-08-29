@@ -12,7 +12,14 @@ extension Transaction  {
 
     var accounts: [Account] {
         get{ return accountSet?.array as! [Account] }
-        set{ accountSet = NSOrderedSet(array: newValue) }        
+        set{
+            
+//            accountSet = NSOrderedSet(array: newValue)
+            let set = NSOrderedSet(array: newValue)
+            self.willAccessValue(forKey: "accountSet")
+            self.setPrimitiveValue(set, forKey: "accountSet")
+            self.didAccessValue(forKey: "accountSet")
+        }
     }
 
 }

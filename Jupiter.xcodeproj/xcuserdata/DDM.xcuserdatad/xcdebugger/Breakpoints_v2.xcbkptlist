@@ -9,13 +9,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Jupiter/ViewController.swift"
-            timestampString = "557156529.08066"
+            filePath = "Account/AccountObserver.swift"
+            timestampString = "557232659.1426311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "willSave()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jupiter.Account.willSave() -&gt; ()"
+                  moduleName = "Jupiter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/DDM/Desktop/NewCode/Jupiter/Account/AccountObserver.swift"
+                  timestampString = "557232659.29108"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "91">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((key: Swift.String, value: Any)) -&gt; Swift.String in Jupiter.Account.willSave() -&gt; ()"
+                  moduleName = "Jupiter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/DDM/Desktop/NewCode/Jupiter/Account/AccountObserver.swift"
+                  timestampString = "557232659.2939169"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "42">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Account/AccountObserver.swift"
+            timestampString = "557232659.142691"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "didSave()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

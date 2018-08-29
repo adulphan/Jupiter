@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-extension RecordExchange {
+//extension RecordExchange {
 //    
 //    func handle(error: Error) {
 //        
@@ -47,4 +47,4 @@ extension RecordExchange {
 //    }
     
     
-}
+//}

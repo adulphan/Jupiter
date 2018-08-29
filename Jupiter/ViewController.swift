@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 
 class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
@@ -17,33 +18,52 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
         view.backgroundColor = UIColor.orange
         
         
- //       let wallet = ExistingAccount(name: "Wallet")!
- //       let grocery = ExistingAccount(name: "Grocery")!
-
- //       wallet.setPrimitiveValue(Date(), forKey: "modifiedLocal")
-        
-//        let tranaction = ExistingTransaction(name: "Villa Paseo")!
+//        let wallet = ExistingAccount(name: "Wallet")!
+////        let grocery = ExistingAccount(name: "Grocery")!
+//        let bofa = ExistingAccount(name: "Bofa")!
+////
+//// //       wallet.setPrimitiveValue(Date(), forKey: "modifiedLocal")
+//////
+//        let tranaction = ExistingTransaction(recordName: "B7711F9E-EFE9-41B5-83FC-25A8BE97A72D")!
+////
+//////        tranaction.accounts = [bofa, grocery]
+//        tranaction.willAccessValue(forKey: "name")
+//        tranaction.setPrimitiveValue("New Name 55544333", forKey: "name")
+//        tranaction.didAccessValue(forKey: "name")
 //
-//        tranaction.flows = [-1000, 1000]
-//
-// //       CoreData.context.delete(tranaction)
 //
 //        saveCoreData()
-//        
- //      SimulateData.shared.simulateData()
+        
+        //tranaction.setValue(Date().description, forKey: "name")
+        
+//
+        
+//        print(bofa.transactions.map{$0.name!})
+        
+       printOutCoreData()
+//
+//    SimulateData.shared.simulateData()
 //////
 
-        SimulateData.shared.simulateTransaction()
+//        fetchRecords { (error) in
+//            print("fetch complete")
+//            self.printOutCoreData()
+//        }
+//        SimulateData.shared.simulateTransaction()
         
-        saveCoreData()
         
-        saveCoreData()
+ //       loopTransaction(interval: 0.1, times: 5)
 //
-        printOutCoreData()
+ //       saveCoreData()
+//
+//        saveCoreData()
+//        printOutCoreData()
 //
  //       saveCoreData()
         
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

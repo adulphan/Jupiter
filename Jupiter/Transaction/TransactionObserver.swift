@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
 extension Transaction: CloudKitProtocol {
+    
     
     public override func willSave() {
         super.willSave()
