@@ -13,14 +13,11 @@ class HandleNotification: OperationCloudKit {
     
     static let shared = HandleNotification()
     @objc func coreDataDidSave(_ notification: Notification) {
-        print("contextDidSave")
+        print("CoreDataNotification: contextDidSave")
 
-        guard !CloudKit.isDownloadingFromCloudKit && CloudKit.hasOutgoings else { return }
+        guard CloudKit.hasOutgoings else { return }
         guard CloudKit.operationQueueIsEmpty else { return }
-        uploadRecords(completion: nil)
-        
-        CloudKit.outgoingSaveRecords = []
-        CloudKit.outgoingDeleteRecordIDs = []
+        uploadRecords()
 
     }
 }

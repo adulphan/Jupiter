@@ -13,10 +13,10 @@
 		533AB93D212FA2970022C512 /* DownloadRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB93C212FA2970022C512 /* DownloadRecords.swift */; };
 		533AB941212FA4D00022C512 /* UploadRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB940212FA4D00022C512 /* UploadRecords.swift */; };
 		533CE78D2122E4DA00762B7D /* ClearCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533CE78C2122E4DA00762B7D /* ClearCoreData.swift */; };
+		533F54CF213FA30F00DC32CC /* CKSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533F54CE213FA30F00DC32CC /* CKSharing.swift */; };
 		535110DA213142D000D5789B /* HandleCloudkitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535110D9213142D000D5789B /* HandleCloudkitError.swift */; };
 		537B03D3211F19C700953516 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03D2211F19C700953516 /* AppDelegate.swift */; };
 		537B03D5211F19C700953516 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B03D4211F19C700953516 /* ViewController.swift */; };
-		537B03D8211F19C700953516 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537B03D6211F19C700953516 /* Main.storyboard */; };
 		537B03DB211F19C700953516 /* Jupiter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 537B03D9211F19C700953516 /* Jupiter.xcdatamodeld */; };
 		537B03DD211F19CA00953516 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 537B03DC211F19CA00953516 /* Assets.xcassets */; };
 		537B03E0211F19CA00953516 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537B03DE211F19CA00953516 /* LaunchScreen.storyboard */; };
@@ -76,12 +76,12 @@
 		533AB93C212FA2970022C512 /* DownloadRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadRecords.swift; sourceTree = "<group>"; };
 		533AB940212FA4D00022C512 /* UploadRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRecords.swift; sourceTree = "<group>"; };
 		533CE78C2122E4DA00762B7D /* ClearCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearCoreData.swift; sourceTree = "<group>"; };
+		533F54CE213FA30F00DC32CC /* CKSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKSharing.swift; sourceTree = "<group>"; };
 		535110D9213142D000D5789B /* HandleCloudkitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleCloudkitError.swift; sourceTree = "<group>"; };
 		536B062C213373DD00CE4D57 /* Jupiter 2.001.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.001.xcdatamodel"; sourceTree = "<group>"; };
 		537B03CF211F19C700953516 /* Jupiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jupiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		537B03D2211F19C700953516 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		537B03D4211F19C700953516 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		537B03D7211F19C700953516 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		537B03DA211F19C700953516 /* Jupiter.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Jupiter.xcdatamodel; sourceTree = "<group>"; };
 		537B03DC211F19CA00953516 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		537B03DF211F19CA00953516 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -161,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				533AB93A212FA1540022C512 /* RecordExchange.swift */,
+				533F54CE213FA30F00DC32CC /* CKSharing.swift */,
 				533AB93C212FA2970022C512 /* DownloadRecords.swift */,
 				533AB940212FA4D00022C512 /* UploadRecords.swift */,
 			);
@@ -200,7 +201,6 @@
 				539DFC5F2120690400B5C740 /* Jupiter.entitlements */,
 				537B03D2211F19C700953516 /* AppDelegate.swift */,
 				537B03D4211F19C700953516 /* ViewController.swift */,
-				537B03D6211F19C700953516 /* Main.storyboard */,
 				537B03DC211F19CA00953516 /* Assets.xcassets */,
 				537B03DE211F19CA00953516 /* LaunchScreen.storyboard */,
 				537B03E1211F19CA00953516 /* Info.plist */,
@@ -406,7 +406,6 @@
 			files = (
 				537B03E0211F19CA00953516 /* LaunchScreen.storyboard in Resources */,
 				537B03DD211F19CA00953516 /* Assets.xcassets in Resources */,
-				537B03D8211F19C700953516 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +450,7 @@
 				539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */,
 				5383BAED21279BE800D10A11 /* PeriodicTransactions.swift in Sources */,
 				539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */,
+				533F54CF213FA30F00DC32CC /* CKSharing.swift in Sources */,
 				5383BAEB2126F20300D10A11 /* TransactionReader.swift in Sources */,
 				5383BADB21265E8800D10A11 /* TransactionObserver.swift in Sources */,
 				53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */,
@@ -475,14 +475,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		537B03D6211F19C700953516 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				537B03D7211F19C700953516 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		537B03DE211F19CA00953516 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

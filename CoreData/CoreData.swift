@@ -12,7 +12,9 @@ import UIKit
 
 class CoreData {
 
-    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext    
+    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    static var sendToCludKit: Bool = false
     
     enum dataType : String {
         case company = "Company"

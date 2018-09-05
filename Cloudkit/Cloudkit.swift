@@ -18,7 +18,7 @@ class CloudKit {
         static let allValues = [company, account, transaction]
     }
     
-    static var isDownloadingFromCloudKit:Bool = false
+//    static var isDownloadingFromCloudKit:Bool = false
     static let privateDatabase = CKContainer.default().privateCloudDatabase
     static let publicDatabase = CKContainer.default().publicCloudDatabase
     static let sharedDatabase = CKContainer.default().sharedCloudDatabase

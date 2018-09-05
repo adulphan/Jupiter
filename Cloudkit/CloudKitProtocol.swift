@@ -23,11 +23,26 @@ extension CloudKitProtocol where Self: NSManagedObject {
     }
     
     
-    func proceedToCloudKit() {
-        
-        guard !CloudKit.isDownloadingFromCloudKit else { return }
+    func screeningForCloudKit() {
+        guard CoreData.sendToCludKit == true else { return }
         guard Application.connectedToCloudKit else { return }
         
+        if isDeleted || isInserted {
+            proceedToCloudKit()
+            return
+            
+        }
+        let cachedValues = value(forKey: "cachedValues") as! [String:Any]
+        let changedKeys = cachedValues.map{$0.key}
+        guard changedKeys != ["recordData"] else { return }
+        let relationshipNames = entity.relationshipsByName.map{$0.key}
+        if !Set(changedKeys).isSubset(of: Set(relationshipNames)) {
+            proceedToCloudKit()
+        }
+        
+    }
+    
+    private func proceedToCloudKit() {        
         if isDeleted {
             let recordName = self.recordName
             let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
@@ -40,13 +55,13 @@ extension CloudKitProtocol where Self: NSManagedObject {
                 CloudKit.outgoingDeleteRecordIDs.insert(recordID, at: 0)
             }
             
-//            let index = CloudKit.outgoingSaveRecords.index { (existing) -> Bool in
-//                existing.recordID.recordName == recordName
-//            }
-//            
-//            if let index = index {
-//                CloudKit.outgoingSaveRecords.remove(at: index)
-//            }
+            let index = CloudKit.outgoingSaveRecords.index { (existing) -> Bool in
+                existing.recordID.recordName == recordName
+            }
+            
+            if let index = index {
+                CloudKit.outgoingSaveRecords.remove(at: index)
+            }
            
         } else {
             

@@ -23,7 +23,6 @@ extension OperationCloudKit {
         operation.name = "fetchFinnacialData"
         operation.database = CloudKit.privateDatabase
         operation.recordChangedBlock = { (record) in
-            //guard record.value(forKey: "lastModifyDevice") as? String != UIDevice.current.identifierForVendor?.uuidString else {return}
             incomingSaveRecords.append(record)
             print("incomingSave: \(record.recordID.recordName)")
             
@@ -57,10 +56,8 @@ extension OperationCloudKit {
     
     private func pushNewFetchToCoreData(recordsToSave: [CKRecord], recordIDsTodelete: [CKRecordID]) {
         
-        CloudKit.isDownloadingFromCloudKit = true
         saveNewFetchToCoreData(recordsToSave: recordsToSave, recordIDsTodelete: recordIDsTodelete)
-        saveCoreData()
-        CloudKit.isDownloadingFromCloudKit = false
+        saveCoreData(sendToCloudKit: false)
         
     }
     

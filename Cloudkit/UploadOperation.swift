@@ -9,18 +9,32 @@
 import Foundation
 import CloudKit
 
+class CKUPloadOperation: CKModifyRecordsOperation {
+    
+    override init() {
+        super.init()
+        
+        database = CloudKit.privateDatabase
+        name = "uploadFinancialData"
+        savePolicy = .ifServerRecordUnchanged
+        recordsToSave = CloudKit.outgoingSaveRecords
+        recordIDsToDelete = CloudKit.outgoingDeleteRecordIDs
+        isAtomic = false
+        qualityOfService = .background
+        
+    }
+    
+    override func main() {
+        CloudKit.outgoingSaveRecords = []
+        CloudKit.outgoingDeleteRecordIDs = []        
+        super.main()
+    }
+}
 
 extension OperationCloudKit {
     
-    func uploadRecords(completion: ((Error?) -> Void)?) {
-        let operation = CKModifyRecordsOperation()
-        operation.database = CloudKit.privateDatabase
-        operation.name = "uploadFinancialData"
-        operation.savePolicy = .ifServerRecordUnchanged
-        operation.recordsToSave = CloudKit.outgoingSaveRecords
-        operation.recordIDsToDelete = CloudKit.outgoingDeleteRecordIDs
-        operation.isAtomic = false
-        operation.qualityOfService = .background
+    func uploadRecords() {
+        let operation = CKUPloadOperation()
         operation.modifyRecordsCompletionBlock = { (savedRecords, deletedIDs, error) in
     
             self.handle(error: error)
@@ -37,10 +51,7 @@ extension OperationCloudKit {
 
             }
             
-            CloudKit.isDownloadingFromCloudKit = true
-            self.saveCoreData()
-            CloudKit.isDownloadingFromCloudKit = false
-
+            self.saveCoreData(sendToCloudKit: false)
             print("Completed: \(operation.name!)")
             
             guard CloudKit.hasOutgoings else {                
@@ -48,9 +59,7 @@ extension OperationCloudKit {
                 self.printOutCoreData()
                 return
             }
-            self.uploadRecords(completion: nil)
-            CloudKit.outgoingSaveRecords = []
-            CloudKit.outgoingDeleteRecordIDs = []
+            self.uploadRecords()
 
         }
         

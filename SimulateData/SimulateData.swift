@@ -29,9 +29,9 @@ extension SimulateData {
 
         simulateTransaction()
 
-        saveCoreData()
+        saveCoreData(sendToCloudKit: true)
 
-        //printOutCoreData()
+        printOutCoreData()
         
         
     }
