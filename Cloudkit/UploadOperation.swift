@@ -36,9 +36,8 @@ extension OperationCloudKit {
     func uploadRecords() {
         let operation = CKUPloadOperation()
         operation.modifyRecordsCompletionBlock = { (savedRecords, deletedIDs, error) in
-    
-            self.handle(error: error)
-
+            
+            self.handle(error: error, operation: operation)
             for id in deletedIDs! {
                 print("\(id.recordName) is deleted from Cloud")
             }
@@ -54,13 +53,13 @@ extension OperationCloudKit {
             self.saveCoreData(sendToCloudKit: false)
             print("Completed: \(operation.name!)")
             
-            guard CloudKit.hasOutgoings else {                
+
+            guard CloudKit.hasOutgoings else {
                 print("No outgoing records")
-                self.printOutCoreData()
+                self.printOutCoreData(includeMonths: false, transactionDetails: false)
                 return
             }
             self.uploadRecords()
-
         }
         
         let operationQueue = CloudKit.operationQueue
@@ -71,7 +70,7 @@ extension OperationCloudKit {
         
     }
     
-    func handle(error: Error?) {
+    private func handle(error: Error?, operation: CKModifyRecordsOperation) {
         
         guard let error = error else { return }
 
@@ -90,10 +89,20 @@ extension OperationCloudKit {
                 return
                 
             } else {
+                print(error)
                 print("")
                 print("Serious error: not partial error, not invalid-argument error, not retryable....")
+                print("Records return to pending state")
                 print("")
-                print(error)
+
+                if let recordToSave = operation.recordsToSave {
+                    CloudKit.outgoingSaveRecords.append(contentsOf: recordToSave)
+                }
+                
+                if let recordIDsToDelete = operation.recordIDsToDelete {
+                    CloudKit.outgoingDeleteRecordIDs.append(contentsOf: recordIDsToDelete)
+                }
+
                 return
             }
             
@@ -120,11 +129,11 @@ extension OperationCloudKit {
                 
                 if let index = clientRecordInPending {
                     clientRecord = CloudKit.outgoingSaveRecords[index]
-                    let mergedRecord = clientRecord.exportValuesTo(record: serverRecord)
+                    let mergedRecord = clientRecord.updateSystemDataBy(record: serverRecord)
                     CloudKit.outgoingSaveRecords[index] = mergedRecord
                     
                 } else {
-                    let mergedRecord = clientRecord.exportValuesTo(record: serverRecord)
+                    let mergedRecord = clientRecord.updateSystemDataBy(record: serverRecord)
                     CloudKit.outgoingSaveRecords.append(mergedRecord)
                 }
                 
@@ -225,7 +234,7 @@ extension OperationCloudKit {
         })
         if let index = index {
             let pending = pendingRecords[index]
-            CloudKit.outgoingSaveRecords[index] = pending.exportValuesTo(record: record)
+            CloudKit.outgoingSaveRecords[index] = pending.updateSystemDataBy(record: record)
         }
     
     }

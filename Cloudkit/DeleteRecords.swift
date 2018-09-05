@@ -56,7 +56,7 @@ extension OperationCloudKit {
         
     }
     
-    func deleteAllRecords() {
+    func deleteAllRecords(completion: @escaping (Error?) -> Void) {
         
         var companyRecords: [CKRecord] = []
         let predicate = NSPredicate(value: true)
@@ -70,6 +70,7 @@ extension OperationCloudKit {
                 print(id.recordName," is deleted")
             }
             self.viewRecordsInCloudKit()
+            completion(error)
         }
         
         CloudKit.privateDatabase.perform(companyQuery, inZoneWith: nil) { (record, error) in

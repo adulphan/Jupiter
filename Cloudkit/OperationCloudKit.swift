@@ -9,5 +9,5 @@
 import Foundation
 import CloudKit
 
-protocol OperationCloudKit: AccessCoreData {}
+protocol OperationCloudKit: SaveAndDeleteCoreData, AccessExistingCoreData, PrintCoreData {}
 

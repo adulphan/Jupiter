@@ -11,7 +11,7 @@ import CloudKit
 import CoreData
 import UIKit
 
-protocol CloudKitProtocol: AccessCoreData {
+protocol CloudKitProtocol: AccessExistingCoreData {
     
 }
 
@@ -100,7 +100,9 @@ extension CloudKitProtocol where Self: NSManagedObject {
             archiver.requiresSecureCoding = true
             record.encodeSystemFields(with: archiver)
             archiver.finishEncoding()
+            //primitive
             self.setValue(data, forKey: "recordData")
+            //self.setPrimitiveValue(data, forKey: "recordData")
         }
         
         fillUploadingRecordWithAttributes(record: record)        

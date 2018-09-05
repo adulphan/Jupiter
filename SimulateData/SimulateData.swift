@@ -31,7 +31,7 @@ extension SimulateData {
 
         saveCoreData(sendToCloudKit: true)
 
-        printOutCoreData()
+        printOutCoreData(includeMonths: false, transactionDetails: false)
         
         
     }

@@ -9,16 +9,18 @@
 import Foundation
 import CoreData
 
-extension AccessCoreData {
+protocol PrintCoreData {}
 
-    func printOutCoreData() {
+extension PrintCoreData {
+
+    func printOutCoreData(includeMonths: Bool, transactionDetails: Bool) {
         for type in CoreData.dataType.allValues {
             print("")
             printSystemField(type: type)
         }
         
-        //printMonths()
-        //printTransaction()
+        if includeMonths { printMonths() }
+        if transactionDetails { printTransaction() }
     }
     
     private func printSystemField(type: CoreData.dataType) {

@@ -9,13 +9,12 @@
 import Foundation
 import CloudKit
 
-
 extension CKRecord {
     var identifier: UUID {
         return self.recordID.recordName.uuid()!
     }
     
-    func exportValuesTo(record: CKRecord) -> CKRecord {
+    func updateSystemDataBy(record: CKRecord) -> CKRecord {
         
         for key in record.allKeys() {
             let value = self.value(forKey: key)

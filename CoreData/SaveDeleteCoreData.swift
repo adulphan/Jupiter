@@ -9,7 +9,9 @@
 import Foundation
 import CoreData
 
-extension AccessCoreData {
+protocol SaveAndDeleteCoreData {}
+
+extension SaveAndDeleteCoreData {
     
     func deleteCoreData(object: NSManagedObject) {
         CoreData.context.delete(object)

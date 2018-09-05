@@ -28,7 +28,7 @@ class CoreData {
 
 }
 
-protocol AccessCoreData: AccessExistingCoreData, CreateNewCoreData {
+protocol AccessCoreData: AccessExistingCoreData, CreateNewCoreData, SaveAndDeleteCoreData, PrintCoreData {
     
     
 }

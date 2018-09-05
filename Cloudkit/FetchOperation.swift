@@ -39,10 +39,12 @@ extension OperationCloudKit {
                 print("Error download operation : ", error)
                 completion(error)
                 return
+            } else {
+                UserDefaults.standard.financialDataChangeToken = changeToken
+                DispatchQueue.main.sync { self.pushNewFetchToCoreData(recordsToSave: incomingSaveRecords, recordIDsTodelete: incomingDeleteRecordIDs) }
+                completion(nil)
             }
-            UserDefaults.standard.financialDataChangeToken = changeToken
-            DispatchQueue.main.sync { self.pushNewFetchToCoreData(recordsToSave: incomingSaveRecords, recordIDsTodelete: incomingDeleteRecordIDs) }
-            completion(nil)
+
         }
         
         let operationQueue = CloudKit.operationQueue
