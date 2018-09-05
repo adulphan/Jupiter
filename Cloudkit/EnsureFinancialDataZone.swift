@@ -50,4 +50,25 @@ extension OperationCloudKit  {
         CloudKit.privateDatabase.add(operation)
     }
     
+    func deleteAllZone() {
+
+        let zoneID = CloudKit.financialDataZoneID
+        let operation = CKModifyRecordZonesOperation(recordZonesToSave: nil, recordZoneIDsToDelete: [zoneID])
+        operation.modifyRecordZonesCompletionBlock = { (zones, zoneIDs, error) in
+            if error != nil { print(error!) ; return }
+            for id in zoneIDs! {
+                 print(id.zoneName," is deleted")
+            }
+        }
+        CloudKit.privateDatabase.add(operation)
+        
+    }
+    
 }
+
+
+
+
+
+
+

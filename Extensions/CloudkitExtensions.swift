@@ -14,5 +14,14 @@ extension CKRecord {
     var identifier: UUID {
         return self.recordID.recordName.uuid()!
     }
+    
+    func exportValuesTo(record: CKRecord) -> CKRecord {
+        
+        for key in record.allKeys() {
+            let value = self.value(forKey: key)
+            record.setValue(value, forKey: key)
+        }
+        return record
+    }
 
 }

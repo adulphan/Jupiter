@@ -21,6 +21,7 @@ class CloudKit {
     static var isDownloadingFromCloudKit:Bool = false
     static let privateDatabase = CKContainer.default().privateCloudDatabase
     static let publicDatabase = CKContainer.default().publicCloudDatabase
+    static let sharedDatabase = CKContainer.default().sharedCloudDatabase
     
     static let financialDataZoneID = CKRecordZone(zoneName: "FinancialData").zoneID
     
@@ -30,7 +31,9 @@ class CloudKit {
     
     static var outgoingSaveRecords: [CKRecord] = []
     static var outgoingDeleteRecordIDs: [CKRecordID] = []
-    static var hasOutgoings: Bool = outgoingSaveRecords != [] || outgoingDeleteRecordIDs != []
+    static var hasOutgoings: Bool { return outgoingSaveRecords != [] || outgoingDeleteRecordIDs != [] }    
+    
+    static var operationQueueIsEmpty: Bool { return operationQueue.operations.isEmpty }
     
     static var operationQueue: OperationQueue = {
         let queue = OperationQueue.init()

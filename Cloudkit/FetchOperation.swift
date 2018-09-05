@@ -20,7 +20,7 @@ extension OperationCloudKit {
         let option = CKFetchRecordZoneChangesOptions()
         option.previousServerChangeToken = UserDefaults.standard.financialDataChangeToken
         let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.financialDataZoneID], optionsByRecordZoneID: [CloudKit.financialDataZoneID:option])
-        operation.name = "fetchOperation"
+        operation.name = "fetchFinnacialData"
         operation.database = CloudKit.privateDatabase
         operation.recordChangedBlock = { (record) in
             //guard record.value(forKey: "lastModifyDevice") as? String != UIDevice.current.identifierForVendor?.uuidString else {return}

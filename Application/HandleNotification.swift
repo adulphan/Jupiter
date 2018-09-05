@@ -15,25 +15,12 @@ class HandleNotification: OperationCloudKit {
     @objc func coreDataDidSave(_ notification: Notification) {
         print("contextDidSave")
 
+        guard !CloudKit.isDownloadingFromCloudKit && CloudKit.hasOutgoings else { return }
+        guard CloudKit.operationQueueIsEmpty else { return }
+        uploadRecords(completion: nil)
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //print(notification.userInfo)
-        
-//        guard !CloudKit.isDownloadingFromCloudKit && CloudKit.hasOutgoings else {return}
-//        uploadRecords { (error) in
-//            print("Call back")
-//        }        
-//        CloudKit.outgoingSaveRecords = []
-//        CloudKit.outgoingDeleteRecordIDs = []
+        CloudKit.outgoingSaveRecords = []
+        CloudKit.outgoingDeleteRecordIDs = []
 
     }
 }

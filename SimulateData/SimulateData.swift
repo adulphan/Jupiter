@@ -31,7 +31,7 @@ extension SimulateData {
 
         saveCoreData()
 
-        printOutCoreData()
+        //printOutCoreData()
         
         
     }

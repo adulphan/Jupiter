@@ -35,10 +35,18 @@ extension CloudKitProtocol where Self: NSManagedObject {
             let isDuplicate:Bool = CloudKit.outgoingDeleteRecordIDs.contains { (id) -> Bool in
                 id.recordName == recordName
             }
-            
+
             if !isDuplicate {
                 CloudKit.outgoingDeleteRecordIDs.insert(recordID, at: 0)
             }
+            
+//            let index = CloudKit.outgoingSaveRecords.index { (existing) -> Bool in
+//                existing.recordID.recordName == recordName
+//            }
+//            
+//            if let index = index {
+//                CloudKit.outgoingSaveRecords.remove(at: index)
+//            }
            
         } else {
             
@@ -53,9 +61,9 @@ extension CloudKitProtocol where Self: NSManagedObject {
             } else {
                 CloudKit.outgoingSaveRecords.append(record)
             }
-            
         }
     }
+    
     
     func recordToUpload() -> CKRecord {
 
@@ -71,10 +79,18 @@ extension CloudKitProtocol where Self: NSManagedObject {
             let recordName = self.recordName
             let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
             record = CKRecord(recordType: self.recordType, recordID: recordID)
+            
+            let data = NSMutableData()
+            let archiver = NSKeyedArchiver(forWritingWith: data)
+            archiver.requiresSecureCoding = true
+            record.encodeSystemFields(with: archiver)
+            archiver.finishEncoding()
+            self.setValue(data, forKey: "recordData")
         }
         
         fillUploadingRecordWithAttributes(record: record)        
         setupReferenceFor(record: record)
+
         return record
     }
     

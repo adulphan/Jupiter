@@ -56,6 +56,7 @@
 		53E2DBD9212C22B000F75F58 /* EnsureFinancialDataZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */; };
 		53E2DBDC212C58F700F75F58 /* CompanyValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2DBDB212C58F700F75F58 /* CompanyValidation.swift */; };
 		53EB98B9212D023E009B5EF5 /* HandleNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EB98B8212D023E009B5EF5 /* HandleNotification.swift */; };
+		53FB5F7F213A452A006F0EFB /* ViewRecordsInCLoudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FB5F7E213A452A006F0EFB /* ViewRecordsInCLoudKit.swift */; };
 		53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2D72127D70D003DDB84 /* SplitTransactions.swift */; };
 		53FBE2DA21281529003DDB84 /* PrepareForSimulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */; };
 		53FBE2DE212817E6003DDB84 /* AccessFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2DD212817E6003DDB84 /* AccessFiles.swift */; };
@@ -135,6 +136,7 @@
 		53EBB6D22129447300B9A21F /* Jupiter 1.08.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.08.xcdatamodel"; sourceTree = "<group>"; };
 		53EBB6D321294E8C00B9A21F /* Jupiter 1.10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.10.xcdatamodel"; sourceTree = "<group>"; };
 		53EBB6D42129AE6300B9A21F /* Jupiter 1.11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.11.xcdatamodel"; sourceTree = "<group>"; };
+		53FB5F7E213A452A006F0EFB /* ViewRecordsInCLoudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecordsInCLoudKit.swift; sourceTree = "<group>"; };
 		53FBE2D72127D70D003DDB84 /* SplitTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitTransactions.swift; sourceTree = "<group>"; };
 		53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareForSimulation.swift; sourceTree = "<group>"; };
 		53FBE2DD212817E6003DDB84 /* AccessFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessFiles.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				530933182136271C000D1E2C /* FetchOperation.swift */,
 				53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */,
 				535110D9213142D000D5789B /* HandleCloudkitError.swift */,
+				53FB5F7E213A452A006F0EFB /* ViewRecordsInCLoudKit.swift */,
 				5309331A21362A95000D1E2C /* Old */,
 			);
 			path = Cloudkit;
@@ -443,6 +446,7 @@
 				533CE78D2122E4DA00762B7D /* ClearCoreData.swift in Sources */,
 				53A052492123F1B60064222F /* DataToCKAsset.swift in Sources */,
 				5383BAD821265A9000D10A11 /* TransactionExtensions.swift in Sources */,
+				53FB5F7F213A452A006F0EFB /* ViewRecordsInCLoudKit.swift in Sources */,
 				5383BAE72126D9FD00D10A11 /* MonthExtensions.swift in Sources */,
 				539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */,
 				5383BAED21279BE800D10A11 /* PeriodicTransactions.swift in Sources */,

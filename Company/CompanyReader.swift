@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 extension Company: CompanyReader {}
 
@@ -28,3 +29,23 @@ protocol SystemField {
     var cachedValues: NSObject? { get }
     
 }
+
+extension SystemField {
+    
+    var systemRecord: CKRecord? {
+        guard let data = recordData else { return nil }
+        let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+        unarchiver.requiresSecureCoding = true
+        let record = CKRecord(coder: unarchiver)!
+        return record
+    }
+    
+}
+
+
+
+
+
+
+
+
