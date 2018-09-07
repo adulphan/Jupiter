@@ -52,7 +52,6 @@ extension OperationCloudKit {
             
             self.saveCoreData(sendToCloudKit: false)
             print("Completed: \(operation.name!)")
-            
 
             guard CloudKit.hasOutgoings else {
                 print("No outgoing records")
@@ -215,13 +214,12 @@ extension OperationCloudKit {
     
     private func updateLocalRecordByServer(record: CKRecord) {
         
-        let data = NSMutableData()
-        let archiver = NSKeyedArchiver(forWritingWith: data)
-        archiver.requiresSecureCoding = true
-        record.encodeSystemFields(with: archiver)
-        archiver.finishEncoding()
-        
         if let object = self.ExistingObject(recordName: record.recordID.recordName) {
+            let data = NSMutableData()
+            let archiver = NSKeyedArchiver(forWritingWith: data)
+            archiver.requiresSecureCoding = true
+            record.encodeSystemFields(with: archiver)
+            archiver.finishEncoding()            
             object.setValue(data, forKey: "recordData")
         }
         

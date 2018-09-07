@@ -95,14 +95,6 @@ extension CloudKitProtocol where Self: NSManagedObject {
             let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
             record = CKRecord(recordType: self.recordType, recordID: recordID)
             
-            let data = NSMutableData()
-            let archiver = NSKeyedArchiver(forWritingWith: data)
-            archiver.requiresSecureCoding = true
-            record.encodeSystemFields(with: archiver)
-            archiver.finishEncoding()
-            //primitive
-            self.setValue(data, forKey: "recordData")
-            //self.setPrimitiveValue(data, forKey: "recordData")
         }
         
         fillUploadingRecordWithAttributes(record: record)        

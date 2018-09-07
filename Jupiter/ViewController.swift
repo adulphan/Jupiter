@@ -17,14 +17,17 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
         
-        ensureZoneForFinancialData()
+//        ensureZoneForFinancialData()
 //        deleteAllZone()
         
 //        deleteAllRecords { _ in
 //            DispatchQueue.main.sync {
 //                SimulateData.shared.simulateData()
+//                self.printOutCoreData(includeMonths: true, transactionDetails: true)
 //            }
 //        }
+        
+//        printOutCoreData(includeMonths: true, transactionDetails: true)
 //
 //        SimulateData.shared.simulateData()
 
@@ -45,14 +48,17 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
 //        saveCoreData()
         
 //        clearCoreData()
+        
+//        UserDefaults.standard.financialDataChangeToken = nil
 //        fetchRecords { (error) in
-//            self.printOutCoreData(includeMonths: true, transactionDetails: true)
+//
+//            //self.printOutCoreData(includeMonths: true, transactionDetails: true)
 //        }
-
 //        printOutCoreData(includeMonths: true, transactionDetails: true)
+//
         
         
-//        loopTransaction(interval: 0.1, times: 10)
+//        loopTransaction(interval: 0.1, times: 5)
         
     }
     

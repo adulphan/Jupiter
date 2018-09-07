@@ -17,13 +17,14 @@ extension Transaction: CloudKitProtocol {
         let changeKeys = changedValues().map{$0.key}
         setPrimitiveValue(committedValues(forKeys: changeKeys) as NSObject, forKey: "cachedValues")
         setPrimitiveValue(Date(), forKey: "modifiedLocal")
+        screeningForCloudKit()
 
     }
     
     public override func didSave() {
         super.didSave()
         updateMonthFlows()
-        screeningForCloudKit()
+        
 
     }
 
