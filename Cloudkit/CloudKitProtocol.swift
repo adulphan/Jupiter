@@ -15,13 +15,17 @@ protocol CloudKitProtocol: AccessExistingCoreData {
     
 }
 
+extension CloudKitProtocol {
+    
+    
+}
+
 extension CloudKitProtocol where Self: NSManagedObject {
     
     var recordName: String {
         let id = value(forKey: "identifier") as! UUID
         return id.uuidString        
     }
-    
     
     func screeningForCloudKit() {
         guard CoreData.sendToCludKit == true else { return }
@@ -32,8 +36,8 @@ extension CloudKitProtocol where Self: NSManagedObject {
             return
             
         }
-        let cachedValues = value(forKey: "cachedValues") as! [String:Any]
-        let changedKeys = cachedValues.map{$0.key}
+        
+        let changedKeys = changedValues().map{$0.key}
         guard changedKeys != ["recordData"] else { return }
         let relationshipNames = entity.relationshipsByName.map{$0.key}
         if !Set(changedKeys).isSubset(of: Set(relationshipNames)) {
@@ -157,7 +161,7 @@ extension CloudKitProtocol where Self: NSManagedObject {
             for reference in accountReferences {
                 let recordName = reference.recordID.recordName
                 guard let account = ExistingAccount(recordName: recordName) else {
-                    print("Error: downloading transacton has no match referenceed account") ; return
+                    print("Error: downloading transacton has no match referenced account") ; return
                 }
                 accountArray.append(account)
             }

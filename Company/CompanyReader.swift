@@ -21,12 +21,11 @@ protocol CompanyReader: SystemField {
 }
 
 
-protocol SystemField {
+protocol SystemField: CloudKitProtocol {
     var name: String? { get }
     var modifiedLocal: Date? { get }
     var identifier: UUID? { get }
     var recordData: Data? { get }
-    var cachedValues: NSObject? { get }
     
 }
 

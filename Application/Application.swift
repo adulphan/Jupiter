@@ -10,7 +10,7 @@ import Foundation
 
 class Application {
     
-    static var connectedToCloudKit: Bool = true
+    static var connectedToCloudKit: Bool = false
 
     
     

@@ -23,36 +23,59 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
 //        deleteAllRecords { _ in
 //            DispatchQueue.main.sync {
 //                SimulateData.shared.simulateData()
+//
+//
+//                let company = self.workingCompany!
+//                CoreData.context.delete(company)
+//                self.saveCoreData(sendToCloudKit: true)
 //                self.printOutCoreData(includeMonths: true, transactionDetails: true)
 //            }
 //        }
         
-//        printOutCoreData(includeMonths: true, transactionDetails: true)
-//
+        
 //        SimulateData.shared.simulateData()
-
+        
+//        let company = self.workingCompany!
+//        CoreData.context.delete(company)
+//        self.saveCoreData(sendToCloudKit: true)
+//        self.printOutCoreData(includeMonths: true, transactionDetails: true)
+        
+//        printOutCoreData(includeMonths: true, transactionDetails: true)
+        
+        
+        
+//
+//       SimulateData.shared.simulateData()
+////
 //        let wallet = ExistingAccount(name: "Wallet")!
 //        let grocery = ExistingAccount(name: "Grocery")!
-//        let bofa = ExistingAccount(name: "Bofa")!
+        let bofa = ExistingAccount(name: "Bofa")!
+//
+//
+//        let transaction = wallet.transactions.first!
+//
+//        transaction.accounts = [bofa,grocery]
+//
+       CoreData.context.delete(bofa)
 ////
-//        let transaction = wallet.transactions.last!
-//
-//        transaction.accounts = [bofa, grocery]
-//
-//        saveCoreData()
+////        transaction.accounts = [bofa, grocery]
+////
+        saveCoreData(sendToCloudKit: true)
+//////
+        printOutCoreData(includeMonths: true, transactionDetails: false)
 //
 //        let transaction = ExistingTransaction(recordName: "B25B95F9-5056-4EAD-8E55-56CF435B76CB")!
 //
 //        transaction.name = "New New222"
 //
-//        saveCoreData()
+//        saveCoreData(sendToCloudKit: false)
         
 //        clearCoreData()
         
 //        UserDefaults.standard.financialDataChangeToken = nil
 //        fetchRecords { (error) in
-//
-//            //self.printOutCoreData(includeMonths: true, transactionDetails: true)
+
+            //self.printOutCoreData(includeMonths: true, transactionDetails: true)
 //        }
 //        printOutCoreData(includeMonths: true, transactionDetails: true)
 //
@@ -60,6 +83,8 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
         
 //        loopTransaction(interval: 0.1, times: 5)
         
+        
+
     }
     
     

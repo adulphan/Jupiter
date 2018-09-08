@@ -13,23 +13,22 @@ extension Transaction {
     func updateMonthFlows() {
 
         if isDeleted {
+            guard !company.isDeleted else { return }
             updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
             return
         } else if isInserted {
             updateBalanceWith(transaction: self, isDeleted: false)
             return
         } else if isUpdateNeeded {
-
-            updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
             updateBalanceWith(transaction: self, isDeleted: false)
+            updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
             return
         }
     }
-
+    
     private func updateBalanceWith(transaction: CachedTransactionValues, isDeleted: Bool) {
         
         let accounts = transaction.accounts
-        guard accounts.count != 0 else { return }
         let direction:Int64 = isDeleted ? -1:1
         let flowArray = transaction.flows!.map{$0*direction}
         let monthEnd = getMonthEndfrom(date: date!)
@@ -37,6 +36,7 @@ extension Transaction {
         for i in 0...accounts.count-1 {
             
             let account = accounts[i]
+            guard !account.isDeleted else { continue }
             let flow = flowArray[i]
             let monthArray = account.months
             let index = monthArray.index(where: {$0.endDate! <= monthEnd}) ?? monthArray.count
@@ -48,6 +48,9 @@ extension Transaction {
                 monthArray[index].flows += flow
                 monthArray[index].balance += flow
                 updateBalanceAbove(index: index, amount: flow, array: account.months)
+                if monthArray[index].flows == 0 {
+                    CoreData.context.delete(monthArray[index])
+                }
                 
             } else {
                 let newMonth = Month(context: CoreData.context)
@@ -76,7 +79,8 @@ extension Transaction {
     private var cachedOldValues: CachedValue {
         
         let cachedOldValues = CachedValue()
-        let changeValues = cachedValues as! [String: Any]
+        let changedKeys = changedValues().map{$0.key}
+        let changeValues = committedValues(forKeys: changedKeys)
         
         if let oldDate = changeValues["date"] as? Date {
             cachedOldValues.date =  oldDate
