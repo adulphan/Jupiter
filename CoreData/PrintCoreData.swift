@@ -28,7 +28,7 @@ extension PrintCoreData {
         do {
             
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: type.rawValue)
-            let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            let fetchedResults = try CoreData.mainContext.fetch(fetchRequest)
             for object in fetchedResults {
 
                 if let obj = object as? SystemField {
@@ -45,7 +45,7 @@ extension PrintCoreData {
         do {
             
             let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
-            let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            let fetchedResults = try CoreData.mainContext.fetch(fetchRequest)
             for object in fetchedResults {
                 print("Monthly flows: ",object.name!)
                 for month in object.months {
@@ -65,7 +65,7 @@ extension PrintCoreData {
         do {
             
             let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
-            let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            let fetchedResults = try CoreData.mainContext.fetch(fetchRequest)
             for object in fetchedResults {
                 for prop in object.entity.propertiesByName {
                     let key = prop.key

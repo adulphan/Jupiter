@@ -13,12 +13,12 @@ extension CoreDataForAdmin {
     
     func clearCoreData() {
         
-        let entityName = ["Company", "Account", "Transaction", "Month"]
+        let entityName = ["Company", "Account", "Transaction", "Month", "PendingUpload"]
         
         for name in entityName {
             let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: name)
             let request = NSBatchDeleteRequest(fetchRequest: fetch)
-            do { try CoreData.context.execute(request)
+            do { try CoreData.mainContext.execute(request)
             } catch  { print("Deleting \(name) failed") }
         }
         
@@ -31,7 +31,7 @@ extension CoreDataForAdmin {
         for name in entityName {
             let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: name)
             let request = NSBatchDeleteRequest(fetchRequest: fetch)
-            do { try CoreData.context.execute(request)
+            do { try CoreData.mainContext.execute(request)
             } catch  { print("Deleting \(name) failed") }
         }
         

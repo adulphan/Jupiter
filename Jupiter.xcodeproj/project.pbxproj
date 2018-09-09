@@ -43,6 +43,7 @@
 		53B7BB6E2132821B007F085C /* OperationCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B7BB6D2132821B007F085C /* OperationCloudKit.swift */; };
 		53C1D54D21290A1A0029EBD0 /* AccountValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1D54C21290A1A0029EBD0 /* AccountValidation.swift */; };
 		53C1D54F21290C130029EBD0 /* TransactionValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1D54E21290C130029EBD0 /* TransactionValidation.swift */; };
+		53C8FCD72144BECE004DD01D /* NSManagedContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C8FCD62144BECE004DD01D /* NSManagedContext.swift */; };
 		53CC44C521245A4A0039CD4E /* AccountReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44C421245A4A0039CD4E /* AccountReader.swift */; };
 		53CC44C721245C3B0039CD4E /* CompanyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44C621245C3B0039CD4E /* CompanyExtensions.swift */; };
 		53CC44CA21245E710039CD4E /* CompanyReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44C921245E710039CD4E /* CompanyReader.swift */; };
@@ -72,6 +73,10 @@
 		532280B4212AA83E00EB96D8 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		533538EE2142B6FD009C32E9 /* Jupiter 2.006.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.006.xcdatamodel"; sourceTree = "<group>"; };
 		533538EF21436109009C32E9 /* PendingUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingUpload.swift; sourceTree = "<group>"; };
+		533538F121436983009C32E9 /* Jupiter 2.007.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.007.xcdatamodel"; sourceTree = "<group>"; };
+		533538F2214369F6009C32E9 /* Jupiter 2.008.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.008.xcdatamodel"; sourceTree = "<group>"; };
+		533538F321437243009C32E9 /* Jupiter 2.009.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.009.xcdatamodel"; sourceTree = "<group>"; };
+		533538F821439A6D009C32E9 /* Jupiter 2.010.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.010.xcdatamodel"; sourceTree = "<group>"; };
 		533AB93A212FA1540022C512 /* RecordExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordExchange.swift; sourceTree = "<group>"; };
 		533AB93C212FA2970022C512 /* DownloadRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadRecords.swift; sourceTree = "<group>"; };
 		533AB940212FA4D00022C512 /* UploadRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRecords.swift; sourceTree = "<group>"; };
@@ -118,6 +123,7 @@
 		53C1D54C21290A1A0029EBD0 /* AccountValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountValidation.swift; sourceTree = "<group>"; };
 		53C1D54E21290C130029EBD0 /* TransactionValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionValidation.swift; sourceTree = "<group>"; };
 		53C1D550212942440029EBD0 /* Jupiter 1.07.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.07.xcdatamodel"; sourceTree = "<group>"; };
+		53C8FCD62144BECE004DD01D /* NSManagedContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedContext.swift; sourceTree = "<group>"; };
 		53CC44C421245A4A0039CD4E /* AccountReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountReader.swift; sourceTree = "<group>"; };
 		53CC44C621245C3B0039CD4E /* CompanyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyExtensions.swift; sourceTree = "<group>"; };
 		53CC44C921245E710039CD4E /* CompanyReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyReader.swift; sourceTree = "<group>"; };
@@ -233,7 +239,6 @@
 			isa = PBXGroup;
 			children = (
 				539DFC572120451400B5C740 /* CoreData.swift */,
-				533538EF21436109009C32E9 /* PendingUpload.swift */,
 				53DFACAE212D300600B23486 /* CreateNewCoreData.swift */,
 				539DFC6D2121429200B5C740 /* ExistingCoreData.swift */,
 				539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */,
@@ -260,6 +265,7 @@
 			children = (
 				539DFC5B2120623A00B5C740 /* Cloudkit.swift */,
 				53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */,
+				533538EF21436109009C32E9 /* PendingUpload.swift */,
 				53B7BB6D2132821B007F085C /* OperationCloudKit.swift */,
 				53FDBC9821343BAA001F4159 /* UploadOperation.swift */,
 				530933182136271C000D1E2C /* FetchOperation.swift */,
@@ -308,6 +314,7 @@
 				5383BAE82126F08B00D10A11 /* String.swift */,
 				53FBE2E121284F49003DDB84 /* CloudkitExtensions.swift */,
 				532280B4212AA83E00EB96D8 /* NSManagedObject.swift */,
+				53C8FCD62144BECE004DD01D /* NSManagedContext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -412,6 +419,7 @@
 				53CC44CC212460640039CD4E /* Calendar.swift in Sources */,
 				532280B5212AA83E00EB96D8 /* NSManagedObject.swift in Sources */,
 				539DFC6E2121429200B5C740 /* ExistingCoreData.swift in Sources */,
+				53C8FCD72144BECE004DD01D /* NSManagedContext.swift in Sources */,
 				539DFC682121291300B5C740 /* CKLocalCache.swift in Sources */,
 				530933192136271C000D1E2C /* FetchOperation.swift in Sources */,
 				53CC44CA21245E710039CD4E /* CompanyReader.swift in Sources */,
@@ -650,6 +658,10 @@
 		537B03D9211F19C700953516 /* Jupiter.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				533538F821439A6D009C32E9 /* Jupiter 2.010.xcdatamodel */,
+				533538F321437243009C32E9 /* Jupiter 2.009.xcdatamodel */,
+				533538F2214369F6009C32E9 /* Jupiter 2.008.xcdatamodel */,
+				533538F121436983009C32E9 /* Jupiter 2.007.xcdatamodel */,
 				533538EE2142B6FD009C32E9 /* Jupiter 2.006.xcdatamodel */,
 				5309331C21366783000D1E2C /* Jupiter 2.004.xcdatamodel */,
 				5309331B213663B6000D1E2C /* Jupiter 2.03.xcdatamodel */,

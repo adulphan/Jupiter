@@ -12,13 +12,13 @@ import CoreData
 class HandleNotification: OperationCloudKit {
     
     static let shared = HandleNotification()
+    
     @objc func coreDataDidSave(_ notification: Notification) {
 
-        guard CloudKit.hasOutgoings else { return }
         guard CloudKit.operationQueueIsEmpty else { return }
-        print("CoreDataNotification: uploading to CloudKit")
-        uploadRecords()
+        self.uploadRecords()
 
+        
     }
     
     @objc func coreDataWillSave(_ notification: Notification) {
@@ -28,7 +28,7 @@ class HandleNotification: OperationCloudKit {
     }
     
     private func updateMonthFlows() {
-        let transactions = CoreData.context.registeredObjects.filter { (object) -> Bool in
+        let transactions = CoreData.mainContext.registeredObjects.filter { (object) -> Bool in
             object.entity == Transaction.entity()
         }
         for object in transactions {
@@ -38,7 +38,7 @@ class HandleNotification: OperationCloudKit {
     }
     
     private func screeningToCloudKit() {
-        for object in CoreData.context.registeredObjects {
+        for object in CoreData.mainContext.registeredObjects {
             
             if let company = object as? Company {
                 company.screeningForCloudKit()

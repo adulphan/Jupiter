@@ -25,7 +25,7 @@ extension SimulateData {
             var date = Calendar.current.date(byAdding: frequency, value: -i*multiple, to: reference!)
             date = Calendar.current.date(byAdding: .day, value: addFlex, to: date!)
             
-            let transaction = Transaction(context: CoreData.context)
+            let transaction = Transaction(context: CoreData.mainContext)
             transaction.identifier = UUID()
             transaction.accounts = accounts
             transaction.flows = [-1,1].map{$0*randomAmount}

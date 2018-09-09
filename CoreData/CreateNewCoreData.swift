@@ -14,7 +14,7 @@ protocol CreateNewCoreData {}
 extension CreateNewCoreData {
     
     func newAccount(inCompany: Company) -> Account? {
-        let account = Account(context: CoreData.context)
+        let account = Account(context: CoreData.mainContext)
         account.company = inCompany
         return account
     }

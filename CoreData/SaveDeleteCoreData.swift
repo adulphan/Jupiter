@@ -14,21 +14,21 @@ protocol SaveAndDeleteCoreData {}
 extension SaveAndDeleteCoreData {
     
     func deleteCoreData(object: NSManagedObject) {
-        CoreData.context.delete(object)
+        CoreData.mainContext.delete(object)
     }
     
     func deleteCoreData(objects: [NSManagedObject]) {
         for object in objects {
-            CoreData.context.delete(object)
+            CoreData.mainContext.delete(object)
         }
     }
     
     func saveCoreData(sendToCloudKit: Bool) {
         
         CoreData.sendToCludKit = sendToCloudKit
-        if CoreData.context.hasChanges {
+        if CoreData.mainContext.hasChanges {
             do {
-                try CoreData.context.save()
+                try CoreData.mainContext.save()
             } catch {
                 
                 let nserror = error as NSError

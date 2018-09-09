@@ -15,11 +15,6 @@ protocol CloudKitProtocol: AccessExistingCoreData {
     
 }
 
-extension CloudKitProtocol {
-    
-    
-}
-
 extension CloudKitProtocol where Self: NSManagedObject {
     
     var recordName: String {
@@ -46,43 +41,24 @@ extension CloudKitProtocol where Self: NSManagedObject {
         
     }
     
-    private func proceedToCloudKit() {        
-        if isDeleted {
-            let recordName = self.recordName
-            let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-            
-            let isDuplicate:Bool = CloudKit.outgoingDeleteRecordIDs.contains { (id) -> Bool in
-                id.recordName == recordName
-            }
-
-            if !isDuplicate {
-                CloudKit.outgoingDeleteRecordIDs.insert(recordID, at: 0)
-            }
-            
-            let index = CloudKit.outgoingSaveRecords.index { (existing) -> Bool in
-                existing.recordID.recordName == recordName
-            }
-            
-            if let index = index {
-                CloudKit.outgoingSaveRecords.remove(at: index)
-            }
-           
-        } else {
-            
-            let record = self.recordToUpload()
-
-            let index = CloudKit.outgoingSaveRecords.index { (existing) -> Bool in
-                existing.recordID.recordName == record.recordID.recordName
-            }
-
-            if let index = index {
-                CloudKit.outgoingSaveRecords[index] = record
-            } else {
-                CloudKit.outgoingSaveRecords.append(record)
-            }
+    private func proceedToCloudKit() {
+        let record = self.recordToUpload()
+        
+        let pendingUpload = CloudKit.pendingUpload
+        
+        let pending = PendingUpload(record: record)
+        
+        let duplicate = pendingUpload.filter { (pending) -> Bool in
+            pending.recordID.recordName == record.recordID.recordName
         }
-    }
-    
+        
+        for object in duplicate {
+            CoreData.mainContext.delete(object)
+        }
+        
+        if isDeleted { pending.delete = true }
+
+    }    
     
     func recordToUpload() -> CKRecord {
 
@@ -231,7 +207,6 @@ extension CloudKitProtocol where Self: NSManagedObject {
         }
         
     }
-    
-    
+
 }
 

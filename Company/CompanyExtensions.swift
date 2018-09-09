@@ -12,8 +12,6 @@ extension Company {
     
     var accounts: [Account] { return accountSet?.array as! [Account] }
 
-        
-    
 }
 
 

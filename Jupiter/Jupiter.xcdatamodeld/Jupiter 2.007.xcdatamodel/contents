@@ -19,17 +19,14 @@
         <attribute name="recordData" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="accountSet" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Account" inverseName="company" inverseEntity="Account" syncable="YES"/>
     </entity>
+    <entity name="DeletedRecordID" representedClassName=".DeletedRecordID" syncable="YES" codeGenerationType="class"/>
     <entity name="Month" representedClassName=".Month" syncable="YES" codeGenerationType="class">
         <attribute name="balance" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="flows" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="monthSet" inverseEntity="Account" syncable="YES"/>
     </entity>
-    <entity name="PendingUpload" representedClassName="PendingUpload" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="delete" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="record" optional="YES" attributeType="Transformable" customClassName="CKRecord" syncable="YES"/>
-    </entity>
+    <entity name="SavedRecord" representedClassName=".SavedRecord" syncable="YES" codeGenerationType="class"/>
     <entity name="Transaction" representedClassName=".Transaction" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="flows" optional="YES" attributeType="Transformable" customClassName="[Int64]" syncable="YES"/>
@@ -46,8 +43,9 @@
     <elements>
         <element name="Account" positionX="-63" positionY="-18" width="128" height="195"/>
         <element name="Company" positionX="-54" positionY="54" width="128" height="120"/>
+        <element name="DeletedRecordID" positionX="-45" positionY="117" width="128" height="45"/>
         <element name="Month" positionX="-45" positionY="117" width="128" height="105"/>
+        <element name="SavedRecord" positionX="-54" positionY="108" width="128" height="45"/>
         <element name="Transaction" positionX="-63" positionY="54" width="128" height="210"/>
-        <element name="PendingUpload" positionX="-36" positionY="126" width="128" height="90"/>
     </elements>
 </model>

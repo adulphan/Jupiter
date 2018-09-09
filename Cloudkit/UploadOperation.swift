@@ -8,6 +8,7 @@
 
 import Foundation
 import CloudKit
+import CoreData
 
 class CKUPloadOperation: CKModifyRecordsOperation {
     
@@ -17,48 +18,98 @@ class CKUPloadOperation: CKModifyRecordsOperation {
         database = CloudKit.privateDatabase
         name = "uploadFinancialData"
         savePolicy = .ifServerRecordUnchanged
-        recordsToSave = CloudKit.outgoingSaveRecords
-        recordIDsToDelete = CloudKit.outgoingDeleteRecordIDs
+        recordsToSave = pendingSaveRecords
+        recordIDsToDelete = pendingDeleteRecordIDs
         isAtomic = false
         qualityOfService = .background
         
     }
     
-    override func main() {
-        CloudKit.outgoingSaveRecords = []
-        CloudKit.outgoingDeleteRecordIDs = []        
-        super.main()
+    var allFetchedPendings: [PendingUpload] = []
+    
+    private var pendingSaveRecords: [CKRecord] {
+        do {
+            let fetchRequest = NSFetchRequest<PendingUpload>(entityName: PendingUpload.entity().name!)
+            fetchRequest.predicate = NSPredicate(format: "delete == %@", NSNumber(value: false))
+            let fetchedResults = try CoreData.mainContext.fetch(fetchRequest)
+            allFetchedPendings.append(contentsOf: fetchedResults)
+            let records = fetchedResults.map{$0.record!}
+            return records
+        }
+        catch { print ("fetch pending records failed", error) }
+        return []
     }
+
+    private var pendingDeleteRecords: [CKRecord] {
+        do {
+            let fetchRequest = NSFetchRequest<PendingUpload>(entityName: PendingUpload.entity().name!)
+            fetchRequest.predicate = NSPredicate(format: "delete == %@", NSNumber(value: true))
+            let fetchedResults = try CoreData.mainContext.fetch(fetchRequest)
+            allFetchedPendings.append(contentsOf: fetchedResults)
+            let records = fetchedResults.map{$0.record!}
+            return records
+        }
+        catch { print ("fetch pending records failed", error) }
+        return []
+    }
+    
+    private var pendingDeleteRecordIDs: [CKRecordID] {
+        return pendingDeleteRecords.map{$0.recordID}
+    }
+    
 }
 
 extension OperationCloudKit {
     
     func uploadRecords() {
+        
         let operation = CKUPloadOperation()
+        guard !operation.allFetchedPendings.isEmpty else { return }
+        print("CoreDataNotification: uploading to CloudKit")
+        print("Records to upload: ",operation.allFetchedPendings.count)
+        print("To save: ",operation.recordsToSave?.count ?? 999)
+        print("To delete: ",operation.recordIDsToDelete?.count ?? 999)
+        
         operation.modifyRecordsCompletionBlock = { (savedRecords, deletedIDs, error) in
             
-            self.handle(error: error, operation: operation)
+            self.handle(error: error)
+
             for id in deletedIDs! {
                 print("\(id.recordName) is deleted from Cloud")
             }
-     
+            
             for record in savedRecords! {
-
                 print("\(record.recordID.recordName) is saved on Cloud")
-                self.updateLocalRecordByServer(record: record)
-                self.updatePendingRecordByServer(record: record)
-
             }
             
-            self.saveCoreData(sendToCloudKit: false)
+            
+            DispatchQueue.global(qos: .background).async {
+                for record in savedRecords! {
+                    self.updateLocalRecordByServer(record: record)
+                }
+            }
+      
+            DispatchQueue.main.sync {
+                for record in savedRecords! {
+                    self.updatePendingRecordByServer(record: record)
+                }
+                self.deleteCoreData(objects: operation.allFetchedPendings)
+                self.countPendings()
+            }
+            
             print("Completed: \(operation.name!)")
+            guard CloudKit.hasPendingUploads else {
+                DispatchQueue.main.sync {
+                    self.saveCoreData(sendToCloudKit: false)
+                }
 
-            guard CloudKit.hasOutgoings else {
-                print("No outgoing records")
                 self.printOutCoreData(includeMonths: false, transactionDetails: false)
                 return
             }
-            self.uploadRecords()
+            
+            DispatchQueue.main.sync {
+                self.uploadRecords()
+            }
         }
         
         let operationQueue = CloudKit.operationQueue
@@ -69,7 +120,24 @@ extension OperationCloudKit {
         
     }
     
-    private func handle(error: Error?, operation: CKModifyRecordsOperation) {
+    private func countPendings() {
+        
+        do {
+            let fetchRequest = NSFetchRequest<PendingUpload>(entityName: PendingUpload.entity().name!)
+            let count = try CoreData.mainContext.count(for:fetchRequest)
+            print("Pending records left: ",count)
+            if count > 0 {
+                CloudKit.hasPendingUploads = true
+            } else {
+                CloudKit.hasPendingUploads = false
+            }
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    private func handle(error: Error?) {
         
         guard let error = error else { return }
 
@@ -78,10 +146,7 @@ extension OperationCloudKit {
                 handlePartialFailure(error: error)
                 return
             }
-            if error.code == CKError.invalidArguments {
-                handleInvalidArgument(error: error)
-                return
-            }
+            
             if let retryAfterSeconds = error.retryAfterSeconds {
                 print(error)
                 handleRetryable(retryAfterSeconds: retryAfterSeconds)
@@ -93,14 +158,6 @@ extension OperationCloudKit {
                 print("Serious error: not partial error, not invalid-argument error, not retryable....")
                 print("Records return to pending state")
                 print("")
-
-                if let recordToSave = operation.recordsToSave {
-                    CloudKit.outgoingSaveRecords.append(contentsOf: recordToSave)
-                }
-                
-                if let recordIDsToDelete = operation.recordIDsToDelete {
-                    CloudKit.outgoingDeleteRecordIDs.append(contentsOf: recordIDsToDelete)
-                }
 
                 return
             }
@@ -118,28 +175,30 @@ extension OperationCloudKit {
         let dictionary =  partialErrorsByItemID as! [CKRecordID : CKError]
         for dict in dictionary {
             if dict.value.code == CKError.serverRecordChanged {
-                print("\(dict.key.recordName) is NOT saved on Cloud: ServerRecordChange - will retry with client record")
+                print("\(dict.key.recordName) is NOT saved on Cloud: ServerRecordChange")
+                
                 let serverRecord = dict.value.serverRecord!
                 var clientRecord = dict.value.clientRecord!
                 
-                let clientRecordInPending = CloudKit.outgoingSaveRecords.index { (rec) -> Bool in
-                    rec.recordID.recordName == clientRecord.recordID.recordName
-                }
+                let serverDate = serverRecord.value(forKey: "modifiedLocal") as! Date
+                let clientDate = clientRecord.value(forKey: "modifiedLocal") as! Date
                 
-                if let index = clientRecordInPending {
-                    clientRecord = CloudKit.outgoingSaveRecords[index]
-                    let mergedRecord = clientRecord.updateSystemDataBy(record: serverRecord)
-                    CloudKit.outgoingSaveRecords[index] = mergedRecord
-                    
+                if clientDate > serverDate {
+                    print("Retry with client record")
+                    clientRecord = clientRecord.updateSystemDataBy(record: serverRecord)
+                    _ = PendingUpload(record: clientRecord)
                 } else {
-                    let mergedRecord = clientRecord.updateSystemDataBy(record: serverRecord)
-                    CloudKit.outgoingSaveRecords.append(mergedRecord)
+                    let recordName = serverRecord.recordID.recordName
+                    if let object = ExistingObject(recordName: recordName) {
+                        print("Retrieve server record")
+                        object.downloadfrom(record: serverRecord)
+                    }
                 }
                 
             } else if dict.value.code == CKError.unknownItem {
                 print("\(dict.key.recordName) is NOT saved on Cloud: UnknownItem (mostlikely deleted) - coreData will delete object")
                 if let object = ExistingObject(recordName: dict.key.recordName) {
-                    CoreData.context.delete(object)
+                    CoreData.mainContext.delete(object)
                 }
                 
             } else if dict.value.code == CKError.batchRequestFailed {
@@ -152,57 +211,17 @@ extension OperationCloudKit {
         
     }
     
-    private func handleInvalidArgument(error: CKError) {
-        
-        let description = error.userInfo["CKErrorDescription"] as! String
-        if description.lowercased().range(of:"save") != nil && description.lowercased().range(of:"delete") != nil {
-            print("You can't save and delete the same record - will delete in the next batch")
-            let operation = CloudKit.operationQueue.operations.first! as! CKModifyRecordsOperation
-            var recordToSave = operation.recordsToSave!
-            let recordIDsToDelete = operation.recordIDsToDelete!
-            
-            for recordID in recordIDsToDelete {
-                let index = recordToSave.index { (rec) -> Bool in
-                    rec.recordID.recordName == recordID.recordName
-                }
-                if let index = index {
-                    recordToSave.remove(at: index)
-                    print("Record in conflict: ", recordID.recordName)
-                }
-            }
-            
-            for record in recordToSave {
-                let isContainInNextBatch = CloudKit.outgoingSaveRecords.map{$0.recordID.recordName}.contains(record.recordID.recordName) || CloudKit.outgoingDeleteRecordIDs.map{$0.recordName}.contains(record.recordID.recordName)
-                if !isContainInNextBatch {
-                    CloudKit.outgoingSaveRecords.append(record)
-                }
-            }
-            
-            CloudKit.outgoingDeleteRecordIDs.append(contentsOf: recordIDsToDelete)
-        }
-        
-    }
-    
-    
     private func handleRetryable(retryAfterSeconds: TimeInterval) {
         
-        let operation = CloudKit.operationQueue.operations.first! as! CKModifyRecordsOperation
-        let recordToSave = operation.recordsToSave!
-        let recordIDsToDelete = operation.recordIDsToDelete!
-        
-        for record in recordToSave {
-            let isContainInNextBatch = CloudKit.outgoingSaveRecords.map{$0.recordID.recordName}.contains(record.recordID.recordName) || CloudKit.outgoingDeleteRecordIDs.map{$0.recordName}.contains(record.recordID.recordName)
-            if !isContainInNextBatch {
-                CloudKit.outgoingSaveRecords.append(record)
-            }
-        }
-        CloudKit.outgoingDeleteRecordIDs.append(contentsOf: recordIDsToDelete)
         print("")
-        print("Suspend operationQueue: retryable error - waiting \(retryAfterSeconds) seconds to continue")
+        print("Suspend operationQueue: retryable error - waiting \(retryAfterSeconds + 5) seconds to continue")
         print("")
         CloudKit.operationQueue.isSuspended = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + retryAfterSeconds + 5) {
+            let operation = CloudKit.operationQueue.operations.first!
+            operation.cancel()
+            self.uploadRecords()
             CloudKit.operationQueue.isSuspended = false
             print("")
             print("Continue operationQueue")
@@ -226,52 +245,17 @@ extension OperationCloudKit {
     }
     
     private func updatePendingRecordByServer(record: CKRecord) {
-        let pendingRecords = CloudKit.outgoingSaveRecords
-        let index = pendingRecords.index(where: { (rec) -> Bool in
-            rec.recordID.recordName == record.recordID.recordName
-        })
-        if let index = index {
-            let pending = pendingRecords[index]
-            CloudKit.outgoingSaveRecords[index] = pending.updateSystemDataBy(record: record)
+        
+        let pendingRecords = CloudKit.pendingUpload
+        let withSameRecords = pendingRecords.filter { (pending) -> Bool in
+            pending.recordID.recordName == record.recordID.recordName
+        }
+        
+        for pending in withSameRecords {
+            pending.record = pending.record?.updateSystemDataBy(record: record)
         }
     
     }
-    
-//    private func updatePendingRecordsBy(serverRecords: [CKRecord]) {
-//        guard serverRecords.count > 0 else { return }
-//        let pendingRecords = CloudKit.outgoingSaveRecords
-//        for i in 0...serverRecords.count-1 {
-//            let record = serverRecords[i]
-//            let index = pendingRecords.index { (rec) -> Bool in
-//                rec.recordID.recordName == record.recordID.recordName
-//            }
-//            if let index = index {
-//                let pending = pendingRecords[index]
-//                CloudKit.outgoingSaveRecords[index] = pending.exportValuesTo(record: record)
-//            }
-//        }
-//        
-//    }
-    
-    
-//    private func updateRecordInNextOperationByServer(record: CKRecord) {
-//
-//        if CloudKit.operationQueue.operations.count > 1 {
-//            if let nextOperation = CloudKit.operationQueue.operations[1] as? CKModifyRecordsOperation {
-//                let records = nextOperation.recordsToSave
-//                let index = records?.index(where: { (rec) -> Bool in
-//                    rec.recordID.recordName == record.recordID.recordName
-//                })
-//
-//                if let records = records, let index = index {
-//                    let updatedRecord = records[index].exportValuesTo(record: record)
-//                    nextOperation.recordsToSave![index] = updatedRecord
-//                }
-//
-//            }
-//        }
-//
-//    }
     
 }
 

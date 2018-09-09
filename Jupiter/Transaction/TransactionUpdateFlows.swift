@@ -13,7 +13,7 @@ extension Transaction {
     func updateMonthFlows() {
 
         if isDeleted {
-            guard !company.isDeleted else { return }
+            guard !cachedOldValues.company.isDeleted else { return }
             updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
             return
         } else if isInserted {
@@ -49,11 +49,11 @@ extension Transaction {
                 monthArray[index].balance += flow
                 updateBalanceAbove(index: index, amount: flow, array: account.months)
                 if monthArray[index].flows == 0 {
-                    CoreData.context.delete(monthArray[index])
+                    CoreData.mainContext.delete(monthArray[index])
                 }
                 
             } else {
-                let newMonth = Month(context: CoreData.context)
+                let newMonth = Month(context: CoreData.mainContext)
                 newMonth.endDate = monthEnd
                 newMonth.flows = flow
                 let previousBalance = index == monthArray.count ? account.beginBalance : monthArray[index].balance
@@ -103,7 +103,9 @@ extension Transaction {
         var date: Date? = nil
         var accounts: [Account] = []
         var flows: [Int64]? = []
-        
+        var company: Company {
+            return accounts.first!.company!
+        }
     }
     
     private func updateBalanceAbove(index: Int, amount: Int64, array: [Month]) {

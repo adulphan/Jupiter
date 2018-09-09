@@ -17,18 +17,19 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
         super.viewDidLoad()
         view.backgroundColor = UIColor.orange
         
+        
+        
+        
+        
+        
+        
+        
 //        ensureZoneForFinancialData()
 //        deleteAllZone()
-        
+//
 //        deleteAllRecords { _ in
 //            DispatchQueue.main.sync {
 //                SimulateData.shared.simulateData()
-//
-//
-//                let company = self.workingCompany!
-//                CoreData.context.delete(company)
-//                self.saveCoreData(sendToCloudKit: true)
-//                self.printOutCoreData(includeMonths: true, transactionDetails: true)
 //            }
 //        }
         
@@ -49,20 +50,38 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
 ////
 //        let wallet = ExistingAccount(name: "Wallet")!
 //        let grocery = ExistingAccount(name: "Grocery")!
-        let bofa = ExistingAccount(name: "Bofa")!
+//        let bofa = ExistingAccount(name: "Bofa")!
 //
 //
 //        let transaction = wallet.transactions.first!
 //
 //        transaction.accounts = [bofa,grocery]
 //
-       CoreData.context.delete(bofa)
+        
+        
+        
+//        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+//        context.persistentStoreCoordinator = CoreData.context.persistentStoreCoordinator
+//
+//        let transaction = ExistingTransaction(name: "Tesco Online")!
+//
+//        context.delete(transaction)
+//
+//        do {
+//            try context.save()
+//        } catch  {
+//            print(error)
+//        }
+//
+//        printOutCoreData(includeMonths: true, transactionDetails: false)
+        
+////        CoreData.context.delete(transaction)
 ////
 ////        transaction.accounts = [bofa, grocery]
 ////
-        saveCoreData(sendToCloudKit: true)
+//        saveCoreData(sendToCloudKit: true)
 //////
-        printOutCoreData(includeMonths: true, transactionDetails: false)
+//        printOutCoreData(includeMonths: true, transactionDetails: false)
 //
 //        let transaction = ExistingTransaction(recordName: "B25B95F9-5056-4EAD-8E55-56CF435B76CB")!
 //
@@ -80,10 +99,33 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
 //        printOutCoreData(includeMonths: true, transactionDetails: true)
 //
         
+//        clearCoreData()
+//       SimulateData.shared.simulateData()
         
-//        loopTransaction(interval: 0.1, times: 5)
+//       mainContext.printSystemField()
         
+//        let company = Company(context: pendingContext)
+//        company.name = "Apple in private context"
+//        company.identifier = UUID()
+//        company.modifiedLocal = Date()
+//
+//        pendingContext.saveData()
+        //pendingContext.printSystemField()
         
+        //mainContext.printSystemField()
+        
+//        let transaction = ExistingTransaction(name: "Big C Mega Bangna")!
+//
+//        transaction.name = "Big C Mega Bangna 22"
+//
+//        pendingContext.saveData()
+//
+//        pendingContext.printSystemField()
+//        loopTransaction(interval: 0.001, times:150)
+        
+//        mainContext.clearData()
+//        pendingContext.clearData()
+
 
     }
     
@@ -106,13 +148,13 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
             let grocery = self.ExistingAccount(name: "Grocery")!
             
             let transaction = wallet.transactions.first!
-            CoreData.context.delete(transaction)
+            CoreData.mainContext.delete(transaction)
 
             let update = wallet.transactions.last!
             update.name = "Update: " + Date().description
 
             
-            let newTransaction = Transaction(context: CoreData.context)
+            let newTransaction = Transaction(context: CoreData.mainContext)
             newTransaction.name = "Creates: " + Date().description
             newTransaction.identifier = UUID()
             newTransaction.date = Date()

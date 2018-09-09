@@ -8,6 +8,11 @@
 
 import Foundation
 import CloudKit
+import CoreData
+
+var pendingQueue: DispatchQueue {    
+    return CloudKit.pendingQueue
+}
 
 class CloudKit {
     
@@ -18,7 +23,9 @@ class CloudKit {
         static let allValues = [company, account, transaction]
     }
     
-//    static var isDownloadingFromCloudKit:Bool = false
+
+    static let pendingQueue = DispatchQueue(label: "pendingQueue", qos: DispatchQoS.background, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem)
+    
     static let privateDatabase = CKContainer.default().privateCloudDatabase
     static let publicDatabase = CKContainer.default().publicCloudDatabase
     static let sharedDatabase = CKContainer.default().sharedCloudDatabase
@@ -43,6 +50,18 @@ class CloudKit {
     }()
 
 
+    static var pendingUpload: [PendingUpload] {
+        do {
+            let fetchRequest = NSFetchRequest<PendingUpload>(entityName: PendingUpload.entity().name!)
+            let fetchedResults = try CoreData.mainContext.fetch(fetchRequest)
+            return fetchedResults
+        }
+        catch { print ("fetch pending upload failed", error) }
+        return []        
+    }
+    
+    static var hasPendingUploads: Bool = false
+    
 }
 
 

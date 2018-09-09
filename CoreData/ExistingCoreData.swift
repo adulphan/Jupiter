@@ -65,7 +65,7 @@ extension AccessExistingCoreData {
             }
             
             fetchRequest.fetchLimit = 1
-            let fetchedResults = try CoreData.context.fetch(fetchRequest)
+            let fetchedResults = try CoreData.mainContext.fetch(fetchRequest)
             if let object = fetchedResults.first {
                 return object
             }
@@ -84,7 +84,7 @@ extension AccessExistingCoreData {
                 }
 
                 fetchRequest.fetchLimit = 1
-                let fetchedResults = try CoreData.context.fetch(fetchRequest)
+                let fetchedResults = try CoreData.mainContext.fetch(fetchRequest)
                 if let object = fetchedResults.first {
                     return object
                 }

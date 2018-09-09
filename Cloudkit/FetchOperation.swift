@@ -41,7 +41,7 @@ extension OperationCloudKit {
                 return
             } else {
                 UserDefaults.standard.financialDataChangeToken = changeToken
-                DispatchQueue.main.sync { self.pushNewFetchToCoreData(recordsToSave: incomingSaveRecords, recordIDsTodelete: incomingDeleteRecordIDs) }
+                DispatchQueue.main.async { self.pushNewFetchToCoreData(recordsToSave: incomingSaveRecords, recordIDsTodelete: incomingDeleteRecordIDs) }
                 completion(nil)
             }
 
@@ -81,28 +81,28 @@ extension OperationCloudKit {
         for record in sortedRecords {
 
             let recordName = record.recordID.recordName
-            
+
             switch record.recordType {
                 
             case CloudKit.recordType.company.rawValue:
                 if let object = ExistingCompany(recordName: recordName) {
                     object.downloadFrom(record: record)
                 } else {
-                    let object = Company(context: CoreData.context)
+                    let object = Company(context: CoreData.mainContext)
                     object.downloadFrom(record: record)
                 }
             case CloudKit.recordType.account.rawValue:
                 if let object = ExistingAccount(recordName: recordName) {
                     object.downloadFrom(record: record)
                 } else {
-                    let object = Account(context: CoreData.context)
+                    let object = Account(context: CoreData.mainContext)
                     object.downloadFrom(record: record)
                 }
             case CloudKit.recordType.transaction.rawValue:
                 if let object = ExistingTransaction(recordName: recordName) {
                     object.downloadFrom(record: record)
                 } else {
-                    let object = Transaction(context: CoreData.context)
+                    let object = Transaction(context: CoreData.mainContext)
                     object.downloadFrom(record: record)
                 }
                 

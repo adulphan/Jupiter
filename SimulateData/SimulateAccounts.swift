@@ -16,7 +16,7 @@ extension SimulateData {
     func simulateCompany() {
         
 
-        let company = Company(context: CoreData.context)
+        let company = Company(context: CoreData.mainContext)
         
         company.name = "Apple"
         company.identifier = UUID()

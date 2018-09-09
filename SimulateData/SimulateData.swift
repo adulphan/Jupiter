@@ -35,18 +35,17 @@ extension SimulateData {
 
         printOutCoreData(includeMonths: true, transactionDetails: false)
         
-        
     }
     
     func simulateTransaction() {
         
         let wallet = ExistingAccount(name: "Wallet")!
         let grocery = ExistingAccount(name: "Grocery")!
-        let bofa = ExistingAccount(name: "Bofa")!
+        //let bofa = ExistingAccount(name: "Bofa")!
         
         createPeriodicTransactions(from: [wallet], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [100], note: nil, url: nil, frequency: .month, multiple: 1, count: 6, startDate: 0, flexibleDate:0)
         
-        createPeriodicTransactions(from: [bofa], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [100], note: nil, url: nil, frequency: .month, multiple: 1, count: 6, startDate: 0, flexibleDate:0)
+//        createPeriodicTransactions(from: [bofa], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [100], note: nil, url: nil, frequency: .month, multiple: 1, count: 6, startDate: 0, flexibleDate:0)
 
         //510,660,1520,245,2655,345,462
     }
