@@ -53,7 +53,7 @@ class CloudKit {
     static var pendingUpload: [PendingUpload] {
         do {
             let fetchRequest = NSFetchRequest<PendingUpload>(entityName: PendingUpload.entity().name!)
-            let fetchedResults = try CoreData.mainContext.fetch(fetchRequest)
+            let fetchedResults = try pendingContext.fetch(fetchRequest)
             return fetchedResults
         }
         catch { print ("fetch pending upload failed", error) }

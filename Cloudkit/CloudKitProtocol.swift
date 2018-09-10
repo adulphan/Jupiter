@@ -42,21 +42,23 @@ extension CloudKitProtocol where Self: NSManagedObject {
     }
     
     private func proceedToCloudKit() {
-        let record = self.recordToUpload()
-        
-        let pendingUpload = CloudKit.pendingUpload
-        
-        let pending = PendingUpload(record: record)
-        
-        let duplicate = pendingUpload.filter { (pending) -> Bool in
-            pending.recordID.recordName == record.recordID.recordName
-        }
-        
-        for object in duplicate {
-            CoreData.mainContext.delete(object)
-        }
-        
-        if isDeleted { pending.delete = true }
+    
+        //pendingContext.performAndWait {
+            let record = self.recordToUpload()
+            //let pendingUpload = CloudKit.pendingUpload
+            var pendingUpload: [PendingUpload] = []
+            pendingUpload = Array(pendingContext.registeredObjects) as! [PendingUpload]
+            let pending = PendingUpload(record: record)
+            
+            let duplicate = pendingUpload.filter { (pending) -> Bool in
+                pending.recordID.recordName == record.recordID.recordName
+            }
+            for object in duplicate {
+                pendingContext.delete(object)
+            }
+            if isDeleted { pending.delete = true }
+            //pendingContext.processPendingChanges()
+        //}
 
     }    
     
@@ -74,6 +76,13 @@ extension CloudKitProtocol where Self: NSManagedObject {
             let recordName = self.recordName
             let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
             record = CKRecord(recordType: self.recordType, recordID: recordID)
+            
+            let data = NSMutableData()
+            let archiver = NSKeyedArchiver(forWritingWith: data)
+            archiver.requiresSecureCoding = true
+            record.encodeSystemFields(with: archiver)
+            archiver.finishEncoding()
+            self.setValue(data, forKey: "recordData")
             
         }
         

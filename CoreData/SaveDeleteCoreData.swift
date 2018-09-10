@@ -42,6 +42,22 @@ extension SaveAndDeleteCoreData {
             }
         }
         CoreData.sendToCludKit = false
+        
+//        if pendingContext.hasChanges {
+//            do {
+//                try pendingContext.save()
+//            } catch {
+//                
+//                let nserror = error as NSError
+//                print("")
+//                print("Description: ",nserror.userInfo["NSLocalizedDescription"] ?? "no description")
+//                print("")
+//                print(nserror)
+//                print("")
+//                print(nserror.userInfo)
+//                fatalError("Unresolved error")
+//            }
+//        }
     }
 
 }

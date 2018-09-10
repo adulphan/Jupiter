@@ -13,8 +13,7 @@ extension PendingUpload {
     
     
     convenience init(record: CKRecord) {
-        self.init(context: mainContext)
-        
+        self.init(context: pendingContext)        
         self.record = record
         date = Date()
         

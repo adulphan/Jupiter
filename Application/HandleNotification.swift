@@ -18,11 +18,15 @@ class HandleNotification: OperationCloudKit {
         guard CloudKit.operationQueueIsEmpty else { return }
         self.uploadRecords()
 
-        
+
     }
     
     @objc func coreDataWillSave(_ notification: Notification) {
-        screeningToCloudKit()
+        
+        pendingContext.performAndWait {
+            screeningToCloudKit()
+        }
+        
         updateMonthFlows()
         
     }
