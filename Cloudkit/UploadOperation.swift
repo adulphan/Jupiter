@@ -17,71 +17,79 @@ class CKUPloadOperation: CKModifyRecordsOperation {
         
         database = CloudKit.privateDatabase
         name = "uploadFinancialData"
-        
         savePolicy = .ifServerRecordUnchanged
         isAtomic = false
         qualityOfService = .background
         
     }
     
-    var allFetchedPendings: [PendingUpload] = Array(pendingContext.registeredObjects) as! [PendingUpload]
+    override func main() {
+        
+        
+        
+        super.main()
+    }
+    
+    var allFetchedPendings: [PendingUpload] = CloudKit.pendingUpload
+    var noDuplicate: [PendingUpload] = []
     
     var pendingSaveRecords: [CKRecord] {
         
-        let savingPendings = allFetchedPendings.filter { (pending) -> Bool in
+        let savingPendings = noDuplicate.filter { (pending) -> Bool in
             pending.delete == false
         }
 
         return savingPendings.map{$0.record!}
-        
-//        do {
-//            let fetchRequest = NSFetchRequest<PendingUpload>(entityName: PendingUpload.entity().name!)
-//            fetchRequest.predicate = NSPredicate(format: "delete == %@", NSNumber(value: false))
-//            let fetchedResults = try pendingContext.fetch(fetchRequest)
-//            allFetchedPendings.append(contentsOf: fetchedResults)
-//            let records = fetchedResults.map{$0.record!}
-//            return records
-//        }
-//        catch { print ("fetch pending records failed", error) }
-//        return []
+
     }
 
     var pendingDeleteRecords: [CKRecord] {
         
-        let deletingPendings = allFetchedPendings.filter { (pending) -> Bool in
+        let deletingPendings = noDuplicate.filter { (pending) -> Bool in
             pending.delete == true
         }
         
         return deletingPendings.map{$0.record!}
-        
-        
-//        do {
-//            let fetchRequest = NSFetchRequest<PendingUpload>(entityName: PendingUpload.entity().name!)
-//            fetchRequest.predicate = NSPredicate(format: "delete == %@", NSNumber(value: true))
-//            let fetchedResults = try pendingContext.fetch(fetchRequest)
-//            allFetchedPendings.append(contentsOf: fetchedResults)
-//            let records = fetchedResults.map{$0.record!}
-//            return records
-//        }
-//        catch { print ("fetch pending records failed", error) }
-//        return []
+
     }
     
     var pendingDeleteRecordIDs: [CKRecordID] {
         return pendingDeleteRecords.map{$0.recordID}
     }
     
+    func removeDuplicates() {
+        var newArray: [PendingUpload] = []
+        let all = allFetchedPendings
+        for pending in all {
+            let index = newArray.index { (object) -> Bool in
+                object.recordID.recordName == pending.recordID.recordName
+            }
+            if let index = index {
+                if pending.date! > newArray[index].date! {
+                    newArray[index] = pending
+                }
+            } else {
+                newArray.append(pending)
+            }
+
+        }
+        noDuplicate = newArray
+    }
+    
 }
 
 extension OperationCloudKit {
     
+
+    
     func uploadRecords() {
         
         let operation = CKUPloadOperation()
-        //pendingContext.performAndWait {
-            operation.recordsToSave = operation.pendingSaveRecords
-            operation.recordIDsToDelete = operation.pendingDeleteRecordIDs
-        //}
+        
+        operation.removeDuplicates()
+        operation.recordsToSave = operation.pendingSaveRecords
+        operation.recordIDsToDelete = operation.pendingDeleteRecordIDs
+
         guard !operation.allFetchedPendings.isEmpty else { return }
         print("CoreDataNotification: uploading to CloudKit")
         print("Records to upload: ",operation.allFetchedPendings.count)
@@ -89,7 +97,7 @@ extension OperationCloudKit {
         print("To delete: ",operation.recordIDsToDelete?.count ?? 999)
         
         operation.modifyRecordsCompletionBlock = { (savedRecords, deletedIDs, error) in
-            
+    
             self.handle(error: error)
 
             for id in deletedIDs! {
@@ -100,8 +108,11 @@ extension OperationCloudKit {
                 print("\(record.recordID.recordName) is saved on Cloud")
             }
             
-            for record in savedRecords! {
-                self.updateLocalRecordByServer(record: record)
+            mainContext.performAndWait {
+                for record in savedRecords! {
+                    self.updateLocalRecordByServer(record: record)
+                    mainContext.processPendingChanges()
+                }
             }
             
             pendingContext.delete(objects: operation.allFetchedPendings)
@@ -112,11 +123,8 @@ extension OperationCloudKit {
             
             print("Completed: \(operation.name!)")
             
-            let remaining = pendingContext.registeredObjects.count
-            
-            //guard CloudKit.hasPendingUploads else {
-            
-            guard remaining > 0 else {
+            guard CloudKit.hasPendingUploads else {
+
                 DispatchQueue.main.sync {
                     self.saveCoreData(sendToCloudKit: false)
                     
@@ -129,7 +137,6 @@ extension OperationCloudKit {
                 self.printOutCoreData(includeMonths: false, transactionDetails: false)
                 return
             }
-
             self.uploadRecords()
 
         }
@@ -139,29 +146,6 @@ extension OperationCloudKit {
             operation.addDependency(lastOperation)
         }
         operationQueue.addOperations([operation], waitUntilFinished: false)
-        
-    }
-    
-    private func countPendings() {
-        
-        do {
-            let fetchRequest = NSFetchRequest<PendingUpload>(entityName: PendingUpload.entity().name!)
-            let count = try pendingContext.count(for:fetchRequest)
-            print("Pending records left: ",count)
-            if count == pendingContext.registeredObjects.count {
-                print("You are right about this!!")
-            } else {
-                print("You are wrong!!")
-                
-            }
-            if count > 0 {
-                CloudKit.hasPendingUploads = true
-            } else {
-                CloudKit.hasPendingUploads = false
-            }
-        } catch let error as NSError {
-            print("Error: \(error.localizedDescription)")
-        }
         
     }
     
@@ -275,7 +259,7 @@ extension OperationCloudKit {
     private func updatePendingRecordByServer(records: [CKRecord]) {
 
         pendingContext.performAndWait {
-            let pendingUploads = Array(pendingContext.registeredObjects) as! [PendingUpload]
+            let pendingUploads = CloudKit.pendingUpload
             for record in records {
                 let withSameRecords = pendingUploads.filter { (pending) -> Bool in
                     pending.recordID.recordName == record.recordID.recordName

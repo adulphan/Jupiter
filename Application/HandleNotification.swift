@@ -22,13 +22,8 @@ class HandleNotification: OperationCloudKit {
     }
     
     @objc func coreDataWillSave(_ notification: Notification) {
-        
-        pendingContext.performAndWait {
-            screeningToCloudKit()
-        }
-        
+        screeningToCloudKit()
         updateMonthFlows()
-        
     }
     
     private func updateMonthFlows() {

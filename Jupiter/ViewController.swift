@@ -22,8 +22,6 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
         
         
         
-        
-        
 //        ensureZoneForFinancialData()
 //        deleteAllZone()
 //
@@ -127,11 +125,12 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
                 mainContext.clearData()
                 pendingContext.clearData()
                 SimulateData.shared.simulateData()
+                self.loopTransaction(interval: 0.01, times:10000)
             }
         }
         
 //        SimulateData.shared.simulateData()
-//       loopTransaction(interval: 0.05, times:200)
+       
         
 
 
@@ -150,7 +149,7 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
         
         var count: Int = 0
         _ = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { t in
-            print(Date(), "  count : \(count)")
+            //print(Date(), "  count : \(count)")
             count += 1
             
             let wallet = self.ExistingAccount(name: "Wallet")!

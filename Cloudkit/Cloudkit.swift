@@ -51,18 +51,24 @@ class CloudKit {
 
 
     static var pendingUpload: [PendingUpload] {
-        do {
-            let fetchRequest = NSFetchRequest<PendingUpload>(entityName: PendingUpload.entity().name!)
-            let fetchedResults = try pendingContext.fetch(fetchRequest)
-            return fetchedResults
-        }
-        catch { print ("fetch pending upload failed", error) }
-        return []        
+        return Array(pendingContext.registeredObjects) as! [PendingUpload]
     }
     
-    static var hasPendingUploads: Bool = false
+    static var hasPendingUploads: Bool {
+        return !pendingUpload.isEmpty
+    }
     
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
