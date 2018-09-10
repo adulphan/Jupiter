@@ -42,23 +42,9 @@ extension CloudKitProtocol where Self: NSManagedObject {
     }
     
     private func proceedToCloudKit() {
-    
-        //pendingContext.performAndWait {
-            let record = self.recordToUpload()
-//            var pendingUpload: [PendingUpload] = []
-//            pendingUpload = CloudKit.pendingUpload
-            let pending = PendingUpload(record: record)
-//
-//            let duplicate = pendingUpload.filter { (pending) -> Bool in
-//                pending.recordID.recordName == record.recordID.recordName
-//            }
-//            for object in duplicate {
-//                pendingContext.delete(object)
-//            }
-            if isDeleted { pending.delete = true }
-            //pendingContext.processPendingChanges()
-        //}
-
+        let record = self.recordToUpload()
+        let pending = PendingUpload(record: record, isDeleted: isDeleted)
+        pendingContext.insert(pending)
     }    
     
     func recordToUpload() -> CKRecord {

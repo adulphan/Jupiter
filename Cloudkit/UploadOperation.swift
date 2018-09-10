@@ -23,13 +23,6 @@ class CKUPloadOperation: CKModifyRecordsOperation {
         
     }
     
-    override func main() {
-        
-        
-        
-        super.main()
-    }
-    
     var allFetchedPendings: [PendingUpload] = CloudKit.pendingUpload
     var noDuplicate: [PendingUpload] = []
     
@@ -80,21 +73,15 @@ class CKUPloadOperation: CKModifyRecordsOperation {
 
 extension OperationCloudKit {
     
-
-    
     func uploadRecords() {
         
         let operation = CKUPloadOperation()
-        
         operation.removeDuplicates()
         operation.recordsToSave = operation.pendingSaveRecords
         operation.recordIDsToDelete = operation.pendingDeleteRecordIDs
-
+        
         guard !operation.allFetchedPendings.isEmpty else { return }
         print("CoreDataNotification: uploading to CloudKit")
-        print("Records to upload: ",operation.allFetchedPendings.count)
-        print("To save: ",operation.recordsToSave?.count ?? 999)
-        print("To delete: ",operation.recordIDsToDelete?.count ?? 999)
         
         operation.modifyRecordsCompletionBlock = { (savedRecords, deletedIDs, error) in
     
@@ -116,24 +103,14 @@ extension OperationCloudKit {
             }
             
             pendingContext.delete(objects: operation.allFetchedPendings)
-            
             self.updatePendingRecordByServer(records: savedRecords!)
-
             pendingContext.processPendingChanges()
-            
             print("Completed: \(operation.name!)")
             
             guard CloudKit.hasPendingUploads else {
 
-                DispatchQueue.main.sync {
-                    self.saveCoreData(sendToCloudKit: false)
-                    
-                }
-                
-                pendingContext.performAndWait({
-                    pendingContext.saveData()
-                })
-                
+                DispatchQueue.main.sync { self.saveCoreData(sendToCloudKit: false) }
+                pendingContext.performAndWait { pendingContext.saveData() }
                 self.printOutCoreData(includeMonths: false, transactionDetails: false)
                 return
             }
@@ -198,7 +175,9 @@ extension OperationCloudKit {
                 if clientDate > serverDate {
                     print("Retry with client record")
                     clientRecord = clientRecord.updateSystemDataBy(record: serverRecord)
-                    _ = PendingUpload(record: clientRecord)
+                    let pending = PendingUpload(record: clientRecord, isDeleted: false)
+                    pendingContext.insert(pending)
+                    
                 } else {
                     let recordName = serverRecord.recordID.recordName
                     if let object = ExistingObject(recordName: recordName) {

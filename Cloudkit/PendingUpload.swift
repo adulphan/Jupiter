@@ -12,10 +12,11 @@ import CloudKit
 extension PendingUpload {
     
     
-    convenience init(record: CKRecord) {
+    convenience init(record: CKRecord, isDeleted: Bool) {
         self.init(context: pendingContext)        
         self.record = record
-        date = Date()
+        self.date = Date()
+        self.delete = isDeleted
         
     }
     

@@ -120,14 +120,18 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
 //
 //        pendingContext.printSystemField()
         
-        deleteAllRecords { _ in
-            DispatchQueue.main.sync {
-                mainContext.clearData()
-                pendingContext.clearData()
-                SimulateData.shared.simulateData()
-                self.loopTransaction(interval: 0.01, times:10000)
-            }
-        }
+//        deleteAllRecords { _ in
+//            DispatchQueue.main.sync {
+//                mainContext.clearData()
+//                pendingContext.clearData()
+//                SimulateData.shared.simulateData()
+//                self.loopTransaction(interval: 0.1, times:1000)
+//            }
+//        }
+        
+        
+        
+        
         
 //        SimulateData.shared.simulateData()
        
