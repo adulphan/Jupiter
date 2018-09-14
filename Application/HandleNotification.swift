@@ -14,16 +14,16 @@ class HandleNotification: OperationCloudKit {
     static let shared = HandleNotification()
     
     @objc func coreDataDidSave(_ notification: Notification) {
-
-        guard CloudKit.operationQueueIsEmpty else { return }
-        self.uploadRecords()
-
+        
+        
+        
+  
 
     }
     
     @objc func coreDataWillSave(_ notification: Notification) {
-        screeningToCloudKit()
-        updateMonthFlows()
+        
+
     }
     
     private func updateMonthFlows() {
@@ -35,22 +35,22 @@ class HandleNotification: OperationCloudKit {
             transaction.updateMonthFlows()
         }
     }
-    
-    private func screeningToCloudKit() {
-        for object in CoreData.mainContext.registeredObjects {
-            
-            if let company = object as? Company {
-                company.screeningForCloudKit()
-            }
-            if let account = object as? Account {
-                account.screeningForCloudKit()
-            }
-            if let transaction = object as? Transaction {
-                transaction.screeningForCloudKit()
-            }
-  
-        }
-    }
+//
+//    private func screeningToCloudKit() {
+//        for object in CoreData.mainContext.registeredObjects {
+//
+//            if let company = object as? Company {
+//                company.screeningForCloudKit()
+//            }
+//            if let account = object as? Account {
+//                account.screeningForCloudKit()
+//            }
+//            if let transaction = object as? Transaction {
+//                transaction.screeningForCloudKit()
+//            }
+//
+//        }
+//    }
     
     
 

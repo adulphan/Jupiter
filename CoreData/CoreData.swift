@@ -20,6 +20,10 @@ var pendingContext: NSManagedObjectContext {
 
 class CoreData {
 
+    static let persistentStoreCoordinator = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.persistentStoreCoordinator
+    
+    static let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+    
     static let mainContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     static let pendingContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -36,10 +40,10 @@ class CoreData {
         case account = "Account"
         case transaction = "Transaction"
         case month = "Month"
-        case pendingUpload = "PendingUpload"
+        case pending = "Pending"
         
         static let coreValues = [company, account, transaction]
-        static let allValues = [company, account, transaction, month, pendingUpload]
+        static let allValues = [company, account, transaction, month, pending]
     }
 
 }

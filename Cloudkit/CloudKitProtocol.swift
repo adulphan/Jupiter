@@ -28,6 +28,8 @@ extension CloudKitProtocol where Self: NSManagedObject {
         
         if isDeleted || isInserted {
             proceedToCloudKit()
+            
+
             return
             
         }
@@ -36,15 +38,36 @@ extension CloudKitProtocol where Self: NSManagedObject {
         guard changedKeys != ["recordData"] else { return }
         let relationshipNames = entity.relationshipsByName.map{$0.key}
         if !Set(changedKeys).isSubset(of: Set(relationshipNames)) {
+
+
             proceedToCloudKit()
         }
         
     }
     
     private func proceedToCloudKit() {
-        let record = self.recordToUpload()
-        let pending = PendingUpload(record: record, isDeleted: isDeleted)
-        pendingContext.insert(pending)
+        
+        
+        CloudKit.pendingRecordNames.insert(recordName)
+        
+        
+//        if isDeleted {
+//            CloudKit.pendingDeletedObjectIDs.insert(recordName)
+//            let objectURI = objectID.uriRepresentation().absoluteString
+//            CloudKit.pendingSavedObjectURIs.remove(objectURI)
+//
+//        } else {
+//            let objectURI = objectID.uriRepresentation().absoluteString
+//            CloudKit.pendingSavedObjectURIs.insert(objectURI)
+//
+//        }
+//
+//
+//
+        
+//        let record = self.recordToUpload()
+//        let pending = PendingUpload(record: record, isDeleted: isDeleted)
+//        pendingContext.insert(pending)
     }    
     
     func recordToUpload() -> CKRecord {

@@ -67,6 +67,7 @@ extension PrintCoreData {
             let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
             let fetchedResults = try CoreData.mainContext.fetch(fetchRequest)
             for object in fetchedResults {
+                print(object.objectID.uriRepresentation())
                 for prop in object.entity.propertiesByName {
                     let key = prop.key
                     guard !prop.value.isTransient else { continue }

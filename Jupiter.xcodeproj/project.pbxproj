@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		530933192136271C000D1E2C /* FetchOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530933182136271C000D1E2C /* FetchOperation.swift */; };
 		532280B5212AA83E00EB96D8 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532280B4212AA83E00EB96D8 /* NSManagedObject.swift */; };
-		533538F021436109009C32E9 /* PendingUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533538EF21436109009C32E9 /* PendingUpload.swift */; };
+		533538F021436109009C32E9 /* Pending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533538EF21436109009C32E9 /* Pending.swift */; };
 		533AB93B212FA1540022C512 /* RecordExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB93A212FA1540022C512 /* RecordExchange.swift */; };
 		533AB93D212FA2970022C512 /* DownloadRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB93C212FA2970022C512 /* DownloadRecords.swift */; };
 		533AB941212FA4D00022C512 /* UploadRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB940212FA4D00022C512 /* UploadRecords.swift */; };
@@ -55,6 +55,7 @@
 		53E2DBD9212C22B000F75F58 /* EnsureFinancialDataZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */; };
 		53E2DBDC212C58F700F75F58 /* CompanyValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2DBDB212C58F700F75F58 /* CompanyValidation.swift */; };
 		53EB98B9212D023E009B5EF5 /* HandleNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EB98B8212D023E009B5EF5 /* HandleNotification.swift */; };
+		53F1E9832149ED2F00397804 /* UploadOperation_New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F1E9822149ED2F00397804 /* UploadOperation_New.swift */; };
 		53FB5F7F213A452A006F0EFB /* DeleteRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FB5F7E213A452A006F0EFB /* DeleteRecords.swift */; };
 		53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2D72127D70D003DDB84 /* SplitTransactions.swift */; };
 		53FBE2DA21281529003DDB84 /* PrepareForSimulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */; };
@@ -72,7 +73,7 @@
 		532280B3212A4C1700EB96D8 /* Jupiter 1.12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.12.xcdatamodel"; sourceTree = "<group>"; };
 		532280B4212AA83E00EB96D8 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		533538EE2142B6FD009C32E9 /* Jupiter 2.006.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.006.xcdatamodel"; sourceTree = "<group>"; };
-		533538EF21436109009C32E9 /* PendingUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingUpload.swift; sourceTree = "<group>"; };
+		533538EF21436109009C32E9 /* Pending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pending.swift; sourceTree = "<group>"; };
 		533538F121436983009C32E9 /* Jupiter 2.007.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.007.xcdatamodel"; sourceTree = "<group>"; };
 		533538F2214369F6009C32E9 /* Jupiter 2.008.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.008.xcdatamodel"; sourceTree = "<group>"; };
 		533538F321437243009C32E9 /* Jupiter 2.009.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.009.xcdatamodel"; sourceTree = "<group>"; };
@@ -139,6 +140,7 @@
 		53EBB6D22129447300B9A21F /* Jupiter 1.08.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.08.xcdatamodel"; sourceTree = "<group>"; };
 		53EBB6D321294E8C00B9A21F /* Jupiter 1.10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.10.xcdatamodel"; sourceTree = "<group>"; };
 		53EBB6D42129AE6300B9A21F /* Jupiter 1.11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.11.xcdatamodel"; sourceTree = "<group>"; };
+		53F1E9822149ED2F00397804 /* UploadOperation_New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadOperation_New.swift; sourceTree = "<group>"; };
 		53FB5F7E213A452A006F0EFB /* DeleteRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRecords.swift; sourceTree = "<group>"; };
 		53FBE2D72127D70D003DDB84 /* SplitTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitTransactions.swift; sourceTree = "<group>"; };
 		53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareForSimulation.swift; sourceTree = "<group>"; };
@@ -163,6 +165,10 @@
 		5309331A21362A95000D1E2C /* Old */ = {
 			isa = PBXGroup;
 			children = (
+				533538EF21436109009C32E9 /* Pending.swift */,
+				53B7BB6D2132821B007F085C /* OperationCloudKit.swift */,
+				53F1E9822149ED2F00397804 /* UploadOperation_New.swift */,
+				53FDBC9821343BAA001F4159 /* UploadOperation.swift */,
 				533AB93A212FA1540022C512 /* RecordExchange.swift */,
 				533F54CE213FA30F00DC32CC /* CKSharing.swift */,
 				533AB93C212FA2970022C512 /* DownloadRecords.swift */,
@@ -265,9 +271,6 @@
 			children = (
 				539DFC5B2120623A00B5C740 /* Cloudkit.swift */,
 				53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */,
-				533538EF21436109009C32E9 /* PendingUpload.swift */,
-				53B7BB6D2132821B007F085C /* OperationCloudKit.swift */,
-				53FDBC9821343BAA001F4159 /* UploadOperation.swift */,
 				530933182136271C000D1E2C /* FetchOperation.swift */,
 				53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */,
 				53FB5F7E213A452A006F0EFB /* DeleteRecords.swift */,
@@ -446,10 +449,11 @@
 				533F54CF213FA30F00DC32CC /* CKSharing.swift in Sources */,
 				5383BAEB2126F20300D10A11 /* TransactionReader.swift in Sources */,
 				53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */,
-				533538F021436109009C32E9 /* PendingUpload.swift in Sources */,
+				533538F021436109009C32E9 /* Pending.swift in Sources */,
 				5383BAEF21279EA500D10A11 /* SimulateAccounts.swift in Sources */,
 				539DFC652121271800B5C740 /* Application.swift in Sources */,
 				53FBE2E421285DB9003DDB84 /* CloudKitProtocol.swift in Sources */,
+				53F1E9832149ED2F00397804 /* UploadOperation_New.swift in Sources */,
 				537B03D5211F19C700953516 /* ViewController.swift in Sources */,
 				53B7BB6E2132821B007F085C /* OperationCloudKit.swift in Sources */,
 				53CC44D0212464A50039CD4E /* Number.swift in Sources */,

@@ -13,7 +13,7 @@ extension CoreDataForAdmin {
     
     func clearCoreData() {
         
-        let entityName = ["Company", "Account", "Transaction", "Month", "PendingUpload"]
+        let entityName = CoreData.dataType.allValues.map{$0.rawValue}
         
         for name in entityName {
             let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: name)
@@ -26,7 +26,7 @@ extension CoreDataForAdmin {
     
     func clearAccountData() {
         
-        let entityName = ["Account", "Transaction", "Month"]
+        let entityName = CoreData.dataType.coreValues.map{$0.rawValue}
         
         for name in entityName {
             let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: name)

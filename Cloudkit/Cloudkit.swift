@@ -50,13 +50,22 @@ class CloudKit {
     }()
 
 
-    static var pendingUpload: [PendingUpload] {
-        return Array(pendingContext.registeredObjects) as! [PendingUpload]
-    }
+//    static var pendingUpload: [PendingUpload] {
+//        return Array(pendingContext.registeredObjects) as! [PendingUpload]
+//    }
     
-    static var hasPendingUploads: Bool {
-        return !pendingUpload.isEmpty
-    }
+//    static var hasPendingUploads: Bool {
+//        return !pendingUpload.isEmpty
+//    }
+//    
+//    static var pendingObjectURLs: Set<String> = Set()
+    
+    
+    static var pendingSavedObjectURIs: Set<String> = Set()
+    static var pendingDeletedObjectIDs: Set<String> = Set()
+    
+    
+    static var pendingRecordNames: Set<String> = Set()
     
 }
 

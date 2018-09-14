@@ -23,10 +23,19 @@ extension NSManagedObject {
         if let object = self as? Transaction {
             object.downloadFrom(record: record)
         }
-        
+    
     }
     
-    
 }
+
+extension NSManagedObjectID {
+    
+
+}
+
+
+
+
+
 
 
