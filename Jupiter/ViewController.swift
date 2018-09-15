@@ -17,10 +17,13 @@ class ViewController: UIViewController, OperationCloudKit  {
         super.viewDidLoad()
 
         
-        deleteAllRecords { _ in
+        deleteAllRecords { error in
+            
+            print(error.debugDescription)
+            
             DispatchQueue.main.sync {
                 SimulateData.shared.simulateData()
-                self.loopTransaction(interval: 0.01, times: 5000)
+                //self.loopTransaction(interval: 0.01, times: 5)
             }
         }
 

@@ -52,15 +52,31 @@ class CoreData {
         return context
     }()
     static let writeContext: NSManagedObjectContext = {
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = persistentStoreCoordinator
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         context.name = "writeContext"
         return context
     }()
     
+    static var databaseQueue: OperationQueue = {
+        let queue = OperationQueue.init()
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+    
     static var workingCompany: Company?
 
 }
+
+
+
+
+
+
+
+
+
 
 

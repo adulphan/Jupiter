@@ -19,6 +19,8 @@ class UploadOperation: CKModifyRecordsOperation {
         var records: [CKRecord] = []
         var recordIDs: [CKRecordID] = []
         
+        cloudContext.refreshAllObjects()
+        
         for recordName in recordNames {
             if let object = cloudContext.existingObject(recordName: recordName) {
                 if let record = object.recordToUpload() {
@@ -67,8 +69,8 @@ extension OperationCloudKit {
                 }
             }
             
-            cloudContext.saveData()
-            cloudContext.reset()
+            cloudContext.processPendingChanges()
+    
             print("------------------------------")
             
             if CloudKit.pendingRecordNames.count != 0 {
