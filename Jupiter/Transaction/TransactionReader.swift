@@ -16,7 +16,7 @@ protocol TransactionReader: SystemField {
     
     var name: String? { get }
     var modifiedLocal: Date? { get }
-    var recordName: String { get }
+    var recordName: String? { get }
     
     var date: Date? { get }
     var accounts: [Account] { get }

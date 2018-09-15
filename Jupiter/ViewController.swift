@@ -10,22 +10,37 @@ import UIKit
 import CoreData
 import CloudKit
 
-class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
+class ViewController: UIViewController, OperationCloudKit  {
     var accountsDictionary: [String : Account] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.orange
 
-        printOutCoreData(includeMonths: false, transactionDetails: false)
+        
+        deleteAllRecords { _ in
+            DispatchQueue.main.sync {
+                SimulateData.shared.simulateData()
+                self.loopTransaction(interval: 0.01, times: 5000)
+            }
+        }
 
-
-        print(mainContext.registeredObjects.count)
         
-        let transaction = ExistingTransaction(name: "NNNNNNNNNN888")!
+//        loopTransaction(interval: 0.01, times: 1000)
         
         
-        print(mainContext.registeredObjects.count)
+        
+        //SimulateData.shared.simulateData()
+        
+//        let object = cloudContext.existingObject(recordName: "7F74B705-9862-4E30-ACB4-5E0C8A9D7FDE") as? Transaction
+//        let record = object?.recordToUpload()
+//        print(record)
+        
+//
+//        let record = object.recordToUpload()
+//
+//        print(record)
+        
+//        writeContext.printAllData(includeMonths: false, transactionDetails: false)
         
     }
     
@@ -44,17 +59,17 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
             //print(Date(), "  count : \(count)")
             count += 1
             
-            let wallet = self.ExistingAccount(name: "Wallet")!
-            let grocery = self.ExistingAccount(name: "Grocery")!
+            let wallet = writeContext.existingAccount(name: "Wallet")!
+            let grocery = writeContext.existingAccount(name: "Grocery")!
             
             let transaction = wallet.transactions.first!
-            CoreData.mainContext.delete(transaction)
+            writeContext.delete(transaction)
 
             let update = wallet.transactions.last!
             update.name = "Update: " + Date().description
 
             
-            let newTransaction = Transaction(context: CoreData.mainContext)
+            let newTransaction = Transaction(context: writeContext)
             newTransaction.name = "Creates: " + Date().description
             newTransaction.identifier = UUID()
             newTransaction.date = Date()
@@ -62,7 +77,7 @@ class ViewController: UIViewController, CoreDataForAdmin, OperationCloudKit {
             newTransaction.accounts = [wallet, grocery]
             newTransaction.flows = [-888, 888]
  
-            self.saveCoreData(sendToCloudKit: true)
+            writeContext.saveData()
 
             if count == times {
                 

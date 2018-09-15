@@ -21,25 +21,7 @@ protocol CompanyReader: SystemField {
 }
 
 
-protocol SystemField: CloudKitProtocol {
-    var name: String? { get }
-    var modifiedLocal: Date? { get }
-    var identifier: UUID? { get }
-    var recordData: Data? { get }
-    
-}
 
-extension SystemField {
-    
-    var systemRecord: CKRecord? {
-        guard let data = recordData else { return nil }
-        let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
-        unarchiver.requiresSecureCoding = true
-        let record = CKRecord(coder: unarchiver)!
-        return record
-    }
-    
-}
 
 
 

@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53043670214B8558009FFDFD /* MOCExistingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5304366F214B8558009FFDFD /* MOCExistingData.swift */; };
+		53043672214B88E8009FFDFD /* MOCSaveDeleteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53043671214B88E8009FFDFD /* MOCSaveDeleteData.swift */; };
 		530933192136271C000D1E2C /* FetchOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530933182136271C000D1E2C /* FetchOperation.swift */; };
+		53101598214BBD56001E8F2E /* UploadToCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53101597214BBD56001E8F2E /* UploadToCloud.swift */; };
 		532280B5212AA83E00EB96D8 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532280B4212AA83E00EB96D8 /* NSManagedObject.swift */; };
 		533538F021436109009C32E9 /* Pending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533538EF21436109009C32E9 /* Pending.swift */; };
 		533AB93B212FA1540022C512 /* RecordExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB93A212FA1540022C512 /* RecordExchange.swift */; };
@@ -30,20 +33,19 @@
 		5383BAED21279BE800D10A11 /* PeriodicTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BAEC21279BE800D10A11 /* PeriodicTransactions.swift */; };
 		5383BAEF21279EA500D10A11 /* SimulateAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5383BAEE21279EA500D10A11 /* SimulateAccounts.swift */; };
 		539DFC51211FFD1600B5C740 /* SimulateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC50211FFD1600B5C740 /* SimulateData.swift */; };
-		539DFC582120451400B5C740 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC572120451400B5C740 /* CoreData.swift */; };
-		539DFC5C2120623A00B5C740 /* Cloudkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC5B2120623A00B5C740 /* Cloudkit.swift */; };
+		539DFC582120451400B5C740 /* CoreDataSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC572120451400B5C740 /* CoreDataSingleton.swift */; };
+		539DFC5C2120623A00B5C740 /* CloudkitSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC5B2120623A00B5C740 /* CloudkitSingleton.swift */; };
 		539DFC622120690700B5C740 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539DFC612120690700B5C740 /* CloudKit.framework */; };
 		539DFC652121271800B5C740 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC642121271800B5C740 /* Application.swift */; };
 		539DFC682121291300B5C740 /* CKLocalCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC672121291300B5C740 /* CKLocalCache.swift */; };
 		539DFC6A2121297C00B5C740 /* UserLocalCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC692121297C00B5C740 /* UserLocalCache.swift */; };
-		539DFC6E2121429200B5C740 /* ExistingCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6D2121429200B5C740 /* ExistingCoreData.swift */; };
-		539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */; };
-		539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC73212158D900B5C740 /* PrintCoreData.swift */; };
+		539DFC6E2121429200B5C740 /* ExistingCoreData_Old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC6D2121429200B5C740 /* ExistingCoreData_Old.swift */; };
+		539DFC74212158D900B5C740 /* PrintCoreData_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539DFC73212158D900B5C740 /* PrintCoreData_old.swift */; };
 		53A052492123F1B60064222F /* DataToCKAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A052482123F1B60064222F /* DataToCKAsset.swift */; };
 		53B7BB6E2132821B007F085C /* OperationCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B7BB6D2132821B007F085C /* OperationCloudKit.swift */; };
 		53C1D54D21290A1A0029EBD0 /* AccountValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1D54C21290A1A0029EBD0 /* AccountValidation.swift */; };
 		53C1D54F21290C130029EBD0 /* TransactionValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1D54E21290C130029EBD0 /* TransactionValidation.swift */; };
-		53C8FCD72144BECE004DD01D /* NSManagedContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C8FCD62144BECE004DD01D /* NSManagedContext.swift */; };
+		53C8FCD72144BECE004DD01D /* MOCPrintData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C8FCD62144BECE004DD01D /* MOCPrintData.swift */; };
 		53CC44C521245A4A0039CD4E /* AccountReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44C421245A4A0039CD4E /* AccountReader.swift */; };
 		53CC44C721245C3B0039CD4E /* CompanyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44C621245C3B0039CD4E /* CompanyExtensions.swift */; };
 		53CC44CA21245E710039CD4E /* CompanyReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44C921245E710039CD4E /* CompanyReader.swift */; };
@@ -51,7 +53,6 @@
 		53CC44CE212462C70039CD4E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44CD212462C70039CD4E /* Date.swift */; };
 		53CC44D0212464A50039CD4E /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CC44CF212464A50039CD4E /* Number.swift */; };
 		53CE6E4C2140048B0011ED11 /* DataArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CE6E4B2140048B0011ED11 /* DataArchiver.swift */; };
-		53DFACAF212D300600B23486 /* CreateNewCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFACAE212D300600B23486 /* CreateNewCoreData.swift */; };
 		53E2DBD9212C22B000F75F58 /* EnsureFinancialDataZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */; };
 		53E2DBDC212C58F700F75F58 /* CompanyValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2DBDB212C58F700F75F58 /* CompanyValidation.swift */; };
 		53EB98B9212D023E009B5EF5 /* HandleNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EB98B8212D023E009B5EF5 /* HandleNotification.swift */; };
@@ -62,14 +63,17 @@
 		53FBE2DE212817E6003DDB84 /* AccessFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2DD212817E6003DDB84 /* AccessFiles.swift */; };
 		53FBE2E221284F49003DDB84 /* CloudkitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2E121284F49003DDB84 /* CloudkitExtensions.swift */; };
 		53FBE2E421285DB9003DDB84 /* CloudKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */; };
-		53FDBC9921343BAA001F4159 /* UploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FDBC9821343BAA001F4159 /* UploadOperation.swift */; };
+		53FDBC9921343BAA001F4159 /* UploadOperation_Old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FDBC9821343BAA001F4159 /* UploadOperation_Old.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5304366F214B8558009FFDFD /* MOCExistingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOCExistingData.swift; sourceTree = "<group>"; };
+		53043671214B88E8009FFDFD /* MOCSaveDeleteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOCSaveDeleteData.swift; sourceTree = "<group>"; };
 		53093317213589DB000D1E2C /* Jupiter 2.002.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.002.xcdatamodel"; sourceTree = "<group>"; };
 		530933182136271C000D1E2C /* FetchOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchOperation.swift; sourceTree = "<group>"; };
 		5309331B213663B6000D1E2C /* Jupiter 2.03.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.03.xcdatamodel"; sourceTree = "<group>"; };
 		5309331C21366783000D1E2C /* Jupiter 2.004.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.004.xcdatamodel"; sourceTree = "<group>"; };
+		53101597214BBD56001E8F2E /* UploadToCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadToCloud.swift; sourceTree = "<group>"; };
 		532280B3212A4C1700EB96D8 /* Jupiter 1.12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.12.xcdatamodel"; sourceTree = "<group>"; };
 		532280B4212AA83E00EB96D8 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		533538EE2142B6FD009C32E9 /* Jupiter 2.006.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.006.xcdatamodel"; sourceTree = "<group>"; };
@@ -107,16 +111,15 @@
 		5383BAEC21279BE800D10A11 /* PeriodicTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicTransactions.swift; sourceTree = "<group>"; };
 		5383BAEE21279EA500D10A11 /* SimulateAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulateAccounts.swift; sourceTree = "<group>"; };
 		539DFC50211FFD1600B5C740 /* SimulateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateData.swift; sourceTree = "<group>"; };
-		539DFC572120451400B5C740 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
-		539DFC5B2120623A00B5C740 /* Cloudkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloudkit.swift; sourceTree = "<group>"; };
+		539DFC572120451400B5C740 /* CoreDataSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSingleton.swift; sourceTree = "<group>"; };
+		539DFC5B2120623A00B5C740 /* CloudkitSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudkitSingleton.swift; sourceTree = "<group>"; };
 		539DFC5F2120690400B5C740 /* Jupiter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Jupiter.entitlements; sourceTree = "<group>"; };
 		539DFC612120690700B5C740 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		539DFC642121271800B5C740 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		539DFC672121291300B5C740 /* CKLocalCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKLocalCache.swift; sourceTree = "<group>"; };
 		539DFC692121297C00B5C740 /* UserLocalCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocalCache.swift; sourceTree = "<group>"; };
-		539DFC6D2121429200B5C740 /* ExistingCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingCoreData.swift; sourceTree = "<group>"; };
-		539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDeleteCoreData.swift; sourceTree = "<group>"; };
-		539DFC73212158D900B5C740 /* PrintCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintCoreData.swift; sourceTree = "<group>"; };
+		539DFC6D2121429200B5C740 /* ExistingCoreData_Old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingCoreData_Old.swift; sourceTree = "<group>"; };
+		539DFC73212158D900B5C740 /* PrintCoreData_old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintCoreData_old.swift; sourceTree = "<group>"; };
 		53A052482123F1B60064222F /* DataToCKAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataToCKAsset.swift; sourceTree = "<group>"; };
 		53AE6E8B212AE11900DCABB6 /* Jupiter 1.102.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.102.xcdatamodel"; sourceTree = "<group>"; };
 		53B7BB6D2132821B007F085C /* OperationCloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationCloudKit.swift; sourceTree = "<group>"; };
@@ -124,7 +127,7 @@
 		53C1D54C21290A1A0029EBD0 /* AccountValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountValidation.swift; sourceTree = "<group>"; };
 		53C1D54E21290C130029EBD0 /* TransactionValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionValidation.swift; sourceTree = "<group>"; };
 		53C1D550212942440029EBD0 /* Jupiter 1.07.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.07.xcdatamodel"; sourceTree = "<group>"; };
-		53C8FCD62144BECE004DD01D /* NSManagedContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedContext.swift; sourceTree = "<group>"; };
+		53C8FCD62144BECE004DD01D /* MOCPrintData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOCPrintData.swift; sourceTree = "<group>"; };
 		53CC44C421245A4A0039CD4E /* AccountReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountReader.swift; sourceTree = "<group>"; };
 		53CC44C621245C3B0039CD4E /* CompanyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyExtensions.swift; sourceTree = "<group>"; };
 		53CC44C921245E710039CD4E /* CompanyReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyReader.swift; sourceTree = "<group>"; };
@@ -132,7 +135,6 @@
 		53CC44CD212462C70039CD4E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		53CC44CF212464A50039CD4E /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		53CE6E4B2140048B0011ED11 /* DataArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataArchiver.swift; sourceTree = "<group>"; };
-		53DFACAE212D300600B23486 /* CreateNewCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCoreData.swift; sourceTree = "<group>"; };
 		53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsureFinancialDataZone.swift; sourceTree = "<group>"; };
 		53E2DBDA212C26A700F75F58 /* Jupiter 1.010.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.010.xcdatamodel"; sourceTree = "<group>"; };
 		53E2DBDB212C58F700F75F58 /* CompanyValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyValidation.swift; sourceTree = "<group>"; };
@@ -147,7 +149,7 @@
 		53FBE2DD212817E6003DDB84 /* AccessFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessFiles.swift; sourceTree = "<group>"; };
 		53FBE2E121284F49003DDB84 /* CloudkitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudkitExtensions.swift; sourceTree = "<group>"; };
 		53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitProtocol.swift; sourceTree = "<group>"; };
-		53FDBC9821343BAA001F4159 /* UploadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadOperation.swift; sourceTree = "<group>"; };
+		53FDBC9821343BAA001F4159 /* UploadOperation_Old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadOperation_Old.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,10 +167,14 @@
 		5309331A21362A95000D1E2C /* Old */ = {
 			isa = PBXGroup;
 			children = (
+				53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */,
+				539DFC73212158D900B5C740 /* PrintCoreData_old.swift */,
+				533CE78C2122E4DA00762B7D /* ClearCoreData.swift */,
+				539DFC6D2121429200B5C740 /* ExistingCoreData_Old.swift */,
 				533538EF21436109009C32E9 /* Pending.swift */,
 				53B7BB6D2132821B007F085C /* OperationCloudKit.swift */,
 				53F1E9822149ED2F00397804 /* UploadOperation_New.swift */,
-				53FDBC9821343BAA001F4159 /* UploadOperation.swift */,
+				53FDBC9821343BAA001F4159 /* UploadOperation_Old.swift */,
 				533AB93A212FA1540022C512 /* RecordExchange.swift */,
 				533F54CE213FA30F00DC32CC /* CKSharing.swift */,
 				533AB93C212FA2970022C512 /* DownloadRecords.swift */,
@@ -244,12 +250,10 @@
 		539DFC56212044FB00B5C740 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				539DFC572120451400B5C740 /* CoreData.swift */,
-				53DFACAE212D300600B23486 /* CreateNewCoreData.swift */,
-				539DFC6D2121429200B5C740 /* ExistingCoreData.swift */,
-				539DFC6F2121548200B5C740 /* SaveDeleteCoreData.swift */,
-				533CE78C2122E4DA00762B7D /* ClearCoreData.swift */,
-				539DFC73212158D900B5C740 /* PrintCoreData.swift */,
+				539DFC572120451400B5C740 /* CoreDataSingleton.swift */,
+				5304366F214B8558009FFDFD /* MOCExistingData.swift */,
+				53C8FCD62144BECE004DD01D /* MOCPrintData.swift */,
+				53043671214B88E8009FFDFD /* MOCSaveDeleteData.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -258,8 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				539DFC50211FFD1600B5C740 /* SimulateData.swift */,
-				53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */,
 				5383BAEE21279EA500D10A11 /* SimulateAccounts.swift */,
+				53FBE2D921281529003DDB84 /* PrepareForSimulation.swift */,
 				5383BAEC21279BE800D10A11 /* PeriodicTransactions.swift */,
 				53FBE2D72127D70D003DDB84 /* SplitTransactions.swift */,
 			);
@@ -269,8 +273,8 @@
 		539DFC5A2120622800B5C740 /* Cloudkit */ = {
 			isa = PBXGroup;
 			children = (
-				539DFC5B2120623A00B5C740 /* Cloudkit.swift */,
-				53FBE2E321285DB9003DDB84 /* CloudKitProtocol.swift */,
+				539DFC5B2120623A00B5C740 /* CloudkitSingleton.swift */,
+				53101597214BBD56001E8F2E /* UploadToCloud.swift */,
 				530933182136271C000D1E2C /* FetchOperation.swift */,
 				53E2DBD8212C22B000F75F58 /* EnsureFinancialDataZone.swift */,
 				53FB5F7E213A452A006F0EFB /* DeleteRecords.swift */,
@@ -317,7 +321,6 @@
 				5383BAE82126F08B00D10A11 /* String.swift */,
 				53FBE2E121284F49003DDB84 /* CloudkitExtensions.swift */,
 				532280B4212AA83E00EB96D8 /* NSManagedObject.swift */,
-				53C8FCD62144BECE004DD01D /* NSManagedContext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -416,41 +419,41 @@
 				53FBE2E221284F49003DDB84 /* CloudkitExtensions.swift in Sources */,
 				539DFC51211FFD1600B5C740 /* SimulateData.swift in Sources */,
 				533AB941212FA4D00022C512 /* UploadRecords.swift in Sources */,
-				53DFACAF212D300600B23486 /* CreateNewCoreData.swift in Sources */,
 				53FBE2DE212817E6003DDB84 /* AccessFiles.swift in Sources */,
 				537B03DB211F19C700953516 /* Jupiter.xcdatamodeld in Sources */,
 				53CC44CC212460640039CD4E /* Calendar.swift in Sources */,
 				532280B5212AA83E00EB96D8 /* NSManagedObject.swift in Sources */,
-				539DFC6E2121429200B5C740 /* ExistingCoreData.swift in Sources */,
-				53C8FCD72144BECE004DD01D /* NSManagedContext.swift in Sources */,
+				539DFC6E2121429200B5C740 /* ExistingCoreData_Old.swift in Sources */,
+				53043672214B88E8009FFDFD /* MOCSaveDeleteData.swift in Sources */,
+				53C8FCD72144BECE004DD01D /* MOCPrintData.swift in Sources */,
 				539DFC682121291300B5C740 /* CKLocalCache.swift in Sources */,
 				530933192136271C000D1E2C /* FetchOperation.swift in Sources */,
 				53CC44CA21245E710039CD4E /* CompanyReader.swift in Sources */,
 				5383BAE421269A4D00D10A11 /* AccountExtensions.swift in Sources */,
 				53E2DBD9212C22B000F75F58 /* EnsureFinancialDataZone.swift in Sources */,
 				53EB98B9212D023E009B5EF5 /* HandleNotification.swift in Sources */,
-				539DFC5C2120623A00B5C740 /* Cloudkit.swift in Sources */,
+				539DFC5C2120623A00B5C740 /* CloudkitSingleton.swift in Sources */,
 				5383BADE2126737A00D10A11 /* TransactionUpdateFlows.swift in Sources */,
-				53FDBC9921343BAA001F4159 /* UploadOperation.swift in Sources */,
+				53FDBC9921343BAA001F4159 /* UploadOperation_Old.swift in Sources */,
 				533AB93B212FA1540022C512 /* RecordExchange.swift in Sources */,
 				5383BAE22126995700D10A11 /* TransactionProtocol.swift in Sources */,
 				53CC44CE212462C70039CD4E /* Date.swift in Sources */,
 				53E2DBDC212C58F700F75F58 /* CompanyValidation.swift in Sources */,
 				53FBE2DA21281529003DDB84 /* PrepareForSimulation.swift in Sources */,
-				539DFC582120451400B5C740 /* CoreData.swift in Sources */,
+				539DFC582120451400B5C740 /* CoreDataSingleton.swift in Sources */,
 				533CE78D2122E4DA00762B7D /* ClearCoreData.swift in Sources */,
 				53A052492123F1B60064222F /* DataToCKAsset.swift in Sources */,
 				5383BAD821265A9000D10A11 /* TransactionExtensions.swift in Sources */,
 				53FB5F7F213A452A006F0EFB /* DeleteRecords.swift in Sources */,
 				5383BAE72126D9FD00D10A11 /* MonthValidation.swift in Sources */,
-				539DFC74212158D900B5C740 /* PrintCoreData.swift in Sources */,
+				539DFC74212158D900B5C740 /* PrintCoreData_old.swift in Sources */,
 				5383BAED21279BE800D10A11 /* PeriodicTransactions.swift in Sources */,
-				539DFC702121548200B5C740 /* SaveDeleteCoreData.swift in Sources */,
 				533F54CF213FA30F00DC32CC /* CKSharing.swift in Sources */,
 				5383BAEB2126F20300D10A11 /* TransactionReader.swift in Sources */,
 				53FBE2D82127D70D003DDB84 /* SplitTransactions.swift in Sources */,
 				533538F021436109009C32E9 /* Pending.swift in Sources */,
 				5383BAEF21279EA500D10A11 /* SimulateAccounts.swift in Sources */,
+				53101598214BBD56001E8F2E /* UploadToCloud.swift in Sources */,
 				539DFC652121271800B5C740 /* Application.swift in Sources */,
 				53FBE2E421285DB9003DDB84 /* CloudKitProtocol.swift in Sources */,
 				53F1E9832149ED2F00397804 /* UploadOperation_New.swift in Sources */,
@@ -461,6 +464,7 @@
 				539DFC6A2121297C00B5C740 /* UserLocalCache.swift in Sources */,
 				53CE6E4C2140048B0011ED11 /* DataArchiver.swift in Sources */,
 				53C1D54D21290A1A0029EBD0 /* AccountValidation.swift in Sources */,
+				53043670214B8558009FFDFD /* MOCExistingData.swift in Sources */,
 				53C1D54F21290C130029EBD0 /* TransactionValidation.swift in Sources */,
 				537B03D3211F19C700953516 /* AppDelegate.swift in Sources */,
 				5383BAE92126F08B00D10A11 /* String.swift in Sources */,

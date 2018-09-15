@@ -15,19 +15,33 @@ class HandleNotification: OperationCloudKit {
     
     @objc func coreDataDidSave(_ notification: Notification) {
         
+        guard let context = notification.object as? NSManagedObjectContext else { return }
+        guard context == writeContext else { return }
         
-        
-  
+        if CloudKit.operationQueueIsEmpty {
+            uploadToCloud()
+        }
 
     }
     
     @objc func coreDataWillSave(_ notification: Notification) {
         
+        guard let context = notification.object as? NSManagedObjectContext else { return }
+        guard context == writeContext else { return }
+        
+        let financialDataType = dataType.coreValues.map{$0.rawValue}
+        for object in writeContext.registeredObjects {
+            if financialDataType.contains(object.entity.name!) {
+                object.proceedToCloud()
+            }
+        }
+        
+        //updateMonthFlows()
 
     }
     
     private func updateMonthFlows() {
-        let transactions = CoreData.mainContext.registeredObjects.filter { (object) -> Bool in
+        let transactions = writeContext.registeredObjects.filter { (object) -> Bool in
             object.entity == Transaction.entity()
         }
         for object in transactions {
@@ -35,26 +49,14 @@ class HandleNotification: OperationCloudKit {
             transaction.updateMonthFlows()
         }
     }
-//
-//    private func screeningToCloudKit() {
-//        for object in CoreData.mainContext.registeredObjects {
-//
-//            if let company = object as? Company {
-//                company.screeningForCloudKit()
-//            }
-//            if let account = object as? Account {
-//                account.screeningForCloudKit()
-//            }
-//            if let transaction = object as? Transaction {
-//                transaction.screeningForCloudKit()
-//            }
-//
-//        }
-//    }
-    
-    
 
 }
+
+
+
+
+
+
 
 
 

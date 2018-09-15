@@ -49,11 +49,11 @@ extension Transaction {
                 monthArray[index].balance += flow
                 updateBalanceAbove(index: index, amount: flow, array: account.months)
                 if monthArray[index].flows == 0 {
-                    CoreData.mainContext.delete(monthArray[index])
+                    writeContext.delete(monthArray[index])
                 }
                 
             } else {
-                let newMonth = Month(context: CoreData.mainContext)
+                let newMonth = Month(context: writeContext)
                 newMonth.endDate = monthEnd
                 newMonth.flows = flow
                 let previousBalance = index == monthArray.count ? account.beginBalance : monthArray[index].balance

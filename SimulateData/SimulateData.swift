@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-class SimulateData: CoreDataForAdmin {
+class SimulateData {
 
     static let shared = SimulateData()
     static var dummyImageID: String?
@@ -21,40 +21,34 @@ extension SimulateData {
     
     func simulateData() {
         
-        clearCoreData()
+        writeContext.clearData()
 
-        simulateCompany()
-
-        simulateAccounts()
+        simulateCompanyAndAccounts()
 
         simulateTransaction()
         
         //simulateSplitTransaction()
 
-        saveCoreData(sendToCloudKit: true)
+        writeContext.saveData()
 
-        printOutCoreData(includeMonths: true, transactionDetails: false)
+        writeContext.printAllData(includeMonths: true, transactionDetails: false)
         
     }
     
     func simulateTransaction() {
         
-        let wallet = ExistingAccount(name: "Wallet")!
-        let grocery = ExistingAccount(name: "Grocery")!
-        //let bofa = ExistingAccount(name: "Bofa")!
+        let wallet = writeContext.existingAccount(name: "Wallet")!
+        let grocery = writeContext.existingAccount(name: "Grocery")!
         
         createPeriodicTransactions(from: [wallet], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [100], note: nil, url: nil, frequency: .month, multiple: 1, count: 6, startDate: 0, flexibleDate:0)
         
-//        createPeriodicTransactions(from: [bofa], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [100], note: nil, url: nil, frequency: .month, multiple: 1, count: 6, startDate: 0, flexibleDate:0)
-
-        //510,660,1520,245,2655,345,462
     }
     
     private func simulateSplitTransaction() {
         
-        let wallet = ExistingAccount(name: "Wallet")!
-        let grocery = ExistingAccount(name: "Grocery")!
-        let bofa = ExistingAccount(name: "Bofa")!
+        let wallet = writeContext.existingAccount(name: "Wallet")!
+        let grocery = writeContext.existingAccount(name: "Grocery")!
+        let bofa = writeContext.existingAccount(name: "Bofa")!
         
         createPeriodicSplitTransactions(from: [wallet, bofa], to: [grocery], title: ["Big C Mega Bangna", "Villa Paseo", "Tesco Online", "TOPS Mega", "Makro"], amount: [100], flowSTD: [-1,-1, 2], note: nil, url: nil, frequency: .month, multiple: 1, count: 6, startDate: 0, flexibleDate: 0)
     

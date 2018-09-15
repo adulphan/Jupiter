@@ -11,6 +11,10 @@ import Foundation
 extension Company {
     
     var accounts: [Account] { return accountSet?.array as! [Account] }
+    
+    func setAsWorkingCompany() {
+        UserDefaults.standard.workingCompanyID = self.identifier
+    }
 
 }
 

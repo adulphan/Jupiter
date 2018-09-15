@@ -8,7 +8,10 @@
 
 import Foundation
 import CloudKit
+import CoreData
 import UIKit
+
+
 
 extension OperationCloudKit {
     
@@ -59,7 +62,7 @@ extension OperationCloudKit {
     private func pushNewFetchToCoreData(recordsToSave: [CKRecord], recordIDsTodelete: [CKRecordID]) {
         
         saveNewFetchToCoreData(recordsToSave: recordsToSave, recordIDsTodelete: recordIDsTodelete)
-        saveCoreData(sendToCloudKit: false)
+        cloudContext.saveData()
         
     }
     
@@ -67,49 +70,24 @@ extension OperationCloudKit {
     private func saveNewFetchToCoreData(recordsToSave: [CKRecord], recordIDsTodelete: [CKRecordID]) {
         
         for recordID in recordIDsTodelete {
-            if let object = ExistingObject(recordName: recordID.recordName) {
-                deleteCoreData(object: object)
+            var objectsToDelete: [NSManagedObject] = []
+            if let object = cloudContext.existingObject(recordName: recordID.recordName) {
+                objectsToDelete.append(object)
             }
+            cloudContext.delete(objects: objectsToDelete)
         }
         
         var sortedRecords: [CKRecord] = []
-        for type in CloudKit.recordType.allValues {
+        for type in dataType.allValues {
             let filtered = recordsToSave.filter{$0.recordType == type.rawValue}
             sortedRecords += filtered
         }
         
         for record in sortedRecords {
-
             let recordName = record.recordID.recordName
-
-            switch record.recordType {
-                
-            case CloudKit.recordType.company.rawValue:
-                if let object = ExistingCompany(recordName: recordName) {
-                    object.downloadFrom(record: record)
-                } else {
-                    let object = Company(context: CoreData.mainContext)
-                    object.downloadFrom(record: record)
-                }
-            case CloudKit.recordType.account.rawValue:
-                if let object = ExistingAccount(recordName: recordName) {
-                    object.downloadFrom(record: record)
-                } else {
-                    let object = Account(context: CoreData.mainContext)
-                    object.downloadFrom(record: record)
-                }
-            case CloudKit.recordType.transaction.rawValue:
-                if let object = ExistingTransaction(recordName: recordName) {
-                    object.downloadFrom(record: record)
-                } else {
-                    let object = Transaction(context: CoreData.mainContext)
-                    object.downloadFrom(record: record)
-                }
-                
-            default:
-                print("unidentified recordtype")
-            }
-            
+            if let object = cloudContext.existingObject(recordName: recordName, type: recordName) {
+                object.downloadFrom(record: record)
+            }            
             
         }
         

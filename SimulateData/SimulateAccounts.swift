@@ -13,22 +13,17 @@ import CoreData
 
 extension SimulateData {
     
-    func simulateCompany() {
-        
 
-        let company = Company(context: CoreData.mainContext)
+    func simulateCompanyAndAccounts() {
+        
+        let company = Company(context: writeContext)
         
         company.name = "Apple"
         company.identifier = UUID()
         company.modifiedLocal = Date()
         
-        setAsWorkingCompany(company: company)
-        print("Company: \(company.recordName) is set workingCompany")
-
-        
-    }
-
-    func simulateAccounts() {
+        company.setAsWorkingCompany()
+        print("Company: \(company.recordName!) is set workingCompany")
 
 //        let cashName = ["wallet"]
 //        let cardName = ["amex","citi"]
@@ -46,8 +41,8 @@ extension SimulateData {
             let type = accountName.index(of: array)!
             for name in array {
                 
-                guard let newAcount = newAccount(inCompany: workingCompany!) else { return }
-                
+                let newAcount = Account(context: writeContext)
+                newAcount.company = company
                 
                 newAcount.name = String(name.uppercased().first!) + String(name.dropFirst())
                 newAcount.type = Int16(type)

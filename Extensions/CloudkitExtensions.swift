@@ -24,28 +24,28 @@ extension CKRecord {
     }
     
     
-    func insertInContext() {
-    
-        switch recordType {
-            
-        case CloudKit.recordType.company.rawValue:
-            let object = Company(context: CoreData.mainContext)
-            object.downloadFrom(record: self)
-            
-        case CloudKit.recordType.account.rawValue:
-            let object = Account(context: CoreData.mainContext)
-            object.downloadFrom(record: self)
-            
-        case CloudKit.recordType.transaction.rawValue:
-            let object = Transaction(context: CoreData.mainContext)
-            object.downloadFrom(record: self)
-            
-        default:
-            print("No insert")
-        }
-        
-        
-    }
+//    func insertInContext() {
+//    
+//        switch recordType {
+//            
+//        case CloudKit.recordType.company.rawValue:
+//            let object = Company(context: CoreData.viewContext)
+//            object.downloadFrom(record: self)
+//            
+//        case CloudKit.recordType.account.rawValue:
+//            let object = Account(context: CoreData.viewContext)
+//            object.downloadFrom(record: self)
+//            
+//        case CloudKit.recordType.transaction.rawValue:
+//            let object = Transaction(context: CoreData.viewContext)
+//            object.downloadFrom(record: self)
+//            
+//        default:
+//            print("No insert")
+//        }
+//        
+//        
+//    }
 
 }
 
