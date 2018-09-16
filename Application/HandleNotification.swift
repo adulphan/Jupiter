@@ -14,30 +14,30 @@ class HandleNotification: OperationCloudKit {
     static let shared = HandleNotification()
     
     @objc func coreDataDidSave(_ notification: Notification) {
-        
         guard let context = notification.object as? NSManagedObjectContext else { return }
         guard context == writeContext else { return }
         
         if CloudKit.operationQueueIsEmpty {
             uploadToCloud()
         }
-
     }
     
     @objc func coreDataWillSave(_ notification: Notification) {
-        
         guard let context = notification.object as? NSManagedObjectContext else { return }
         guard context == writeContext else { return }
+
+        cachePendingRecordNames()
+        updateMonthFlows()
         
+    }
+    
+    private func cachePendingRecordNames() {
         let financialDataType = dataType.coreValues.map{$0.rawValue}
         for object in writeContext.registeredObjects {
             if financialDataType.contains(object.entity.name!) {
                 object.proceedToCloud()
             }
         }
-        
-        //updateMonthFlows()
-
     }
     
     private func updateMonthFlows() {

@@ -18,26 +18,30 @@ var cloudContext: NSManagedObjectContext {
     return CoreData.cloudContext
 }
 
-var workingCompany: Company? {
-    get {
-        if CoreData.workingCompany != nil {
-            return CoreData.workingCompany
-        } else {
-            guard let identifier = UserDefaults.standard.workingCompanyID else { return nil }
-            guard let fetchedCompany = writeContext.existingCompany(recordName: identifier.uuidString) else { return nil }
-            CoreData.workingCompany = fetchedCompany
-            return fetchedCompany
-        }
-    }
-    
-    set {
-        CoreData.workingCompany = newValue
-    }
-}
+// *** Not save to use
+
+//var workingCompany: Company? {
+//    get {
+//        if CoreData.workingCompany != nil {
+//            return CoreData.workingCompany
+//        } else {
+//            guard let identifier = UserDefaults.standard.workingCompanyID else { return nil }
+//            guard let fetchedCompany = writeContext.existingCompany(recordName: identifier.uuidString) else { return nil }
+//            CoreData.workingCompany = fetchedCompany
+//            return fetchedCompany
+//        }
+//    }
+//
+//    set {
+//        CoreData.workingCompany = newValue
+//        UserDefaults.standard.workingCompanyID = newValue?.recordName?.uuid()
+//    }
+//}
 
 class CoreData {
 
-    static let persistentStoreCoordinator = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.persistentStoreCoordinator
+    static let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+    static let persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
     static let viewContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         context.persistentStoreCoordinator = persistentStoreCoordinator
@@ -57,13 +61,6 @@ class CoreData {
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         context.name = "writeContext"
         return context
-    }()
-    
-    static var databaseQueue: OperationQueue = {
-        let queue = OperationQueue.init()
-        queue.maxConcurrentOperationCount = 1
-        queue.qualityOfService = .background
-        return queue
     }()
     
     static var workingCompany: Company?

@@ -16,34 +16,30 @@ class ViewController: UIViewController, OperationCloudKit  {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        deleteAllRecords { error in
-            
-            print(error.debugDescription)
-            
+
+//        deleteAllRecords { error in
+//            print(error.debugDescription)
+//            DispatchQueue.main.sync {
+//                SimulateData.shared.simulateData()
+//                self.loopTransaction(interval: 0.035, times: 10000)
+//            }
+//        }
+
+        UserDefaults.standard.financialDataChangeToken = nil
+        fetchRecords { (_) in
+            print("finish")
             DispatchQueue.main.sync {
-                SimulateData.shared.simulateData()
-                //self.loopTransaction(interval: 0.01, times: 5)
+                writeContext.printSystemField()
             }
         }
-
+        
+//        writeContext.saveData()
         
 //        loopTransaction(interval: 0.01, times: 1000)
         
         
         
         //SimulateData.shared.simulateData()
-        
-//        let object = cloudContext.existingObject(recordName: "7F74B705-9862-4E30-ACB4-5E0C8A9D7FDE") as? Transaction
-//        let record = object?.recordToUpload()
-//        print(record)
-        
-//
-//        let record = object.recordToUpload()
-//
-//        print(record)
-        
-//        writeContext.printAllData(includeMonths: false, transactionDetails: false)
         
     }
     

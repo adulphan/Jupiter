@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 extension NSManagedObjectContext {
-
+    
     func delete(objects: [NSManagedObject]) {
         for object in objects {
             self.delete(object)
@@ -18,15 +18,17 @@ extension NSManagedObjectContext {
     }
     
     func saveData() {
-        if self.hasChanges {
-            do {
-                try self.save()
-            } catch {
-                let nserror = error as NSError
-                print(nserror)
+        writeContext.performAndWait {
+            if self.hasChanges {
+                do { try self.save() } catch {
+                    let nserror = error as NSError
+                    print(nserror)
+                }
             }
         }
+
     }
+
     
     func clearData() {
         
