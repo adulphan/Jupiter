@@ -29,7 +29,6 @@ extension NSManagedObjectContext {
 
     }
 
-    
     func clearData() {
         
         let entityName = dataType.allValues

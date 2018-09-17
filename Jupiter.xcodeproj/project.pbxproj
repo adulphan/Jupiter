@@ -11,6 +11,7 @@
 		53043672214B88E8009FFDFD /* MOCSaveDeleteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53043671214B88E8009FFDFD /* MOCSaveDeleteData.swift */; };
 		530933192136271C000D1E2C /* FetchOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530933182136271C000D1E2C /* FetchOperation.swift */; };
 		53101598214BBD56001E8F2E /* UploadToCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53101597214BBD56001E8F2E /* UploadToCloud.swift */; };
+		5318444C214F48BE002CC692 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5318444B214F48BE002CC692 /* CoreDataStack.swift */; };
 		532280B5212AA83E00EB96D8 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532280B4212AA83E00EB96D8 /* NSManagedObject.swift */; };
 		533538F021436109009C32E9 /* Pending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533538EF21436109009C32E9 /* Pending.swift */; };
 		533AB93B212FA1540022C512 /* RecordExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AB93A212FA1540022C512 /* RecordExchange.swift */; };
@@ -74,6 +75,7 @@
 		5309331B213663B6000D1E2C /* Jupiter 2.03.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.03.xcdatamodel"; sourceTree = "<group>"; };
 		5309331C21366783000D1E2C /* Jupiter 2.004.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.004.xcdatamodel"; sourceTree = "<group>"; };
 		53101597214BBD56001E8F2E /* UploadToCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadToCloud.swift; sourceTree = "<group>"; };
+		5318444B214F48BE002CC692 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		532280B3212A4C1700EB96D8 /* Jupiter 1.12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 1.12.xcdatamodel"; sourceTree = "<group>"; };
 		532280B4212AA83E00EB96D8 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		533538EE2142B6FD009C32E9 /* Jupiter 2.006.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Jupiter 2.006.xcdatamodel"; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				5304366F214B8558009FFDFD /* MOCExistingData.swift */,
 				53C8FCD62144BECE004DD01D /* MOCPrintData.swift */,
 				53043671214B88E8009FFDFD /* MOCSaveDeleteData.swift */,
+				5318444B214F48BE002CC692 /* CoreDataStack.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				53C1D54D21290A1A0029EBD0 /* AccountValidation.swift in Sources */,
 				53043670214B8558009FFDFD /* MOCExistingData.swift in Sources */,
 				53C1D54F21290C130029EBD0 /* TransactionValidation.swift in Sources */,
+				5318444C214F48BE002CC692 /* CoreDataStack.swift in Sources */,
 				537B03D3211F19C700953516 /* AppDelegate.swift in Sources */,
 				5383BAE92126F08B00D10A11 /* String.swift in Sources */,
 				53CC44C521245A4A0039CD4E /* AccountReader.swift in Sources */,

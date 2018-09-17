@@ -25,6 +25,7 @@ extension OperationCloudKit {
         let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.financialDataZoneID], optionsByRecordZoneID: [CloudKit.financialDataZoneID:option])
         operation.name = "fetchFinnacialData"
         operation.database = CloudKit.privateDatabase
+
         operation.recordChangedBlock = { (record) in
             incomingSaveRecords.append(record)
             print("incomingSave: \(record.recordID.recordName)")
@@ -32,26 +33,32 @@ extension OperationCloudKit {
         operation.recordWithIDWasDeletedBlock = { (recordID, text) in
             incomingDeleteRecordIDs.append(recordID)
             print("incomingDelete: \(recordID.recordName)")
-            
-            
+
         }
 
-        operation.recordZoneChangeTokensUpdatedBlock = { (zoneID, serverChangeToken, data) in
-            UserDefaults.standard.financialDataChangeToken = serverChangeToken
-            
-        }
-        
-        
-        operation.recordZoneFetchCompletionBlock = { (zoneId, serverChangeToken, _, _, error) in
+        operation.recordZoneFetchCompletionBlock = { (zoneId, serverChangeToken, clientChangeToken, moreComing, error) in
             if let error = error {
                 print("Error download operation : ", error)
                 completion(error)
                 return
             } else {
-                UserDefaults.standard.financialDataChangeToken = serverChangeToken
+                print("moreComing: ",moreComing)
                 
+                let localData = UserDefaults.standard.value(forKey: "financialDataChangeToken") as? Data
+                print("Same clientChangeToken: ",localData == clientChangeToken) 
+                
+                UserDefaults.standard.financialDataChangeToken = serverChangeToken
                 self.pushNewFetchToCoreData(recordsToSave: incomingSaveRecords, recordIDsTodelete: incomingDeleteRecordIDs)
                 completion(nil)
+                
+                if CloudKit.pendingRecordNames.count != 0 {
+                    self.uploadToCloud()
+                } else {
+                    print("------------------------------")
+                    writeContext.performAndWait {
+                        cloudContext.printSystemField()
+                    }
+                }
             }
 
         }
@@ -73,20 +80,26 @@ extension OperationCloudKit {
                     objectsToDelete.append(object)
                 }
             }
+            
             cloudContext.delete(objects: objectsToDelete)
+
             var sortedRecords: [CKRecord] = []
             for type in dataType.allValues {
+
                 let filtered = recordsToSave.filter{$0.recordType == type.rawValue}
                 sortedRecords += filtered
             }
             
             for record in sortedRecords {
                 let recordName = record.recordID.recordName
-                if let object = cloudContext.existingObject(recordName: recordName, type: recordName) {
+                if let object = cloudContext.existingObject(recordName: recordName, type: record.recordType) {
+                    object.downloadFrom(record: record)
+                } else {
+                    let object = NSEntityDescription.insertNewObject(forEntityName: record.recordType, into: cloudContext)
                     object.downloadFrom(record: record)
                 }
             }
-            cloudContext.processPendingChanges()
+            cloudContext.saveData()
         }
 
     }

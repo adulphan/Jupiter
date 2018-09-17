@@ -16,22 +16,30 @@ class ViewController: UIViewController, OperationCloudKit  {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
+        
+        //ensureZoneForFinancialData()
+        //SimulateData.shared.simulateData()
+        
+//
 //        deleteAllRecords { error in
 //            print(error.debugDescription)
 //            DispatchQueue.main.sync {
 //                SimulateData.shared.simulateData()
-//                self.loopTransaction(interval: 0.035, times: 10000)
+//                //self.loopTransaction(interval: 1, times: 10)
 //            }
 //        }
-
-        UserDefaults.standard.financialDataChangeToken = nil
-        fetchRecords { (_) in
-            print("finish")
-            DispatchQueue.main.sync {
-                writeContext.printSystemField()
-            }
+//        UserDefaults.standard.financialDataChangeToken = nil
+//       self.loopTransaction(interval: 0.5, times: 100)
+//        writeContext.printSystemField()
+//        UserDefaults.standard.financialDataChangeToken = nil
+        
+//        writeContext.clearData()
+        fetchRecords { (error) in
+            print(error.debugDescription)
+            print("finished")
         }
+        
+//        writeContext.printAllData(includeMonths: true, transactionDetails: true)
         
 //        writeContext.saveData()
         
@@ -58,25 +66,28 @@ class ViewController: UIViewController, OperationCloudKit  {
             //print(Date(), "  count : \(count)")
             count += 1
             
-            let wallet = writeContext.existingAccount(name: "Wallet")!
-            let grocery = writeContext.existingAccount(name: "Grocery")!
-            
-            let transaction = wallet.transactions.first!
-            writeContext.delete(transaction)
-
-            let update = wallet.transactions.last!
-            update.name = "Update: " + Date().description
-
-            
-            let newTransaction = Transaction(context: writeContext)
-            newTransaction.name = "Creates: " + Date().description
-            newTransaction.identifier = UUID()
-            newTransaction.date = Date()
-            newTransaction.modifiedLocal = Date()
-            newTransaction.accounts = [wallet, grocery]
-            newTransaction.flows = [-888, 888]
- 
-            writeContext.saveData()
+            writeContext.performAndWait {
+                writeContext.refreshAllObjects()
+                let wallet = writeContext.existingAccount(name: "Wallet")!
+                let grocery = writeContext.existingAccount(name: "Grocery")!
+                
+                let transaction = wallet.transactions.first!
+                writeContext.delete(transaction)
+                
+                let update = wallet.transactions.last!
+                update.name = "Update: " + Date().description
+                
+                
+                let newTransaction = Transaction(context: writeContext)
+                newTransaction.name = "Creates: " + Date().description
+                newTransaction.identifier = UUID()
+                newTransaction.date = Date()
+                newTransaction.modifiedLocal = Date()
+                newTransaction.accounts = [wallet, grocery]
+                newTransaction.flows = [-888, 888]
+                
+                writeContext.saveData()
+            }
 
             if count == times {
                 

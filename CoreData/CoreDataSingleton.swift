@@ -39,9 +39,19 @@ var cloudContext: NSManagedObjectContext {
 //}
 
 class CoreData {
-
-    static let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-    static let persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
+    
+    static let coreDataStack = CoreDataStack(modelName: "Jupiter")
+//    static let persistentContainer: NSPersistentContainer = {
+//        let container = NSPersistentContainer(name: "Jupiter")
+//        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+//            if let error = error as NSError? {
+//                fatalError("Unresolved error \(error), \(error.userInfo)")
+//            }
+//        })
+//        return container
+//    }()
+    
+    static let persistentStoreCoordinator = coreDataStack.persistentStoreCoordinator
     static let viewContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         context.persistentStoreCoordinator = persistentStoreCoordinator

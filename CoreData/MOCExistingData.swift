@@ -67,7 +67,7 @@ extension NSManagedObjectContext {
         return nil
     }
     
-    func existingObject(recordName: String) -> NSManagedObject? {        
+    func existingObject(recordName: String) -> NSManagedObject? {     
         for entity in dataType.coreValues {
             do {
                 let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entity.rawValue)

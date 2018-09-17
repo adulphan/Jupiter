@@ -19,9 +19,11 @@ extension NSManagedObjectContext {
 
     func printSystemField() {
         
-        for name in dataType.allValues {
+        for name in dataType.coreValues {
             do {
                 let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: name.rawValue)
+                let sortDescriptor = NSSortDescriptor(key: "identifier", ascending: true)
+                fetchRequest.sortDescriptors = [sortDescriptor]
                 let fetchedResults = try self.fetch(fetchRequest)
                 for object in fetchedResults {
                     if let obj = object as? SystemField {

@@ -18,16 +18,16 @@ class HandleNotification: OperationCloudKit {
         guard context == writeContext else { return }
         
         if CloudKit.operationQueueIsEmpty {
-            uploadToCloud()
+            fetchRecords { _ in }
         }
     }
     
     @objc func coreDataWillSave(_ notification: Notification) {
+        
         guard let context = notification.object as? NSManagedObjectContext else { return }
         guard context == writeContext else { return }
-
         cachePendingRecordNames()
-        updateMonthFlows()
+        //updateMonthFlows()
         
     }
     

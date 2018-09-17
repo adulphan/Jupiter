@@ -23,7 +23,9 @@ extension NSManagedObject {
     func proceedToCloud() {
         guard cloudIsEnable else { return }
         if isDeleted || isInserted {
-            CloudKit.pendingRecordNames.insert(recordName!)
+            if let name = recordName {
+                CloudKit.pendingRecordNames.insert(name)
+            }
             return
             
         }
