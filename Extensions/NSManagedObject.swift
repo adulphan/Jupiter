@@ -134,7 +134,7 @@ extension NSManagedObject {
             var accountArray: [NSManagedObject] = []
             for reference in accountReferences {
                 let recordName = reference.recordID.recordName
-                guard let account = cloudContext.existingAccount(recordName: recordName) else {
+                guard let account = writeContext.existingAccount(recordName: recordName) else {
                     print("Error: downloading transacton has no match referenced account") ; return
                 }
                 accountArray.append(account)
@@ -147,7 +147,7 @@ extension NSManagedObject {
             guard let companyRecordName = record.parent?.recordID.recordName else {
                 print("Error: incoming account has no referenced company") ; return
             }
-            guard let company = cloudContext.existingCompany(recordName: companyRecordName) else {
+            guard let company = writeContext.existingCompany(recordName: companyRecordName) else {
                 print("Error: no record of downloaded account's company") ; return
             }
             setValue(company, forKey: "company")

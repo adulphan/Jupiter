@@ -99,7 +99,7 @@ extension OperationCloudKit {
                         let returningRecordNames = recordsTosave.map{$0.recordID.recordName} + recordIDsTodelete.map{$0.recordName}
                         CloudKit.pendingRecordNames = CloudKit.pendingRecordNames.union(returningRecordNames)
                     }
-                    print("\nRetry operationQueue - partiel error\n")
+                    print("\nRetry operationQueue - partial error\n")
                     self.fetchRecords(completion: { _ in })
                     return
                 }

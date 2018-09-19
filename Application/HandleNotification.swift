@@ -14,13 +14,17 @@ class HandleNotification: OperationCloudKit {
     static let shared = HandleNotification()
     
     @objc func writeContextWillSave(_ notification: Notification) {
-        cachePendingRecordNames()
-        //updateMonthFlows()
+        if !CloudKit.isFetching {
+            cachePendingRecordNames()
+        }
+        updateMonthFlows()
     }
     
     @objc func writeContextDidSave(_ notification: Notification) {
         if CloudKit.operationQueueIsEmpty {
-            fetchRecords { _ in }
+            
+            uploadToCloud()
+            //fetchRecords { _ in }
         }
     }
     
@@ -54,6 +58,20 @@ class HandleNotification: OperationCloudKit {
             let transaction = object as! Transaction
             transaction.updateMonthFlows()
         }
+        
+//        let accounts = writeContext.registeredObjects.filter { (object) -> Bool in
+//            object.entity == Account.entity()
+//        }
+        
+//        for object in accounts {
+//            let account = object as! Account
+//            for month in account.months {
+//                if month.flows == 0 {
+//                    writeContext.delete(month)
+//                }
+//            }
+//        }
+        
     }
 
 }

@@ -62,7 +62,7 @@ extension OperationCloudKit {
             } else {
                 
                 writeContext.performAndWait {
-                    cloudContext.printSystemField()                    
+                    cloudContext.printAllData(includeMonths: true, transactionDetails: false)
                 }
                 print("------------------------------")
             }
@@ -83,12 +83,12 @@ extension OperationCloudKit {
         writeContext.performAndWait {
             var objectsToDelete: [NSManagedObject] = []
             for recordID in recordIDsTodelete {
-                if let object = cloudContext.existingObject(recordName: recordID.recordName) {
+                if let object = writeContext.existingObject(recordName: recordID.recordName) {
                     objectsToDelete.append(object)
                 }
             }
             
-            cloudContext.delete(objects: objectsToDelete)
+            writeContext.delete(objects: objectsToDelete)
 
             var sortedRecords: [CKRecord] = []
             for type in dataType.allValues {
@@ -99,14 +99,17 @@ extension OperationCloudKit {
             
             for record in sortedRecords {
                 let recordName = record.recordID.recordName
-                if let object = cloudContext.existingObject(recordName: recordName, type: record.recordType) {
+                if let object = writeContext.existingObject(recordName: recordName, type: record.recordType) {
                     object.downloadFrom(record: record)
                 } else {
-                    let object = NSEntityDescription.insertNewObject(forEntityName: record.recordType, into: cloudContext)
+                    let object = NSEntityDescription.insertNewObject(forEntityName: record.recordType, into: writeContext)
                     object.downloadFrom(record: record)
                 }
             }
-            cloudContext.saveData()
+            
+            CloudKit.isFetching = true
+            writeContext.saveData()
+            CloudKit.isFetching = false
         }
 
     }

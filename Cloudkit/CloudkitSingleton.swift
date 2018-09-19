@@ -25,6 +25,8 @@ class CloudKit {
         queue.qualityOfService = .background
         return queue
     }()
+    
+    static var isFetching: Bool = false
 
     static var pendingRecordNames: Set<String> = Set()
     

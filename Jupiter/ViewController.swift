@@ -29,7 +29,7 @@ class ViewController: UIViewController, OperationCloudKit  {
 //            }
 //        }
 //        UserDefaults.standard.financialDataChangeToken = nil
-//       self.loopTransaction(interval: 1, times: 100)
+//       self.loopTransaction(interval: 1, times: 500)
 //        writeContext.printSystemField()
 //        UserDefaults.standard.financialDataChangeToken = nil
         
@@ -38,7 +38,7 @@ class ViewController: UIViewController, OperationCloudKit  {
 //            print(error.debugDescription)
 //            print("finished")
 //        }
-        
+//
 //        writeContext.printAllData(includeMonths: true, transactionDetails: true)
         
 //        writeContext.saveData()
@@ -82,13 +82,16 @@ class ViewController: UIViewController, OperationCloudKit  {
                 update.name = "Update: " + Date().description
                 
                 
+                let random = SimulateData.shared.randomInt(min: 0, max: 36)
+                let date = Calendar.standard.date(byAdding: .month, value: -random, to: Date())
+                
                 let newTransaction = Transaction(context: writeContext)
                 newTransaction.name = "Creates: " + Date().description
                 newTransaction.identifier = UUID()
-                newTransaction.date = Date()
+                newTransaction.date = date
                 newTransaction.modifiedLocal = Date()
                 newTransaction.accounts = [wallet, grocery]
-                newTransaction.flows = [-888, 888]
+                newTransaction.flows = [-5000, 5000]
                 
                 writeContext.saveData()
             }
