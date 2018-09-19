@@ -15,8 +15,8 @@ class ViewController: UIViewController, OperationCloudKit  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
+//        cloudContext.saveData()
         //ensureZoneForFinancialData()
         //SimulateData.shared.simulateData()
         
@@ -29,15 +29,15 @@ class ViewController: UIViewController, OperationCloudKit  {
 //            }
 //        }
 //        UserDefaults.standard.financialDataChangeToken = nil
-//       self.loopTransaction(interval: 0.5, times: 100)
+//       self.loopTransaction(interval: 1, times: 100)
 //        writeContext.printSystemField()
 //        UserDefaults.standard.financialDataChangeToken = nil
         
 //        writeContext.clearData()
-        fetchRecords { (error) in
-            print(error.debugDescription)
-            print("finished")
-        }
+//        fetchRecords { (error) in
+//            print(error.debugDescription)
+//            print("finished")
+//        }
         
 //        writeContext.printAllData(includeMonths: true, transactionDetails: true)
         
@@ -71,8 +71,12 @@ class ViewController: UIViewController, OperationCloudKit  {
                 let wallet = writeContext.existingAccount(name: "Wallet")!
                 let grocery = writeContext.existingAccount(name: "Grocery")!
                 
-                let transaction = wallet.transactions.first!
-                writeContext.delete(transaction)
+                
+                let count = wallet.transactions.count
+                let limit = 10
+                let overLimit = max(count - limit, 1)
+                let victims = Array(wallet.transactions.dropLast(count-overLimit))
+                writeContext.delete(objects: victims)
                 
                 let update = wallet.transactions.last!
                 update.name = "Update: " + Date().description

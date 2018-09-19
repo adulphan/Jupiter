@@ -73,79 +73,54 @@ extension OperationCloudKit {
 
     func uploadToCloud() {
         let operation = UploadOperation()
-        operation.clientChangeTokenData = UserDefaults.standard.value(forKey: "financialDataChangeToken") as? Data
-        
+        operation.isAtomic = true
 
-        operation.perRecordCompletionBlock = { (record, error) in
-            let recordName = record.recordID.recordName
-            if let error = error as? CKError {
-                
-                if error.code == CKError.serverRecordChanged {
-                    let serverRecord = error.serverRecord!
-                    let clientRecord = error.clientRecord!
-
-                    let serverDate = serverRecord.value(forKey: "modifiedLocal") as! Date
-                    let clientDate = clientRecord.value(forKey: "modifiedLocal") as! Date
-
-                    if clientDate > serverDate {
-                        print("Retry with client record")
-                        writeContext.performAndWait {
-                            let object = cloudContext.existingObject(recordName: recordName)
-                            object?.updateRecordDataBy(record: serverRecord)
-                            
-                        }
-                        CloudKit.pendingRecordNames.insert(recordName)
-
-                    } else {
-                        print("Update with server record")
-                        writeContext.performAndWait {
-                            let object = cloudContext.existingObject(recordName: recordName)
-                            object?.downloadFrom(record: serverRecord)
-                            
-                        }
-                    }
-
-                }
-                
-                if error.code == CKError.unknownItem {
-                    print("\(recordName) is NOT saved on Cloud: UnknownItem (mostlikely deleted) - coreData will delete object")
-                    writeContext.performAndWait {
-                        if let object = cloudContext.existingObject(recordName: recordName) {
-                            cloudContext.delete(object)
-                            
-                        }
-                    }
-                }
-            
-                
-            }
-   
-        }
-
-        
-        
         operation.modifyRecordsCompletionBlock = { (savedRecords, deletedIDs, error) in
             
             if let error = error as? CKError {
-                print(error)
+                print(error.localizedDescription)
                 if let retry = error.retryAfterSeconds {
-                    self.handleRetryable(retryAfterSeconds: retry)
+                    print("\nSuspend operationQueue: retryable error - waiting \(retry + 5) seconds to continue\n")
+                    CloudKit.operationQueue.isSuspended = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + retry + 5) {
+                        if let recordsTosave = operation.recordsToSave, let recordIDsTodelete = operation.recordIDsToDelete {
+                            let returningRecordNames = recordsTosave.map{$0.recordID.recordName} + recordIDsTodelete.map{$0.recordName}
+                            CloudKit.pendingRecordNames = CloudKit.pendingRecordNames.union(returningRecordNames)
+                        }
+                        CloudKit.operationQueue.isSuspended = false
+                        self.fetchRecords(completion: { _ in })
+                        print("\nRetry operationQueue\n")
+                        return
+                    }
                 }
-            }
-            print("------------------------------")
-
-            for recordID in deletedIDs! { print("\(recordID.recordName) is deleted from Cloud") }
-            for record in savedRecords! { print("\(record.recordID.recordName) is saved on Cloud") }
-            self.updateChageTag(by: savedRecords!)
+                
+                if error.code == CKError.partialFailure {
+                    if let recordsTosave = operation.recordsToSave, let recordIDsTodelete = operation.recordIDsToDelete {
+                        let returningRecordNames = recordsTosave.map{$0.recordID.recordName} + recordIDsTodelete.map{$0.recordName}
+                        CloudKit.pendingRecordNames = CloudKit.pendingRecordNames.union(returningRecordNames)
+                    }
+                    print("\nRetry operationQueue - partiel error\n")
+                    self.fetchRecords(completion: { _ in })
+                    return
+                }
             
-            print("------------------------------")
-            
-            if CloudKit.pendingRecordNames.count != 0 {
-                self.uploadToCloud()
             } else {
-                self.fetchRecords(completion: { _ in })
-                print("End session, nilDatacount: ", CloudKit.nilDataCount)
+
+                for recordID in deletedIDs! { print("\(recordID.recordName) is deleted from Cloud") }
+                for record in savedRecords! { print("\(record.recordID.recordName) is saved on Cloud") }
+                self.updateChageTag(by: savedRecords!)
+                
+                print("------------------------------")
+                
+                if CloudKit.pendingRecordNames.count != 0 {
+                    self.uploadToCloud()
+                } else {
+                    self.fetchRecords(completion: { _ in })
+                    print("End session, nilDatacount: ", CloudKit.nilDataCount)
+                }
+                
             }
+
  
         }
         
@@ -157,23 +132,17 @@ extension OperationCloudKit {
 
     }
     
-    private func handleRetryable(retryAfterSeconds: TimeInterval) {
-
-        print("")
-        print("Suspend operationQueue: retryable error - waiting \(retryAfterSeconds + 5) seconds to continue")
-        print("")
-        CloudKit.operationQueue.isSuspended = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + retryAfterSeconds + 5) {
-            self.uploadToCloud()
-            CloudKit.operationQueue.isSuspended = false
-            print("")
-            print("Continue operationQueue")
-            print("")
-
-        }
-
-    }
+//    private func handleRetryable(retryAfterSeconds: TimeInterval) {
+//
+//        print("Suspend operationQueue: retryable error - waiting \(retryAfterSeconds + 5) seconds to continue")
+//        CloudKit.operationQueue.cancelAllOperations()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + retryAfterSeconds + 5) {
+//            self.fetchRecords(completion: { _ in })
+//            print("Continue operationQueue")
+//
+//        }
+//
+//    }
     
     private func updateChageTag(by: [CKRecord]) {
         writeContext.performAndWait {
@@ -191,6 +160,56 @@ extension OperationCloudKit {
 
 
 
+
+//
+//
+//
+//private func handlePartiaError(record: CKRecord, error: Error?) {
+//
+//    let recordName = record.recordID.recordName
+//    if let error = error as? CKError {
+//
+//        if error.code == CKError.serverRecordChanged {
+//            let serverRecord = error.serverRecord!
+//            let clientRecord = error.clientRecord!
+//
+//            let serverDate = serverRecord.value(forKey: "modifiedLocal") as! Date
+//            let clientDate = clientRecord.value(forKey: "modifiedLocal") as! Date
+//            if clientDate > serverDate {
+//                print("Retry with client record")
+//                writeContext.performAndWait {
+//                    let object = cloudContext.existingObject(recordName: recordName)
+//                    object?.updateRecordDataBy(record: serverRecord)
+//
+//                }
+//                CloudKit.pendingRecordNames.insert(recordName)
+//
+//            } else {
+//                print("Update with server record")
+//                writeContext.performAndWait {
+//                    let object = cloudContext.existingObject(recordName: recordName)
+//                    object?.downloadFrom(record: serverRecord)
+//
+//                }
+//            }
+//
+//        }
+//
+//        if error.code == CKError.unknownItem {
+//            print("\(recordName) is NOT saved on Cloud: UnknownItem (mostlikely deleted) - coreData will delete object")
+//            writeContext.performAndWait {
+//                if let object = cloudContext.existingObject(recordName: recordName) {
+//                    cloudContext.delete(object)
+//
+//                }
+//            }
+//        }
+//
+//
+//    }
+//
+//
+//}
 
 
 

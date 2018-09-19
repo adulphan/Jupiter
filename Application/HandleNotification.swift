@@ -13,23 +13,29 @@ class HandleNotification: OperationCloudKit {
     
     static let shared = HandleNotification()
     
-    @objc func coreDataDidSave(_ notification: Notification) {
-        guard let context = notification.object as? NSManagedObjectContext else { return }
-        guard context == writeContext else { return }
-        
+    @objc func writeContextWillSave(_ notification: Notification) {
+        cachePendingRecordNames()
+        //updateMonthFlows()
+    }
+    
+    @objc func writeContextDidSave(_ notification: Notification) {
         if CloudKit.operationQueueIsEmpty {
             fetchRecords { _ in }
         }
     }
     
-    @objc func coreDataWillSave(_ notification: Notification) {
-        
-        guard let context = notification.object as? NSManagedObjectContext else { return }
-        guard context == writeContext else { return }
-        cachePendingRecordNames()
-        //updateMonthFlows()
+    @objc func cloudContextWillSave(_ notification: Notification) {
+
         
     }
+    
+    @objc func cloudContextDidSave(_ notification: Notification) {
+
+        
+    }
+    
+    
+    
     
     private func cachePendingRecordNames() {
         let financialDataType = dataType.coreValues.map{$0.rawValue}

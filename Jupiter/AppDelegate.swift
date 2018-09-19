@@ -23,12 +23,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let controller = ViewController()
         window?.rootViewController = UINavigationController(rootViewController: controller)
 
-        NotificationCenter.default.addObserver(HandleNotification.shared, selector: #selector(HandleNotification.shared.coreDataDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
-        
-        NotificationCenter.default.addObserver(HandleNotification.shared, selector: #selector(HandleNotification.shared.coreDataWillSave(_:)), name: Notification.Name.NSManagedObjectContextWillSave, object: nil)
-
-        
+        setupCoreDataNotification()
         return true
+    }
+    
+    func setupCoreDataNotification() {
+        NotificationCenter.default.addObserver(HandleNotification.shared, selector: #selector(HandleNotification.shared.writeContextDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: writeContext)
+        
+        NotificationCenter.default.addObserver(HandleNotification.shared, selector: #selector(HandleNotification.shared.writeContextWillSave(_:)), name: Notification.Name.NSManagedObjectContextWillSave, object: writeContext)
+        
+        NotificationCenter.default.addObserver(HandleNotification.shared, selector: #selector(HandleNotification.shared.cloudContextDidSave(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: cloudContext)
+        
+        NotificationCenter.default.addObserver(HandleNotification.shared, selector: #selector(HandleNotification.shared.cloudContextWillSave(_:)), name: Notification.Name.NSManagedObjectContextWillSave, object: cloudContext)
+    
     }
 
 

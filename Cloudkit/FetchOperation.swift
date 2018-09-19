@@ -37,29 +37,36 @@ extension OperationCloudKit {
         }
 
         operation.recordZoneFetchCompletionBlock = { (zoneId, serverChangeToken, clientChangeToken, moreComing, error) in
-            if let error = error {
-                print("Error download operation : ", error)
+            if let error = error as? CKError {
+                print(error.localizedDescription)
                 completion(error)
-                return
-            } else {
-                print("moreComing: ",moreComing)
-                
-                let localData = UserDefaults.standard.value(forKey: "financialDataChangeToken") as? Data
-                print("Same clientChangeToken: ",localData == clientChangeToken) 
-                
-                UserDefaults.standard.financialDataChangeToken = serverChangeToken
-                self.pushNewFetchToCoreData(recordsToSave: incomingSaveRecords, recordIDsTodelete: incomingDeleteRecordIDs)
-                completion(nil)
-                
-                if CloudKit.pendingRecordNames.count != 0 {
-                    self.uploadToCloud()
+                if error.code == CKError.changeTokenExpired {
+                    UserDefaults.standard.financialDataChangeToken = nil
+                    print("Refetching")
+                    self.fetchRecords(completion: { _ in })
+                    return
                 } else {
-                    print("------------------------------")
-                    writeContext.performAndWait {
-                        cloudContext.printSystemField()
-                    }
+                    print("Cancel all cloud operations")
+                    CloudKit.operationQueue.cancelAllOperations()
+                    return
                 }
+
             }
+            
+            UserDefaults.standard.financialDataChangeToken = serverChangeToken
+            self.pushNewFetchToCoreData(recordsToSave: incomingSaveRecords, recordIDsTodelete: incomingDeleteRecordIDs)
+            completion(nil)
+            print("------------------------------")
+            if CloudKit.pendingRecordNames.count != 0 {
+                self.uploadToCloud()
+            } else {
+                
+                writeContext.performAndWait {
+                    cloudContext.printSystemField()                    
+                }
+                print("------------------------------")
+            }
+        
 
         }
         
