@@ -33,6 +33,10 @@ public extension UserDefaults {
         }
     }
     
+    public var financialDataChangeTokenData: Data? {
+        return self.value(forKey: "financialDataChangeToken") as? Data
+    }
+    
     
 }
 

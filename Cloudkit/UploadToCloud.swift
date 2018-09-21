@@ -40,7 +40,7 @@ class UploadOperation: CKModifyRecordsOperation {
         }
         
         var records: [CKRecord] = []
-        var recordIDs: [CKRecordID] = []
+        var recordIDs: [CKRecord.ID] = []
         
         writeContext.performAndWait {
             cloudContext.refreshAllObjects()
@@ -51,12 +51,12 @@ class UploadOperation: CKModifyRecordsOperation {
                     } else {
                         CloudKit.nilDataCount += 1
                         print("Found record but data is nil, count: ", CloudKit.nilDataCount)
-                        let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
+                        let recordID = CKRecord.ID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
                         recordIDs.append(recordID)
                     }
                     
                 } else {
-                    let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
+                    let recordID = CKRecord.ID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
                     recordIDs.append(recordID)
                 }
             }
@@ -74,11 +74,11 @@ extension OperationCloudKit {
     func uploadToCloud() {
         let operation = UploadOperation()
         operation.isAtomic = true
-
+        //operation.clientChangeTokenData = UserDefaults.standard.financialDataChangeTokenData
         operation.modifyRecordsCompletionBlock = { (savedRecords, deletedIDs, error) in
             
             if let error = error as? CKError {
-                print(error.localizedDescription)
+                
                 if let retry = error.retryAfterSeconds {
                     print("\nSuspend operationQueue: retryable error - waiting \(retry + 5) seconds to continue\n")
                     CloudKit.operationQueue.isSuspended = true
@@ -103,6 +103,9 @@ extension OperationCloudKit {
                     self.fetchRecords(completion: { _ in })
                     return
                 }
+                
+                print(error.localizedDescription)
+                operation.cancel()
             
             } else {
 
@@ -116,7 +119,7 @@ extension OperationCloudKit {
                     self.uploadToCloud()
                 } else {
                     self.fetchRecords(completion: { _ in })
-                    print("End session, nilDatacount: ", CloudKit.nilDataCount)
+                    //print("End session, nilDatacount: ", CloudKit.nilDataCount)
                 }
                 
             }

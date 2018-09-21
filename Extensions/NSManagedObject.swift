@@ -58,7 +58,7 @@ extension NSManagedObject {
         } else {
             
             guard let recordName = self.recordName else { return nil }
-            let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
+            let recordID = CKRecord.ID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
             let record = CKRecord(recordType: self.recordType, recordID: recordID)
             
             let data = NSMutableData()
@@ -98,14 +98,14 @@ extension NSManagedObject {
     private func setupReferenceFor(record: CKRecord) {
         if recordType == dataType.transaction.rawValue {
             let accounts = (value(forKey: "accountSet") as! NSOrderedSet).array as! [Account]
-            var accountReferenceList: [CKReference] = []
+            var accountReferenceList: [CKRecord.Reference] = []
             for account in accounts {
                 let recordName = account.recordName!
-                let recordID = CKRecordID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
-                let referenceAccount = CKReference(recordID: recordID, action: .deleteSelf)
+                let recordID = CKRecord.ID(recordName: recordName, zoneID: CloudKit.financialDataZoneID)
+                let referenceAccount = CKRecord.Reference(recordID: recordID, action: .deleteSelf)
                 accountReferenceList.append(referenceAccount)
                 if account == accounts.first {
-                    let parentAccount = CKReference(recordID: recordID, action: .none)
+                    let parentAccount = CKRecord.Reference(recordID: recordID, action: .none)
                     record.parent = parentAccount
                 }
             }
@@ -116,10 +116,10 @@ extension NSManagedObject {
         
         if recordType == dataType.account.rawValue {
             let recordName = (value(forKey: "company") as! Company).identifier?.uuidString
-            let companyID = CKRecordID(recordName: recordName!, zoneID: CloudKit.financialDataZoneID)
-            let referenceCompany = CKReference(recordID: companyID, action: .deleteSelf)
+            let companyID = CKRecord.ID(recordName: recordName!, zoneID: CloudKit.financialDataZoneID)
+            let referenceCompany = CKRecord.Reference(recordID: companyID, action: .deleteSelf)
             record.setObject(referenceCompany as CKRecordValue, forKey: "company")
-            let parentCompany = CKReference(recordID: companyID, action: .none)
+            let parentCompany = CKRecord.Reference(recordID: companyID, action: .none)
             record.parent = parentCompany
             
             
@@ -130,7 +130,7 @@ extension NSManagedObject {
     private func setupRelationshipFromDownloading(record: CKRecord) {
         
         if recordType == dataType.transaction.rawValue {
-            let accountReferences = record.value(forKey: "accounts") as! [CKReference]
+            let accountReferences = record.value(forKey: "accounts") as! [CKRecord.Reference]
             var accountArray: [NSManagedObject] = []
             for reference in accountReferences {
                 let recordName = reference.recordID.recordName

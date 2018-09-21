@@ -27,7 +27,7 @@ extension SimulateData: AccessFiles {
         let recordID = UUID().uuidString
         let fileName =  recordID + ".heic"
         let context = CIContext(options: nil)
-        let heifData = context.heifRepresentation(of: ciImage!, format: kCIFormatARGB8, colorSpace: colorSpace, options: [kCGImageDestinationLossyCompressionQuality: 0.4])!
+        let heifData = context.heifRepresentation(of: ciImage!, format: CIFormat.ARGB8, colorSpace: colorSpace, options: [kCGImageDestinationLossyCompressionQuality as CIImageRepresentationOption: 0.4])!
   
         saveImageTo(data: heifData, fileName: fileName)
         SimulateData.dummyImageID = fileName

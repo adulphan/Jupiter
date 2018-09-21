@@ -59,18 +59,18 @@ class HandleNotification: OperationCloudKit {
             transaction.updateMonthFlows()
         }
         
-//        let accounts = writeContext.registeredObjects.filter { (object) -> Bool in
-//            object.entity == Account.entity()
-//        }
+        let accounts = writeContext.registeredObjects.filter { (object) -> Bool in
+            object.entity == Account.entity()
+        }
         
-//        for object in accounts {
-//            let account = object as! Account
-//            for month in account.months {
-//                if month.flows == 0 {
-//                    writeContext.delete(month)
-//                }
-//            }
-//        }
+        for object in accounts {
+            let account = object as! Account
+            for month in account.months {
+                if month.flows == 0 {
+                    writeContext.delete(month)
+                }
+            }
+        }
         
     }
 

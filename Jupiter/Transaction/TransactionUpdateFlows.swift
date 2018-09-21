@@ -12,8 +12,9 @@ extension Transaction {
     
     func updateMonthFlows() {
 
-        if isDeleted {
-            guard !cachedOldValues.company.isDeleted else { return }
+        if isDeleted {            
+            guard let parent = cachedOldValues.company else { return }
+            guard !parent.isDeleted else { return }
             updateBalanceWith(transaction: cachedOldValues, isDeleted: true)
             return
         } else if isInserted {
@@ -103,8 +104,8 @@ extension Transaction {
         var date: Date? = nil
         var accounts: [Account] = []
         var flows: [Int64]? = []
-        var company: Company {
-            return accounts.first!.company!
+        var company: Company? {
+            return accounts.first?.company
         }
     }
     

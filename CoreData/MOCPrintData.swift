@@ -18,7 +18,7 @@ extension NSManagedObjectContext {
     }
 
     func printSystemField() {
-        
+//        print("")
         for name in dataType.coreValues {
             do {
                 let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: name.rawValue)
@@ -38,9 +38,11 @@ extension NSManagedObjectContext {
     }
     
     private func printMonths() {
+        print("")
         do {
-            
             let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
+            let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+            fetchRequest.sortDescriptors = [sortDescriptor]
             let fetchedResults = try self.fetch(fetchRequest)
             for object in fetchedResults {
                 print("Monthly flows: ",object.name!)

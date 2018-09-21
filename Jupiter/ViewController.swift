@@ -29,14 +29,13 @@ class ViewController: UIViewController, OperationCloudKit  {
 //            }
 //        }
 //        UserDefaults.standard.financialDataChangeToken = nil
-//       self.loopTransaction(interval: 1, times: 500)
+//        self.loopTransaction(interval: 1, times: 5000)
 //        writeContext.printSystemField()
 //        UserDefaults.standard.financialDataChangeToken = nil
         
 //        writeContext.clearData()
 //        fetchRecords { (error) in
-//            print(error.debugDescription)
-//            print("finished")
+//            print(error ?? "")
 //        }
 //
 //        writeContext.printAllData(includeMonths: true, transactionDetails: true)
@@ -70,16 +69,22 @@ class ViewController: UIViewController, OperationCloudKit  {
                 writeContext.refreshAllObjects()
                 let wallet = writeContext.existingAccount(name: "Wallet")!
                 let grocery = writeContext.existingAccount(name: "Grocery")!
-                
+                let bofa = writeContext.existingAccount(name: "Bofa")!
                 
                 let count = wallet.transactions.count
-                let limit = 10
-                let overLimit = max(count - limit, 1)
+                let limit = 5
+                let overLimit = max(count - limit, 0)
                 let victims = Array(wallet.transactions.dropLast(count-overLimit))
                 writeContext.delete(objects: victims)
                 
+                let count2 = bofa.transactions.count
+                let overLimit2 = max(count2 - limit, 0)
+                let victim2 = Array(bofa.transactions.dropLast(count2-overLimit2))
+                writeContext.delete(objects: victim2)
+                
                 let update = wallet.transactions.last!
                 update.name = "Update: " + Date().description
+                update.accounts[0] = bofa
                 
                 
                 let random = SimulateData.shared.randomInt(min: 0, max: 36)

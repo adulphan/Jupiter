@@ -11,16 +11,14 @@ import CloudKit
 import CoreData
 import UIKit
 
-
-
 extension OperationCloudKit {
     
     func fetchRecords(completion: @escaping (Error?) -> Void) {
         
         var incomingSaveRecords: [CKRecord] = []
-        var incomingDeleteRecordIDs: [CKRecordID] = []
+        var incomingDeleteRecordIDs: [CKRecord.ID] = []
         
-        let option = CKFetchRecordZoneChangesOptions()
+        let option = CKFetchRecordZoneChangesOperation.ZoneOptions()
         option.previousServerChangeToken = UserDefaults.standard.financialDataChangeToken
         let operation = CKFetchRecordZoneChangesOperation(recordZoneIDs: [CloudKit.financialDataZoneID], optionsByRecordZoneID: [CloudKit.financialDataZoneID:option])
         operation.name = "fetchFinnacialData"
@@ -28,12 +26,9 @@ extension OperationCloudKit {
 
         operation.recordChangedBlock = { (record) in
             incomingSaveRecords.append(record)
-            print("incomingSave: \(record.recordID.recordName)")
         }
         operation.recordWithIDWasDeletedBlock = { (recordID, text) in
             incomingDeleteRecordIDs.append(recordID)
-            print("incomingDelete: \(recordID.recordName)")
-
         }
 
         operation.recordZoneFetchCompletionBlock = { (zoneId, serverChangeToken, clientChangeToken, moreComing, error) in
@@ -53,10 +48,11 @@ extension OperationCloudKit {
 
             }
             
-            UserDefaults.standard.financialDataChangeToken = serverChangeToken
             self.pushNewFetchToCoreData(recordsToSave: incomingSaveRecords, recordIDsTodelete: incomingDeleteRecordIDs)
+            UserDefaults.standard.financialDataChangeToken = serverChangeToken
+            
             completion(nil)
-            print("------------------------------")
+
             if CloudKit.pendingRecordNames.count != 0 {
                 self.uploadToCloud()
             } else {
@@ -78,13 +74,14 @@ extension OperationCloudKit {
         
     }
     
-    private func pushNewFetchToCoreData(recordsToSave: [CKRecord], recordIDsTodelete: [CKRecordID]) {
-        
+    private func pushNewFetchToCoreData(recordsToSave: [CKRecord], recordIDsTodelete: [CKRecord.ID]) {
+        guard recordsToSave != [] || recordIDsTodelete != [] else { return }
         writeContext.performAndWait {
             var objectsToDelete: [NSManagedObject] = []
             for recordID in recordIDsTodelete {
                 if let object = writeContext.existingObject(recordName: recordID.recordName) {
                     objectsToDelete.append(object)
+                    //print("incomingDelete: \(recordID.recordName)")
                 }
             }
             
@@ -98,6 +95,7 @@ extension OperationCloudKit {
             }
             
             for record in sortedRecords {
+                //print("incomingSave: \(record.recordID.recordName)")
                 let recordName = record.recordID.recordName
                 if let object = writeContext.existingObject(recordName: recordName, type: record.recordType) {
                     object.downloadFrom(record: record)
@@ -110,6 +108,7 @@ extension OperationCloudKit {
             CloudKit.isFetching = true
             writeContext.saveData()
             CloudKit.isFetching = false
+            //print("------------------------------")
         }
 
     }
