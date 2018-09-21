@@ -35,5 +35,18 @@ public extension UserDefaults {
             }
         }
     }
+    
+    public var clientChangeTokenData: Data? {
+        get {
+            guard let data = self.value(forKey: "clientChangeTokenData") as? Data else {
+                return nil
+            }
+            return data
+        }        
+        set {
+            self.set(newValue, forKey: "clientChangeTokenData")
+        }
+        
+    }
 
 }

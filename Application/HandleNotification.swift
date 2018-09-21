@@ -23,8 +23,8 @@ class HandleNotification: OperationCloudKit {
     @objc func writeContextDidSave(_ notification: Notification) {
         if CloudKit.operationQueueIsEmpty {
             
-            uploadToCloud()
-            //fetchRecords { _ in }
+            //uploadToCloud()
+            fetchRecords { _ in }
         }
     }
     

@@ -31,7 +31,7 @@ extension OperationCloudKit {
             incomingDeleteRecordIDs.append(recordID)
         }
 
-        operation.recordZoneFetchCompletionBlock = { (zoneId, serverChangeToken, clientChangeToken, moreComing, error) in
+        operation.recordZoneFetchCompletionBlock = { (zoneId, serverChangeToken, clientChangeTokenData, moreComing, error) in
             if let error = error as? CKError {
                 print(error.localizedDescription)
                 completion(error)

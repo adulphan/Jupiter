@@ -29,7 +29,7 @@ class ViewController: UIViewController, OperationCloudKit  {
 //            }
 //        }
 //        UserDefaults.standard.financialDataChangeToken = nil
-//        self.loopTransaction(interval: 1, times: 5000)
+//       self.loopTransaction(interval: 1, times: 50)
 //        writeContext.printSystemField()
 //        UserDefaults.standard.financialDataChangeToken = nil
         
