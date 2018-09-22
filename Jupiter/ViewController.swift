@@ -29,14 +29,14 @@ class ViewController: UIViewController, OperationCloudKit  {
 //            }
 //        }
 //        UserDefaults.standard.financialDataChangeToken = nil
-//       self.loopTransaction(interval: 1, times: 50)
+//       self.loopTransaction(interval: 1, times: 500)
 //        writeContext.printSystemField()
 //        UserDefaults.standard.financialDataChangeToken = nil
         
 //        writeContext.clearData()
-//        fetchRecords { (error) in
-//            print(error ?? "")
-//        }
+        fetchRecords { (error) in
+            print(error ?? "")
+        }
 //
 //        writeContext.printAllData(includeMonths: true, transactionDetails: true)
         

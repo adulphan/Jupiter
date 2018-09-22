@@ -32,6 +32,8 @@ class CloudKit {
     
     static var nilDataCount: Int = 0
     
+    static var deletedRecordNames: Set<String> = Set()
+    
 }
 
 protocol OperationCloudKit {}

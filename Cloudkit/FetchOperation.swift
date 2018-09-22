@@ -97,11 +97,14 @@ extension OperationCloudKit {
             for record in sortedRecords {
                 //print("incomingSave: \(record.recordID.recordName)")
                 let recordName = record.recordID.recordName
+                CloudKit.pendingRecordNames.remove(recordName)
                 if let object = writeContext.existingObject(recordName: recordName, type: record.recordType) {
                     object.downloadFrom(record: record)
                 } else {
-                    let object = NSEntityDescription.insertNewObject(forEntityName: record.recordType, into: writeContext)
-                    object.downloadFrom(record: record)
+                    if !CloudKit.deletedRecordNames.contains(recordName) {
+                        let object = NSEntityDescription.insertNewObject(forEntityName: record.recordType, into: writeContext)
+                        object.downloadFrom(record: record)
+                    }
                 }
             }
             
